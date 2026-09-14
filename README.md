@@ -53,37 +53,102 @@ Project/.ai-rules/
 
 ## 引入使用方式
 
-### 1. Project 第一次導入
+分成「第一次導入」與「每次開始任務」兩個階段。
 
-1. 從 `templates/AGENTS.md` 建立 Project 根目錄的 `AGENTS.md`。
-2. 建立 `Project/.ai-rules/`。
-3. 依任務選擇一個 `presets/*.md`。
-4. 將該 Preset 所列的 `agents/*.md` 同步或複製到 `.ai-rules/`。
-5. 不要把整個 Playbook 複製進 Project。
+### A. Project 第一次導入
 
-例如 Bug Fix：
+#### 步驟 1：準備 Playbook
 
-```text
-Project/
-├─ AGENTS.md
-└─ .ai-rules/
-   ├─ core.md
-   ├─ explore.md
-   ├─ apply.md
-   ├─ testing.md
-   └─ token-saving.md
+將 Playbook Clone 到本機；已經有 Playbook 時，只需要更新至最新版。
+
+```powershell
+# 第一次使用：Clone Playbook。
+git clone https://github.com/gn00982591/AI-Developer-Playbook.git
+
+# 已經 Clone：切換至 Playbook 後更新。
+Set-Location "D:\AI-Developer-Playbook"
+git pull
 ```
 
-### 2. 每次啟動 Agent / Codex
+完成後應能看到 `agents/`、`presets/`、`templates/` 與 `tools/`。
 
-建議在任務開頭使用：
+#### 步驟 2：建立 Project 的 AGENTS.md
 
-```text
-請先讀取專案根目錄 AGENTS.md，再讀取 .ai-rules/ 內的規則檔。
-本次只使用這些規則處理任務，不要重新掃描中央 Playbook。
+只有 Project 尚未建立 `AGENTS.md` 時，才從模板複製。
+
+```powershell
+# 只有檔案不存在時才複製，避免覆蓋既有 Project 規則。
+$ProjectPath = "D:\Projects\OrderSystem"
+if (-not (Test-Path "$ProjectPath\AGENTS.md")) {
+    Copy-Item ".\templates\AGENTS.md" "$ProjectPath\AGENTS.md"
+}
 ```
 
-Bug Fix 完整範例：
+#### 步驟 3：填寫 Project 固定規則
+
+開啟 `Project/AGENTS.md`，填寫：
+
+1. Tech Stack。
+2. Build / Test 指令。
+3. Folder / Architecture Notes。
+4. Database Rules。
+5. Business Constraints。
+6. Project-specific Rules。
+
+`AGENTS.md` 只保存長期固定的專案差異，不放 Bug Fix、Review Lite 等任務規則。
+
+### B. 每次開始任務
+
+#### 步驟 4：依工作內容選 Preset
+
+| 工作內容 | Preset |
+| --- | --- |
+| 修正問題、原因可能不明 | `bug-fix` |
+| 開發新功能 | `new-feature` |
+| 修改 SQL / SP / DB | `sql-change` |
+| 建立系統設計或交接文件 | `system-design` |
+| 只想請 Agent 再看一次 | `review-lite` |
+
+#### 步驟 5：套用 Preset
+
+在 Playbook 根目錄執行：
+
+```powershell
+# 將 Bug Fix 規則同步到目標 Project。
+.\tools\apply-preset.ps1 -Preset "bug-fix" -ProjectPath "D:\Projects\OrderSystem"
+```
+
+Review Lite 範例：
+
+```powershell
+# 只載入低 Token 複查需要的規則。
+.\tools\apply-preset.ps1 -Preset "review-lite" -ProjectPath "D:\Projects\OrderSystem"
+```
+
+此步驟會重新建立目標 Project 的 `.ai-rules/`，只保留本次 Preset 需要的規則；不修改 `AGENTS.md`。
+
+#### 步驟 6：確認載入結果
+
+```powershell
+# 確認本次實際載入的規則檔。
+Get-ChildItem "D:\Projects\OrderSystem\.ai-rules"
+```
+
+Bug Fix 應看到：
+
+```text
+core.md
+explore.md
+apply.md
+testing.md
+token-saving.md
+```
+
+#### 步驟 7：從目標 Project 啟動 Agent / Codex
+
+將 Codex 或 ChatGPT Work 的工作目錄開在目標 Project，不要開在中央 Playbook。
+
+#### 步驟 8：輸入任務啟動 Prompt
 
 ```text
 請先讀取專案根目錄 AGENTS.md，再讀取 .ai-rules/ 內的規則檔。
@@ -95,25 +160,53 @@ Bug Fix 完整範例：
 先確認根因與影響範圍，再採最小修改完成修正與必要驗證。
 ```
 
-### 3. 切換任務
-
-只替換 `.ai-rules/`：
+Review Lite 可使用：
 
 ```text
-Bug Fix
-↓
-替換 .ai-rules/
-↓
-System Design
+請先讀取 AGENTS.md 與 .ai-rules/。
+本次只複查目前 git diff；只列出明確錯誤與回歸風險，不摘要正常程式碼。
+若必須擴大檢查範圍，先說明原因。
 ```
 
-`AGENTS.md` 保持不變。
+### C. 任務切換
 
-### 4. 規則載入原則
+#### 步驟 9：重新套用下一個 Preset
 
-- `AGENTS.md`：固定 Project 規則。
-- `.ai-rules/`：本次任務規則。
-- 不要求 Agent 每次重新讀整個 Playbook。
+例如從 Bug Fix 切換至 System Design：
+
+```powershell
+# 重新建立 .ai-rules/，AGENTS.md 保持不變。
+.\tools\apply-preset.ps1 -Preset "system-design" -ProjectPath "D:\Projects\OrderSystem"
+```
+
+切換後開啟新對話，重新執行步驟 6 至步驟 8。
+
+### 完成判斷
+
+完成引入後，Project 應為：
+
+```text
+Project/
+├─ AGENTS.md
+└─ .ai-rules/
+   └─ 本次 Preset 所需規則
+```
+
+規則來源為：
+
+```text
+Project/AGENTS.md
++
+Project/.ai-rules/
+=
+本次有效規則
+```
+
+注意：
+
+- 不要把整個 Playbook 複製進 Project。
+- 不要把所有 `agents/` 一次放入 `.ai-rules/`。
+- Preset 不使用 `/Bug-Fix`；使用 `apply-preset.ps1 -Preset "bug-fix"`。
 - 只有 `.ai-rules/` 缺少必要規則時，才回中央 Playbook 補充。
 
 詳細操作：`docs/Preset_Application.md`

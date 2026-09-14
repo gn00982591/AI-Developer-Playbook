@@ -2,6 +2,19 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.8 - 2026-09-14
+
+### Changed
+
+- 將 README 的「引入使用方式」改為九個可執行步驟。
+- 明確分開 Project 第一次導入、每次任務操作與 Preset 切換。
+- 每一步補上 PowerShell 指令、預期結果與完成判斷。
+- 同步重整 `docs/Preset_Application.md` 的詳細操作流程。
+
+### Reason
+
+讓使用者可以從準備 Playbook、建立 `AGENTS.md`、選擇與套用 Preset，一路操作到啟動 Agent，不需要自行推導中間步驟。
+
 ## v0.7 - 2026-09-14
 
 ### Added
