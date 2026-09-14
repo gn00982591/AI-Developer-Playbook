@@ -2,6 +2,25 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.5 - 2026-09-14
+
+### Added
+
+- 新增「引入使用方式」，說明新 Project 第一次如何導入 Playbook。
+- 定義 Agent / Codex 啟動時的固定引入 Prompt：先讀 Project `AGENTS.md`，再讀 `.ai-rules/`。
+- 加入 Bug Fix、New Feature、SQL Change、System Design 的啟動範例。
+- `templates/AGENTS.md` 新增 Runtime Rule Loading 與 Preset Materialization 說明。
+
+### Changed
+
+- `docs/Preset_Application.md` 補上從選 Preset、materialize 到 `.ai-rules/`、啟動 Agent、切換任務的完整流程。
+- `README.md` 新增「引入使用方式」區塊，讓第一次導入與日常使用方式可直接查閱。
+- 明確規定：不要因為使用 Preset 就讓 Agent 每次重新掃描中央 Playbook。
+
+### Reason
+
+讓模組化規則不只停留在結構設計，而是有明確的實際引入方式。Project 只保存固定 `AGENTS.md` 與本次任務需要的 `.ai-rules/`，Agent 啟動時只讀這兩個來源，以降低規則污染與不必要的 Token 使用。
+
 ## v0.4 - 2026-09-14
 
 ### Added
