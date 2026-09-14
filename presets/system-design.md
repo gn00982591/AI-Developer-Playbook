@@ -7,6 +7,7 @@
 - `agents/core.md`
 - `agents/explore.md`
 - `agents/system-design.md`
+- `agents/diagramming.md`
 - `agents/token-saving.md`
 
 ## 建議流程

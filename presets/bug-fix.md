@@ -16,4 +16,4 @@
 Explore → Apply → Test
 ```
 
-若影響範圍較大或需求需正式確認，再加入 `agents/propose.md` 與 Archive。
+若影響範圍較大或需求需正式確認，再加入 `propose.md` 與 Archive。

@@ -2,6 +2,29 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.10 - 2026-09-14
+
+### Added
+
+- 新增 `agents/diagramming.md`，集中管理 Mermaid 共用切圖、可信度與 Token 節省規則。
+- 提供五種精簡 Diagram Profile：`module-map`、`business-flow`、`call-chain`、`state-transition`、`data-flow`。
+
+### Changed
+
+- `system-design` Preset 新增載入 `agents/diagramming.md`。
+- 同步更新 README、Preset 套用文件與同步結果清單。
+- 修正 `bug-fix`、`sql-change` 條件說明被同步工具誤判為固定載入規則的既有問題。
+- 明確區分：Preset 代表任務類型，Diagram Profile 代表圖的種類。
+
+### Compatibility
+
+- `tools/apply-preset.ps1` 不需修改；既有 `agents/*.md` 解析與同步機制可直接載入新模組。
+- 未新增 Mermaid 類型的頂層 Preset，其他 Preset 的載入內容不變。
+
+### Reason
+
+讓 System Design 可依問題選擇適合的 Mermaid 圖，同時避免規則重複、過度切圖與為產圖重新掃描 Repository。
+
 ## v0.9 - 2026-09-14
 
 ### Fixed

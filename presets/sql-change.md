@@ -16,4 +16,4 @@
 確認影響範圍 → Apply → Test
 ```
 
-若問題位置不清楚，先加入 `agents/explore.md`；若變更較大，加入 `agents/propose.md`。
+若問題位置不清楚，先加入 `explore.md`；若變更較大，加入 `propose.md`。

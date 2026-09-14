@@ -66,6 +66,7 @@ Project/
 ├─ core.md
 ├─ explore.md
 ├─ system-design.md
+├─ diagramming.md
 └─ token-saving.md
 ```
 

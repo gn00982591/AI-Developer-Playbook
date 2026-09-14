@@ -225,6 +225,7 @@ AI-Developer-Playbook/
 │  ├─ git.md
 │  ├─ testing.md
 │  ├─ system-design.md
+│  ├─ diagramming.md
 │  ├─ code-review.md
 │  └─ token-saving.md
 │
@@ -241,7 +242,12 @@ AI-Developer-Playbook/
 ├─ docs/
 │  ├─ OPSX_Workflow.md
 │  ├─ Token_Saving.md
-│  └─ Preset_Application.md
+│  ├─ Preset_Application.md
+│  └─ Preset_Sync.md
+│
+├─ tools/
+│  ├─ apply-preset.ps1
+│  └─ README.md
 │
 └─ CHANGELOG.md
 ```
@@ -263,6 +269,7 @@ AI-Developer-Playbook/
 | `git.md` | Branch / Commit / Diff / Git 操作規則 |
 | `testing.md` | Build / Test / 驗證規則 |
 | `system-design.md` | 系統架構、交接文件、呼叫鏈分析 |
+| `diagramming.md` | Mermaid 共用規則與 Diagram Profiles |
 | `code-review.md` | Diff 導向的 Code Review |
 | `token-saving.md` | 控制搜尋範圍與 Token 使用 |
 
@@ -365,10 +372,23 @@ core
 core
 + explore
 + system-design
++ diagramming
 + token-saving
 ```
 
 純分析任務不載入 Apply / Testing。
+
+System Design 會載入 `diagramming.md`，但 Diagram Profile 不是新的 Preset。需要產圖時，再依問題選擇下列一種或少數 Profile：
+
+| Diagram Profile | 用途 |
+| --- | --- |
+| `module-map` | 模組、責任、系統邊界與高階相依 |
+| `business-flow` | 業務步驟、判斷與結果 |
+| `call-chain` | 入口到各層或外部服務的呼叫順序 |
+| `state-transition` | 狀態、事件、條件與轉移 |
+| `data-flow` | 資料來源、轉換、儲存與消費端 |
+
+Profile 的切圖、可信度、Token 節省與驗證規則請見 `agents/diagramming.md`。
 
 ### Review Lite
 

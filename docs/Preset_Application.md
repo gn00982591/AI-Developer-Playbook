@@ -7,6 +7,7 @@
 ```text
 Playbook = 規則母庫
 Preset = 本次任務的規則選單
+Diagram Profile = 圖的種類規則
 .ai-rules/ = 本次實際載入的規則
 AGENTS.md = Project 固定規則
 ```
@@ -283,16 +284,30 @@ AGENTS.md
 ├─ core.md
 ├─ explore.md
 ├─ system-design.md
+├─ diagramming.md
 └─ token-saving.md
 ```
 
 純分析任務不載入 `apply.md` 與 `testing.md`。
+
+`diagramming.md` 提供 Mermaid 共用規則與五種 Diagram Profile。Preset 仍代表任務類型，Profile 只代表本次要畫的圖：
+
+| Diagram Profile | 使用目的 |
+| --- | --- |
+| `module-map` | 系統模組與高階相依 |
+| `business-flow` | 業務步驟與判斷 |
+| `call-chain` | 實際呼叫先後順序 |
+| `state-transition` | 狀態與轉移 |
+| `data-flow` | 資料來源、轉換與流向 |
+
+不需要另建或另套用 Profile Preset。套用 `system-design` 後，可在任務 Prompt 指定 Profile；未指定時，只選能回答問題的最少 Profile。
 
 建議啟動：
 
 ```text
 請先讀 AGENTS.md 與 .ai-rules/。
 本次是 System Design，只分析與文件化，不修改 Source Code；先搜尋定位，再讀必要檔案。
+需要 Mermaid 時使用 call-chain Diagram Profile，未確認的關係標記 To Verify。
 ```
 
 ## 套用 Review Lite Preset
