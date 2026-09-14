@@ -164,17 +164,17 @@ Project/
 
 Preset 使用 Markdown 編寫。同步工具會從反引號內解析 `agents/*.md` 路徑，因此每個規則必須使用以下格式：
 
-```markdown
+````markdown
 # Preset: Review Lite
 
 適用情境說明。
 
 ## 載入規則
 
-- \`agents/core.md\`
-- \`agents/code-review.md\`
-- \`agents/token-saving.md\`
-```
+- `agents/core.md`
+- `agents/code-review.md`
+- `agents/token-saving.md`
+````
 
 規則：
 

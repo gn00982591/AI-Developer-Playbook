@@ -2,6 +2,18 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.9 - 2026-09-14
+
+### Fixed
+
+- 修正 README 與 `docs/Preset_Application.md` 的 Preset Markdown 範例顯示。
+- 外層範例改用四個反引號，讓內層三反引號 Code Fence 能正確呈現。
+- 移除程式碼區塊中會被顯示成普通文字的多餘反斜線。
+
+### Reason
+
+避免 GitHub 將 \` 與 \`\`\` 直接顯示在範例中，確保讀者可以正確複製 Preset 語法。
+
 ## v0.8 - 2026-09-14
 
 ### Changed

@@ -284,23 +284,23 @@ AI-Developer-Playbook/
 
 Preset 是 Markdown 規則清單。每個要載入的規則都必須使用反引號包住完整路徑，格式如下：
 
-```markdown
+````markdown
 # Preset: Preset 顯示名稱
 
 適用情境說明。
 
 ## 載入規則
 
-- \`agents/core.md\`
-- \`agents/code-review.md\`
-- \`agents/token-saving.md\`
+- `agents/core.md`
+- `agents/code-review.md`
+- `agents/token-saving.md`
 
 ## 建議流程
 
-\`\`\`text
+```text
 Diff → Findings
-\`\`\`
 ```
+````
 
 `tools/apply-preset.ps1` 會解析 `agents/*.md` 路徑。規則檔必須存在於 Playbook 的 `agents/`，檔名建議使用小寫 kebab-case。
 
