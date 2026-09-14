@@ -2,6 +2,22 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.2 - 2026-09-14
+
+### Changed
+
+- 擴充 `README.md`，補上 Playbook 的整體架構、用途與規則分層。
+- 明確定義三層結構：通用規則、任務規則、專案規則。
+- 補上 Playbook 與實際 Project 的關係：Playbook 管共用方法與流程，Project 管專案特殊規則。
+- 加入模組化規則庫的建議結構：`agents/`、`presets/`、`templates/`。
+- 加入 Bug Fix、New Feature、SQL Change、System Design 的規則組合示例。
+- 補充 OPSX 流程選擇與 Token 節省原則。
+- 強化控版規則：正式更新需保留 commit、更新 CHANGELOG，並避免單一 `AGENTS.md` 無限制膨脹。
+
+### Reason
+
+讓 Playbook 不只是文件集合，而是可依任務與專案抽換規則的中央母版，方便未來跨公司、跨專案沿用，同時降低不必要的上下文與 Token 使用。
+
 ## v0.1 - 2026-09-14
 
 ### Added
