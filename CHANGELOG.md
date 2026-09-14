@@ -2,6 +2,30 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.4 - 2026-09-14
+
+### Added
+
+- 新增 `docs/Preset_Application.md`，定義 Preset 如何實際套用到 Project。
+- 引入 Project `.ai-rules/` 作為本次任務的規則載入區。
+- 定義 Runtime 規則模型：
+  - Playbook = 規則母庫
+  - Preset = 規則選單
+  - `.ai-rules/` = 本次實際載入規則
+  - `AGENTS.md` = Project 固定規則
+- 定義規則優先順序：使用者本次指示 → Project `AGENTS.md` → `.ai-rules/` → Playbook 通用預設。
+- 補上 Bug Fix、New Feature、SQL Change、System Design 的 `.ai-rules/` 套用範例。
+
+### Changed
+
+- `templates/AGENTS.md` 加入 Rule Loading Model 與 Rule Precedence。
+- `README.md` 加入 Runtime Preset Loading、`.ai-rules/`、新 Project 套用步驟與切換 Preset 的概念。
+- Token 原則補充：只 materialize 本次 Preset 所需規則，避免把整套 Playbook 載入 Project。
+
+### Reason
+
+讓 Preset 從邏輯上的規則組合，進一步變成可在實際 Project 中抽換的執行模型。切換任務時只替換 `.ai-rules/`，Project `AGENTS.md` 維持穩定，避免規則污染並降低不必要的 Token 使用。
+
 ## v0.3 - 2026-09-14
 
 ### Added
