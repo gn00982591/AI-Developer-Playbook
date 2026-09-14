@@ -30,6 +30,31 @@
 
 原則：**Playbook / Agent 管方法與流程，Project 管專案差異。**
 
+## Runtime 規則載入模型
+
+Preset 不直接寫進 `AGENTS.md`。實際 Project 採以下模型：
+
+```text
+Playbook = 規則母庫
+Preset = 本次任務的規則選單
+.ai-rules/ = 本次實際載入規則
+AGENTS.md = Project 固定規則
+```
+
+執行時：
+
+```text
+Project/AGENTS.md
++
+Project/.ai-rules/
+=
+本次有效規則
+```
+
+切換 Bug Fix、New Feature、SQL Change、System Design 時，只替換 `.ai-rules/`，不改寫 `AGENTS.md`。
+
+詳細操作：`docs/Preset_Application.md`
+
 ## Repository 結構
 
 ```text
@@ -58,7 +83,8 @@ AI-Developer-Playbook/
 │
 ├─ docs/
 │  ├─ OPSX_Workflow.md
-│  └─ Token_Saving.md
+│  ├─ Token_Saving.md
+│  └─ Preset_Application.md
 │
 └─ CHANGELOG.md
 ```
@@ -85,7 +111,7 @@ AI-Developer-Playbook/
 
 ### `presets/`
 
-常見工作類型的規則組合。Preset 不應複製規則內容，只列出要載入哪些 `agents/` 模組。
+常見工作類型的規則組合。Preset 不複製規則內容，只列出要載入哪些 `agents/` 模組。
 
 ### `templates/`
 
@@ -93,7 +119,7 @@ AI-Developer-Playbook/
 
 ### `docs/`
 
-保存較完整的流程說明與背景文件。它是人閱讀的說明層，不代表每次任務都要全部載入。
+保存較完整的流程與使用說明。它是人閱讀的說明層，不代表每次任務都要全部載入。
 
 ## Preset 使用方式
 
@@ -107,7 +133,16 @@ core
 + token-saving
 ```
 
-對應：`presets/bug-fix.md`
+Project `.ai-rules/`：
+
+```text
+.ai-rules/
+├─ core.md
+├─ explore.md
+├─ apply.md
+├─ testing.md
+└─ token-saving.md
+```
 
 若問題與修改位置已完全清楚，可省略 Explore。
 
@@ -123,8 +158,6 @@ core
 + token-saving
 ```
 
-對應：`presets/new-feature.md`
-
 ### SQL Change
 
 ```text
@@ -134,8 +167,6 @@ core
 + testing
 + token-saving
 ```
-
-對應：`presets/sql-change.md`
 
 若影響範圍不清楚，再加入 Explore；若變更較大，再加入 Propose。
 
@@ -148,9 +179,7 @@ core
 + token-saving
 ```
 
-對應：`presets/system-design.md`
-
-純分析任務不需要載入 Apply / Testing。
+純分析任務不載入 Apply / Testing。
 
 ## 與實際 Project 的關係
 
@@ -164,37 +193,48 @@ AI-Developer-Playbook
              ▼
        實際 Project
              │
-             └─ AGENTS.md
-                 ├─ Tech Stack
-                 ├─ Build / Test
-                 ├─ Folder / Architecture Notes
-                 ├─ Database Rules
-                 ├─ Business Constraints
-                 └─ Project-specific Rules
+             ├─ AGENTS.md
+             │   ├─ Tech Stack
+             │   ├─ Build / Test
+             │   ├─ Database Rules
+             │   └─ Business Constraints
+             │
+             └─ .ai-rules/
+                 └─ 本次 Preset 實際載入的規則
 ```
 
-例如同一套 Playbook 可以套用到不同專案：
+例如：
 
 ```text
-TMS
-= Playbook Preset + TMS AGENTS.md
+TMS 修 Bug
+= TMS/AGENTS.md + bug-fix 對應 .ai-rules/
 
-CMS
-= Playbook Preset + CMS AGENTS.md
-
-New Company Project
-= Playbook Preset + New Project AGENTS.md
+CMS 做 System Design
+= CMS/AGENTS.md + system-design 對應 .ai-rules/
 ```
 
-不要把 TMS、CMS 或其他公司的特殊規則寫入中央 Playbook。
+不要把特定公司或 Project 的特殊規則寫入中央 Playbook。
 
 ## 新 Project 怎麼開始
 
 1. 從 `templates/AGENTS.md` 建立 Project 自己的 `AGENTS.md`。
 2. 只填該 Project 的 Tech Stack、Build/Test、DB、架構與業務限制。
-3. 執行任務時選一個適合的 Preset。
-4. 使用「Preset 規則 + Project AGENTS.md」作為本次工作規則。
-5. 若任務很小，可移除不需要的模組，避免載入多餘上下文。
+3. 建立 `.ai-rules/` 作為任務規則載入區。
+4. 執行任務時選一個 Preset。
+5. 將 Preset 所需 `agents/` 規則同步或複製到 `.ai-rules/`。
+6. 使用 `AGENTS.md + .ai-rules/` 作為本次有效規則。
+7. 切換任務時替換 `.ai-rules/`，避免舊規則殘留。
+
+## Rule Precedence
+
+若規則衝突，建議優先順序：
+
+```text
+1. 使用者本次明確指示
+2. Project AGENTS.md
+3. Project .ai-rules/
+4. Playbook 通用預設
+```
 
 ## OPSX 標準流程
 
@@ -236,6 +276,7 @@ Archive
 Scan once.
 Document once.
 Reuse afterward.
+Load only required rules.
 ```
 
 避免：
@@ -246,7 +287,7 @@ Reuse afterward.
 - 無關 Dependency 分析。
 - 無關 Refactor。
 - 下一階段重新做上一階段已完成的工作。
-- 為了簡單任務載入所有規則。
+- 為簡單任務載入全部規則。
 
 優先：
 
@@ -255,9 +296,9 @@ Reuse afterward.
 - Minimal change。
 - Reuse previous findings。
 - Limit test scope。
-- Load only required rules。
+- 只 materialize 本次 Preset 所需規則。
 
-詳細說明：`docs/Token_Saving.md` 與 `agents/token-saving.md`。
+詳細說明：`docs/Token_Saving.md`、`agents/token-saving.md`、`docs/Preset_Application.md`。
 
 ## 控版規則
 
@@ -288,10 +329,10 @@ Reuse afterward.
 ## 設計原則摘要
 
 ```text
-Agent / Playbook 管流程
-Project 管規則
-Preset 決定本次要載入哪些規則
-AGENTS.md 只放專案差異
+Playbook = 規則母庫
+Preset = 規則選單
+.ai-rules/ = 本次任務規則
+AGENTS.md = Project 固定規則
 ```
 
 目標不是建立一個越來越大的 Prompt，而是建立一套可依工作內容組裝、替換、重複使用的規則庫。
