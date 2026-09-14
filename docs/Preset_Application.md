@@ -21,6 +21,85 @@ Project .ai-rules/
 本次有效規則
 ```
 
+## 引入使用方式
+
+### 1. 建立 Project 固定規則
+
+從 `templates/AGENTS.md` 建立目標 Project 根目錄的 `AGENTS.md`，只填該 Project 自己的 Tech Stack、Build/Test、DB、架構與業務限制。
+
+### 2. 選擇 Preset
+
+例如修 Bug 時選：
+
+```text
+presets/bug-fix.md
+```
+
+Preset 只是一份規則清單，不代表 Agent 會自動跨 Repository 載入中央 Playbook。
+
+### 3. 將規則 materialize 到 Project
+
+把 Preset 所列的 `agents/*.md` 同步或複製到：
+
+```text
+Project/.ai-rules/
+```
+
+Bug Fix 例：
+
+```text
+.ai-rules/
+├─ core.md
+├─ explore.md
+├─ apply.md
+├─ testing.md
+└─ token-saving.md
+```
+
+不要把整個 Playbook 複製進 Project，只放本次任務需要的規則。
+
+### 4. 啟動 Agent / Codex 時引入
+
+建議在每次任務開始時明確要求：
+
+```text
+請先讀取專案根目錄 AGENTS.md，再讀取 .ai-rules/ 內的規則檔。
+本次只使用這些規則處理任務，不要重新掃描中央 Playbook。
+```
+
+若任務是 Bug Fix，可以再接：
+
+```text
+本次任務為 Bug Fix。
+先確認問題原因與影響範圍，再採最小修改完成修正與必要驗證。
+```
+
+完整範例：
+
+```text
+請先讀取專案根目錄 AGENTS.md，再讀取 .ai-rules/ 內的規則檔。
+本次只使用這些規則處理任務，不要重新掃描中央 Playbook。
+
+本次任務為 Bug Fix：
+[描述問題]
+
+先確認根因與影響範圍，再採最小修改完成修正與必要驗證。
+```
+
+### 5. 任務切換時換 Preset，不換 AGENTS.md
+
+例如從 Bug Fix 改成 System Design：
+
+```text
+Bug Fix
+↓
+替換 .ai-rules/
+↓
+System Design
+```
+
+`AGENTS.md` 保持不變。
+
 ## 為什麼不直接把 Preset 內容寫進 AGENTS.md
 
 `AGENTS.md` 應保存長期固定的 Project-specific 規則，例如：
@@ -103,6 +182,13 @@ AGENTS.md
 └─ token-saving.md
 ```
 
+建議啟動：
+
+```text
+請先讀 AGENTS.md 與 .ai-rules/。
+本次是 New Feature，先確認需求與影響範圍，再依規格實作、驗證並整理變更結果。
+```
+
 ## 套用 SQL Change Preset
 
 ```text
@@ -116,6 +202,13 @@ AGENTS.md
 
 若影響範圍不清楚，再加入 `explore.md`；若屬大型變更，再加入 `propose.md`。
 
+建議啟動：
+
+```text
+請先讀 AGENTS.md 與 .ai-rules/。
+本次是 SQL Change，僅分析與修改需求直接相關的 SQL / SP / DB 物件，採最小修改並執行必要驗證。
+```
+
 ## 套用 System Design Preset
 
 ```text
@@ -128,21 +221,12 @@ AGENTS.md
 
 純分析任務不載入 `apply.md` 與 `testing.md`。
 
-## 切換 Preset
-
-切換任務時，不修改 `AGENTS.md`。
-
-例如：
+建議啟動：
 
 ```text
-Bug Fix
-↓
-清除/替換 .ai-rules/
-↓
-System Design
+請先讀 AGENTS.md 與 .ai-rules/。
+本次是 System Design，只分析與文件化，不修改 Source Code；先搜尋定位，再讀必要檔案。
 ```
-
-切換後 `.ai-rules/` 只保留新 Preset 需要的規則，避免舊任務規則殘留。
 
 ## Rule Precedence
 
@@ -163,6 +247,7 @@ Project 的實際限制應優先於通用 Playbook，但不得覆蓋使用者本
 - 不把所有 `agents/` 都載入 `.ai-rules/`。
 - 只 materialize 本次 Preset 所列模組。
 - 若需求已清楚，可刪除不必要的 `explore.md`。
+- 不要求 Agent 每次重新掃描中央 Playbook。
 - 任務完成後可清除 `.ai-rules/` 或切換成下一個 Preset。
 
 核心原則：
@@ -183,6 +268,8 @@ Load only required rules.
 同步到 Project/.ai-rules/
 ↓
 保留 Project/AGENTS.md 不變
+↓
+用固定啟動指令載入 AGENTS.md + .ai-rules/
 ```
 
 未自動化前，也可手動複製所需規則檔案。
