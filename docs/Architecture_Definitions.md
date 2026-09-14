@@ -2,47 +2,51 @@
 
 本文件整理 AI Developer Playbook 的核心概念與責任邊界。
 
-目的不是立即把每個概念都實作成獨立檔案，而是先統一名詞，避免 Preset、Workflow、規則、圖表、輸出與共用元件互相混用。
-
 ## 核心原則
 
+日常執行不應靠 PowerShell 在不同 Preset 間反覆切換規則。Preset 負責描述「主任務」，Stage / Skill 負責可直接呼叫的「階段能力」，Rule Module 提供各能力所需規則。
+
 ```text
-Preset
-  ↓
-Workflow
-  ↓
-Stage
-  ↓
-Rule / Profile
-  ↓
-Modifier
-  ↓
-Output Management
+使用者需求
+   │
+   ├─ Preset（可選）
+   │   └─ 主任務與預設流程
+   │
+   ├─ Stage / Skill
+   │   └─ 可直接呼叫的執行階段
+   │
+   ├─ Rule / Profile
+   │   └─ 執行方式與輸出策略
+   │
+   ├─ Modifier
+   │   └─ 本次附加條件
+   │
+   ├─ Registry / Data References
+   │   └─ 可重用資產與可信資料來源
+   │
+   └─ Output Management
+       └─ 產物存放位置
 ```
 
-另外由 Registry 與 Data References 提供跨需求可重複使用的專案知識。
+PowerShell 只屬於安裝、同步、相容性工具，不主導 Runtime Flow。
 
 ## 定義總表
 
-| 名稱 | 責任 | 解決的問題 | 是否由使用者直接指定 |
-| --- | --- | --- | --- |
-| Preset | 定義大的任務類型 | 這次要完成什麼工作 | 是 |
-| Workflow | 定義可重複使用的工作流程 | 任務要依什麼流程完成 | 通常否 |
-| Stage | Workflow 內的一個步驟 | 將大流程拆成可組合的小段 | 通常否 |
-| Rule Module | 定義跨流程的行為規則 | 每個步驟應遵守什麼原則 | 否 |
-| Profile | 定義某類輸出的具體策略 | 同一 Stage 下不同輸出如何處理 | 可指定 |
-| Modifier | 本次任務的附加需求 | 不建立新 Preset 也能調整輸出 | 是 |
-| Output Management | 統一管理 AI 產物位置 | 避免不同 AI 各自建立輸出目錄 | 否 |
-| Reusable Registry | 記錄可重複使用的元件與 Pattern | 避免隔很久後重新做出另一套 | 否 |
-| Data References | 提供可靠的專案資料參照 | 避免每次重新猜測或全專案重掃 | 待後續定義 |
-
----
+| 名稱 | 責任 | 使用方式 |
+| --- | --- | --- |
+| Preset | 定義完整任務與預設 Stage 順序 | 可直接指定主任務 |
+| Workflow | 描述多個 Stage 的建議順序 | 由 Preset 或使用者選用 |
+| Stage / Skill | 可獨立呼叫的執行能力 | 可直接指定，不必切 Preset |
+| Rule Module | 定義 Stage 執行時的規則 | 由 Stage / Skill 引用 |
+| Profile | 某類輸出的具體策略 | 可在 Stage 中指定 |
+| Modifier | 本次附加需求 | 可與 Preset / Stage 同時指定 |
+| Output Management | 統一 AI 產物位置 | 全域規則 |
+| Reusable Registry | 記錄共用元件與 Pattern | 執行前按需查詢 |
+| Data References | 提供可信專案資料參照 | 待後續細化 |
 
 ## 1. Preset
 
-Preset 代表「大的任務類型」，不是每一個小功能都建立一個 Preset。
-
-例如：
+Preset 代表大的任務類型，例如：
 
 ```text
 bug-fix
@@ -55,118 +59,131 @@ review-lite
 Preset 應負責：
 
 - 任務目標。
-- 需要載入哪些規則。
 - 預設 Workflow。
-- 必要驗證或完成條件。
+- 建議 Stage。
+- 預設 Rule / Profile。
+- 完成條件。
 
-不應建立：
+Preset 不代表 Runtime 規則切換開關，也不要求每次透過 `apply-preset.ps1` 重新 materialize `.ai-rules/`。
+
+例如 `system-design` 可以定義：
 
 ```text
-module-map preset
-data-flow preset
-api-table preset
-risk-analysis preset
+Discover → Analyze → Diagram → Document → Review
 ```
 
-這些應由 Profile 或 Modifier 處理。
-
----
+但執行中的任一 Stage 都可以被單獨呼叫。
 
 ## 2. Workflow
 
-Workflow 代表「完成任務時可重複使用的流程」。
+Workflow 是多個 Stage 的建議流程。
 
-目的：不要讓每個 Preset 都各自重新定義完整流程。
-
-例如 Bug Fix：
+例如：
 
 ```text
-Understand
-→ Locate
-→ Analyze
-→ Modify
-→ Verify
-→ Review
+Bug Fix
+Understand → Locate → Analyze → Modify → Verify → Review
+
+System Design
+Discover → Analyze → Diagram → Document → Review
 ```
 
-例如 New Feature：
+Workflow 不是不可中斷的程序。可依任務：
+
+- 從中間 Stage 開始。
+- 略過不需要的 Stage。
+- 在同一工作上下文中補呼叫其他 Stage。
+- 重複某一 Stage 而不重建整個流程。
+
+## 3. Stage / Skill
+
+Stage / Skill 是日常操作的主要執行單位。
+
+例如：
 
 ```text
-Understand
-→ Impact Analysis
-→ Reuse Check
-→ Design
-→ Implement
-→ Verify
-→ Review
-```
-
-不同 Preset 可以共用相同 Workflow 或 Stage，例如：
-
-```text
-impact-analysis
-reuse-check
-verification
+explore
+propose
+apply
+verify
 review
+diagram
+archive
 ```
 
-Workflow 是否需要正式建立 `workflows/` 目錄，後續再依實際重複程度決定，不要求第一版立即建立。
-
----
-
-## 3. Stage
-
-Stage 是 Workflow 裡的一個可重複步驟。
-
-例如 System Design：
+使用者可以直接要求：
 
 ```text
-Discover
-Analyze
-Diagram
-Document
-Review
+Stage: explore
 ```
 
-Stage 的目的：
+或：
 
-- 細化大流程。
-- 讓不同 Preset 共用部分流程。
-- 可以依任務需要執行、略過或縮小範圍。
-- 避免每個小工作都變成另一個 Preset。
+```text
+Stage: diagram
+Profile: call-chain
+```
 
----
+也可以在同一任務中依序呼叫：
+
+```text
+explore
+→ propose
+→ apply
+→ verify
+```
+
+### Flow Continuity
+
+切換 Stage 不得清除或替換目前的工作上下文。
+
+Stage 應沿用：
+
+- 已確認的需求。
+- 前一階段 Findings。
+- 已讀取的相關檔案。
+- 已產出的 Spec / Tasks。
+- 已完成的 Diff / Test Result。
+- 本次任務的 Modifier 與輸出需求。
+
+因此：
+
+```text
+Stage 切換 ≠ 規則安裝
+Stage 切換 ≠ 清空 .ai-rules/
+Stage 切換 ≠ 重新開始任務
+```
 
 ## 4. Rule Module
 
-Rule Module 負責「怎麼做」，不是「這次要做什麼」。
-
-目前 `agents/` 即屬於這一層，例如：
+`agents/` 保存最小化規則模組，例如：
 
 ```text
 agents/core.md
 agents/explore.md
+agents/propose.md
+agents/apply.md
 agents/testing.md
-agents/token-saving.md
 agents/diagramming.md
+agents/code-review.md
+agents/token-saving.md
 ```
 
-後續可能新增的共用規則包括：
+Rule Module 負責「怎麼做」，不負責 Runtime 切換。
+
+Stage / Skill 可以引用一個或多個 Rule Module。例如：
 
 ```text
-output-management
-reuse-and-shared-components
+Stage: verify
+→ testing.md
+→ token-saving.md
 ```
-
-是否建立實際檔案，應等規則內容定案後再處理。
-
----
 
 ## 5. Profile
 
-Profile 是某個領域或 Stage 內的「具體處理策略」。
+Profile 是某個 Stage 內的具體處理策略。
 
-目前 Diagram Profile：
+Diagram Profile：
 
 ```text
 module-map
@@ -176,25 +193,18 @@ state-transition
 data-flow
 ```
 
-Profile 不應變成新的頂層 Preset。
-
 例如：
 
 ```text
-Preset: system-design
-Stage: Diagram
+Stage: diagram
 Profile: module-map
 ```
 
----
+Profile 不建立新的頂層 Preset。
 
 ## 6. Modifier
 
-Modifier 是本次任務的附加需求。
-
-目的是避免為每個小需求建立新的 Preset、Agent 或 Component。
-
-建議概念：
+Modifier 是本次附加需求，不主導完整 Workflow。
 
 ```text
 圖:
@@ -211,17 +221,49 @@ Modifier 是本次任務的附加需求。
 - diff-review
 ```
 
-Modifier 只表示「這次額外需要什麼」，不應自己主導完整 Workflow。
+Preset、Stage、Profile、Modifier 可以同時存在，例如：
 
-後續應建立一張「我要做什麼 → 使用什麼 Modifier」的對照表，讓使用者不需要記住底層規則檔。
+```text
+Preset: system-design
+Stage: diagram
+Profile: module-map
+選項: compact
+```
 
----
+## 7. Runtime 與 PowerShell 邊界
 
-## 7. Output Management
+### Runtime
 
-不同 AI 不應自行決定輸出位置。
+主任務開始後，應直接呼叫 Preset / Stage / Skill，不執行 PowerShell 切換。
 
-建議原則：
+```text
+同一任務 Context
+├─ Stage: explore
+├─ Stage: propose
+├─ Stage: apply
+├─ Stage: verify
+└─ Stage: review
+```
+
+### PowerShell
+
+`tools/apply-preset.ps1` 保留作為舊 Snapshot 模式與相容性工具。
+
+可用於：
+
+- 第一次導入。
+- 測試某個 Preset 的規則組合。
+- 舊專案仍採 `.ai-rules/` Snapshot 模式。
+
+不建議用於：
+
+- 同一任務中 Stage 切換。
+- System Design → Diagram → Review 這類流程內切換。
+- 多 Skill 並行或串接時重新安裝規則。
+
+## 8. Output Management
+
+一次性 AI 產物預設集中：
 
 ```text
 .ai-output/
@@ -232,89 +274,46 @@ Modifier 只表示「這次額外需要什麼」，不應自己主導完整 Work
 └─ temp/
 ```
 
-責任區分：
-
-```text
-.ai-output/
-= AI 一次性工作產物
-
-docs/
-= 已確認需要長期保留的正式文件
-```
+正式文件確認後才進入 `docs/`。
 
 基本規則：
 
-1. 所有一次性 AI 產物預設集中於 `.ai-output/`。
-2. AI 不得自行建立其他頂層輸出目錄。
-3. 依產物用途分類，不依 ChatGPT、Codex、Claude、Cursor 等 AI 工具分類。
-4. 正式文件確認後才進入 `docs/`。
-5. Preset 不自行決定輸出目錄，由共用 Output Management 規則管理。
+1. AI 不自行建立其他頂層輸出資料夾。
+2. 依產物用途分類，不依 AI 工具分類。
+3. Preset / Stage 不自行決定另一套輸出位置。
 
-此項目前為架構定義，實際規則檔與腳本支援待後續實作。
+## 9. Reusable Registry
 
----
+對高度重複但可能隔很久才再次出現的功能，使用 Registry，而不是依賴 AI 記憶。
 
-## 8. Reusable Registry
-
-對於「很久才再次遇到，但其實高度重複」的功能，不應依賴 AI 記憶。
-
-典型案例：
-
-- 下拉選單。
-- 日期區間。
-- Status Mapping。
-- API Wrapper。
-- 權限處理。
-- Table / Modal / Pagination。
-- 共用 Query。
-
-建議每個實際 Project 維護 Registry，例如：
+建議專案維護：
 
 ```text
 .ai-rules/reusable-patterns.md
 ```
 
-建議狀態：
+狀態：
 
 ```text
 local
-→ 目前只供單一功能使用
-
 candidate
-→ 已出現重複跡象，值得追蹤
-
 shared
-→ 正式共用，不應再建立平行實作
 ```
 
-範例：
-
-| Pattern | 狀態 | 實作位置 | Data Source | 使用範圍 |
-| --- | --- | --- | --- | --- |
-| Plant Selector | shared | `PlantSelect.vue` | `/Utils/GetPlant` | 全域 |
-| Customer Selector | candidate | 多個頁面 | `/Utils/GetCustomer` | 訂單 |
-| Date Range | shared | `DateRange.vue` | - | 查詢頁 |
-
-建議流程：
+流程：
 
 ```text
 新需求
 → 搜尋既有實作
-→ 查 Reusable Registry
+→ 查 Registry
 → 判斷沿用 / 擴充 / 新增
 ```
 
-原則上不要看到第二次使用就強制抽象；先記錄 candidate，重複程度足夠後再正式 shared，避免過度設計。
+## 10. Data References
 
----
+Data References 已列入架構，但尚未完成定義。
 
-## 9. Data References
-
-Data References 已列入整體架構，但目前尚未完成定義。
-
-暫定責任：
-
-> 提供 AI 在執行 Workflow 時可查詢的可靠專案資料來源，避免每次重新掃描、重新猜測或重複建立相同知識。
+暫定責任：提供 Stage / Skill 執行時可查詢的可靠專案資料來源，避免重掃與重新猜測。
 
 可能包含：
 
@@ -326,50 +325,32 @@ status-codes
 integrations
 ```
 
-目前先保留概念，不建立正式目錄與規則；後續討論完成後再決定與 Registry、AGENTS.md、`.ai-rules/` 的邊界。
+後續再決定與 Registry、AGENTS.md、`.ai-rules/` 的邊界。
 
----
-
-## 整體責任模型
+## 最終責任模型
 
 ```text
-使用者需求
-   │
-   ├─ Preset
-   │   └─ 我要完成什麼任務
-   │
-   ├─ Workflow / Stage
-   │   └─ 任務依什麼流程執行
-   │
-   ├─ Rule / Profile
-   │   └─ 每個步驟怎麼做
-   │
-   ├─ Modifier
-   │   └─ 這次額外需要什麼
-   │
-   ├─ Registry / Data References
-   │   └─ 有哪些既有知識與可重用資產
-   │
-   └─ Output Management
-       └─ 產物放在哪裡
+Preset
+「我要完成什麼任務」
+        │
+        └─ Workflow
+           「預設怎麼走」
+                │
+                ├─ Stage / Skill A
+                ├─ Stage / Skill B
+                └─ Stage / Skill C
+                     │
+                     ├─ Rule Module
+                     ├─ Profile
+                     └─ Modifier
+
+Registry / Data References
+→ 提供可重用知識
+
+Output Management
+→ 統一管理產物
 ```
 
-## 目前先做與暫不做
+核心原則：
 
-### 先固定
-
-- Preset、Workflow、Stage、Rule Module、Profile、Modifier 的名詞與邊界。
-- Output Management 的方向。
-- Reusable Registry 的方向。
-- Data References 保留成待討論項目。
-
-### 暫不實作
-
-- 不立即新增大量小 Preset。
-- 不立即把每個 Stage 都拆成獨立檔案。
-- 不立即修改 `apply-preset.ps1` 支援 Workflow / Modifier。
-- 不立即建立 `.ai-output/`。
-- 不立即建立 Reusable Registry Template。
-- 不立即建立 Data References 目錄。
-
-等各概念確認後，再依最小修改原則逐步實作。
+> Preset 負責編排；Stage / Skill 負責執行；Rule Module 負責規則；PowerShell 不負責 Runtime Flow。
