@@ -1,375 +1,233 @@
 # Preset 套用方式
 
-本文件定義如何把 `AI-Developer-Playbook` 的 Preset 實際套用到某個 Project。
+本文件定義 Preset 在新的 Stage / Skill Runtime 模型中的角色。
 
 ## 核心模型
 
 ```text
 Playbook = 規則母庫
-Preset = 本次任務的規則選單
-Diagram Profile = 圖的種類規則
-.ai-rules/ = 本次實際載入的規則
+Preset = 主任務與預設 Workflow
+Stage / Skill = 可直接呼叫的執行階段
+Rule Module = Stage 使用的規則
 AGENTS.md = Project 固定規則
+PowerShell = 安裝 / 同步 / 相容性工具
 ```
 
-實際執行時：
+日常任務不要求每次切換 Preset 都重新執行 PowerShell。
 
-```text
-Project AGENTS.md
-+
-Project .ai-rules/
-=
-本次有效規則
-```
+## 一次性設定
 
-## 引入使用方式
-
-以下流程分為一次性設定與每次任務操作。
-
-### 一次性設定
-
-#### 步驟 1：準備中央 Playbook
+### 步驟 1：準備 Playbook
 
 ```powershell
 # 第一次使用時 Clone。
 git clone https://github.com/gn00982591/AI-Developer-Playbook.git
 
-# 已有 Playbook 時更新內容。
+# 已有 Playbook 時更新。
 Set-Location "D:\AI-Developer-Playbook"
 git pull
 ```
 
-#### 步驟 2：建立 Project AGENTS.md
+### 步驟 2：建立 Project AGENTS.md
 
-只有目標 Project 尚未存在 `AGENTS.md` 時才複製模板。
+只在 Project 尚未存在 `AGENTS.md` 時建立。
 
-```powershell
-# 避免覆蓋 Project 既有規則。
-$ProjectPath = "D:\Projects\OrderSystem"
-if (-not (Test-Path "$ProjectPath\AGENTS.md")) {
-    Copy-Item ".\templates\AGENTS.md" "$ProjectPath\AGENTS.md"
-}
+`AGENTS.md` 保存：
+
+- Tech Stack。
+- Build / Test。
+- Folder / Architecture Notes。
+- Database Rules。
+- Business Constraints。
+- Project-specific Rules。
+
+## 日常 Runtime
+
+### 使用 Preset 啟動主任務
+
+例如：
+
+```text
+Preset: bug-fix
+問題：訂單狀態更新錯誤
 ```
 
-#### 步驟 3：填寫 Project 固定內容
+或：
 
-在 `AGENTS.md` 填寫 Tech Stack、Build/Test、DB、架構、目錄與業務限制。任務型規則不寫入此檔。
+```text
+Preset: system-design
+範圍：Dispatch 模組
+```
 
-### 每次任務操作
+Preset 只定義主任務與預設流程，不需要重新 materialize `.ai-rules/`。
 
-#### 步驟 4：選擇 Preset
+### 直接呼叫 Stage / Skill
 
-| 任務 | Preset |
+同一任務內可以直接：
+
+```text
+Stage: explore
+```
+
+接著：
+
+```text
+Stage: propose
+```
+
+再接著：
+
+```text
+Stage: apply
+```
+
+最後：
+
+```text
+Stage: verify
+Stage: review
+```
+
+切換 Stage 時保留前一階段 Findings、Spec、Diff 與 Test Result。
+
+## System Design 範例
+
+```text
+Preset: system-design
+```
+
+預設可走：
+
+```text
+explore
+→ analyze
+→ diagram
+→ document
+→ review
+```
+
+若只需要圖：
+
+```text
+Stage: diagram
+Profile: module-map
+```
+
+若要再補資料流：
+
+```text
+Stage: diagram
+Profile: data-flow
+```
+
+不需要退出 System Design，也不需要執行 `apply-preset.ps1`。
+
+## 多 Stage 串接
+
+```text
+本次任務：新增客戶篩選條件
+
+Stage: explore
+→ 確認現有實作與共用元件
+
+Stage: propose
+→ 決定最小修改方案
+
+Stage: apply
+→ 修改程式
+
+Stage: verify
+→ Build / Test / Diff
+
+Stage: review
+→ 檢查回歸風險
+```
+
+每個 Stage 只補讀必要資訊，不重新掃描完整 Repository。
+
+## Stage 與 Rule Module 對應
+
+| Stage / Skill | 主要規則 |
 | --- | --- |
-| Bug 修正 | `bug-fix` |
-| 新功能 | `new-feature` |
-| SQL / SP / DB 變更 | `sql-change` |
-| System Design / 交接文件 | `system-design` |
-| Diff 快速複查 | `review-lite` |
+| `explore` | `agents/explore.md` |
+| `propose` | `agents/propose.md` |
+| `apply` | `agents/apply.md` |
+| `verify` | `agents/testing.md` |
+| `review` | `agents/code-review.md` |
+| `diagram` | `agents/diagramming.md` |
+| `archive` | `agents/archive.md` |
+| `sql` | `agents/sql.md` |
+| `system-design` | `agents/system-design.md` |
 
-#### 步驟 5：同步規則到 Project
+Stage 可搭配 `agents/core.md`、`agents/token-saving.md` 等共用規則。
 
-```powershell
-# 在 Playbook 根目錄執行，Preset 名稱不含 .md。
-.\tools\apply-preset.ps1 -Preset "bug-fix" -ProjectPath "D:\Projects\OrderSystem"
-```
+## Profile / Modifier
 
-工具會：
+Profile 與 Modifier 不建立新 Preset。
 
-1. 讀取 `presets/bug-fix.md`。
-2. 解析其中引用的 `agents/*.md`。
-3. 清除舊的 `Project/.ai-rules/`。
-4. 複製本次需要的規則。
-5. 保留 `Project/AGENTS.md`。
-
-#### 步驟 6：確認 .ai-rules/
-
-```powershell
-# 列出本次已載入規則。
-Get-ChildItem "D:\Projects\OrderSystem\.ai-rules"
-```
-
-Bug Fix 的結果應為：
+例如：
 
 ```text
-.ai-rules/
-├─ core.md
-├─ explore.md
-├─ apply.md
-├─ testing.md
-└─ token-saving.md
+Stage: diagram
+Profile: call-chain
+選項: compact
 ```
 
-#### 步驟 7：以目標 Project 為工作目錄
-
-在 Codex / ChatGPT Work 開啟 `D:\Projects\OrderSystem`，不要把中央 Playbook 當成本次開發工作目錄。
-
-#### 步驟 8：輸入啟動 Prompt
+或：
 
 ```text
-請先讀取專案根目錄 AGENTS.md，再讀取 .ai-rules/ 內的規則檔。
-本次只使用這些規則處理任務，不要重新掃描中央 Playbook。
-
-本次任務為 Bug Fix：
-[描述問題]
-
-先確認根因與影響範圍，再採最小修改完成修正與必要驗證。
+Preset: system-design
+表: database
+選項: risk
 ```
 
-#### 步驟 9：切換任務時重新套用
+## `apply-preset.ps1` 的新定位
 
-```powershell
-# 範例：從目前任務切換成 Review Lite。
-.\tools\apply-preset.ps1 -Preset "review-lite" -ProjectPath "D:\Projects\OrderSystem"
-```
+`tools/apply-preset.ps1` 保留作為 Snapshot 相容工具。
 
-重新套用後，確認 `.ai-rules/`，再開啟新對話並輸入對應任務 Prompt；`AGENTS.md` 不需更換。
+它仍會：
 
-### 引入完成檢查
+1. 讀取 `presets/<preset>.md`。
+2. 解析 `agents/*.md`。
+3. 重建目標 Project 的 `.ai-rules/`。
+4. 複製 Preset 所需規則。
 
-- Project 根目錄有 `AGENTS.md`。
-- Project 根目錄有 `.ai-rules/`。
-- `.ai-rules/` 只包含本次 Preset 所需規則。
-- Agent 的工作目錄是實際 Project。
-- 任務 Prompt 已要求讀取 `AGENTS.md` 與 `.ai-rules/`。
+適合：
 
-## 為什麼不直接把 Preset 內容寫進 AGENTS.md
+- 舊 Project 已採 `.ai-rules/` Snapshot。
+- 測試某 Preset 包含哪些 Rule Module。
+- 特殊離線 / 固定規則快照需求。
 
-`AGENTS.md` 應保存長期固定的 Project-specific 規則，例如：
+不適合：
 
-- Tech Stack
-- Build / Test 指令
-- Folder / Architecture Notes
-- Database Rules
-- Business Constraints
-- Project-specific Rules
+- Explore → Apply 的日常 Stage 切換。
+- System Design → Diagram → Review。
+- 同一任務中串接多個 Skill。
 
-Bug Fix、New Feature、SQL Change、System Design 等屬於任務型規則，應由 Preset 決定，不應反覆改寫 `AGENTS.md`。
-
-## Project 建議結構
-
-```text
-Project/
-├─ AGENTS.md
-├─ .ai-rules/
-│  ├─ core.md
-│  ├─ token-saving.md
-│  └─ ...本次任務需要的規則
-├─ src/
-└─ ...
-```
-
-`.ai-rules/` 是執行層，只放本次任務需要的規則。
-
-## Preset 語法
-
-Preset 使用 Markdown 編寫。同步工具會從反引號內解析 `agents/*.md` 路徑，因此每個規則必須使用以下格式：
-
-````markdown
-# Preset: Review Lite
-
-適用情境說明。
-
-## 載入規則
-
-- `agents/core.md`
-- `agents/code-review.md`
-- `agents/token-saving.md`
-````
-
-規則：
-
-- Preset 檔名使用小寫 kebab-case，例如 `bug-fix.md`、`review-lite.md`。
-- 引用路徑必須是 `agents/<name>.md`。
-- 被引用的檔案必須存在。
-- Preset 只列出需要載入的模組，不重複撰寫 Agent 規則內容。
-
-## Preset 套用指令
-
-```powershell
-# 套用 Bug Fix Preset。
-.\tools\apply-preset.ps1 -Preset "bug-fix" -ProjectPath "D:\Projects\OrderSystem"
-
-# 套用 Review Lite Preset。
-.\tools\apply-preset.ps1 -Preset "review-lite" -ProjectPath "D:\Projects\OrderSystem"
-```
-
-這不是 `/Bug-Fix` Slash Command。Preset 名稱由 PowerShell 的 `-Preset` 參數傳入；套用完成後，再用一般文字告訴 Agent 本次任務內容。
-
-## 套用 Bug Fix Preset
-
-來源：`presets/bug-fix.md`
-
-需要：
-
-```text
-agents/core.md
-agents/explore.md
-agents/apply.md
-agents/testing.md
-agents/token-saving.md
-```
-
-Project 中 materialize 成：
-
-```text
-.ai-rules/
-├─ core.md
-├─ explore.md
-├─ apply.md
-├─ testing.md
-└─ token-saving.md
-```
-
-本次任務有效規則：
-
-```text
-AGENTS.md
-+
-.ai-rules/core.md
-+
-.ai-rules/explore.md
-+
-.ai-rules/apply.md
-+
-.ai-rules/testing.md
-+
-.ai-rules/token-saving.md
-```
-
-## 套用 New Feature Preset
-
-```text
-.ai-rules/
-├─ core.md
-├─ explore.md
-├─ propose.md
-├─ apply.md
-├─ testing.md
-├─ archive.md
-└─ token-saving.md
-```
-
-建議啟動：
-
-```text
-請先讀 AGENTS.md 與 .ai-rules/。
-本次是 New Feature，先確認需求與影響範圍，再依規格實作、驗證並整理變更結果。
-```
-
-## 套用 SQL Change Preset
-
-```text
-.ai-rules/
-├─ core.md
-├─ sql.md
-├─ apply.md
-├─ testing.md
-└─ token-saving.md
-```
-
-若影響範圍不清楚，再加入 `explore.md`；若屬大型變更，再加入 `propose.md`。
-
-建議啟動：
-
-```text
-請先讀 AGENTS.md 與 .ai-rules/。
-本次是 SQL Change，僅分析與修改需求直接相關的 SQL / SP / DB 物件，採最小修改並執行必要驗證。
-```
-
-## 套用 System Design Preset
-
-```text
-.ai-rules/
-├─ core.md
-├─ explore.md
-├─ system-design.md
-├─ diagramming.md
-└─ token-saving.md
-```
-
-純分析任務不載入 `apply.md` 與 `testing.md`。
-
-`diagramming.md` 提供 Mermaid 共用規則與五種 Diagram Profile。Preset 仍代表任務類型，Profile 只代表本次要畫的圖：
-
-| Diagram Profile | 使用目的 |
-| --- | --- |
-| `module-map` | 系統模組與高階相依 |
-| `business-flow` | 業務步驟與判斷 |
-| `call-chain` | 實際呼叫先後順序 |
-| `state-transition` | 狀態與轉移 |
-| `data-flow` | 資料來源、轉換與流向 |
-
-不需要另建或另套用 Profile Preset。套用 `system-design` 後，可在任務 Prompt 指定 Profile；未指定時，只選能回答問題的最少 Profile。
-
-建議啟動：
-
-```text
-請先讀 AGENTS.md 與 .ai-rules/。
-本次是 System Design，只分析與文件化，不修改 Source Code；先搜尋定位，再讀必要檔案。
-需要 Mermaid 時使用 call-chain Diagram Profile，未確認的關係標記 To Verify。
-```
-
-## 套用 Review Lite Preset
-
-```text
-.ai-rules/
-├─ core.md
-├─ code-review.md
-└─ token-saving.md
-```
-
-建議啟動：
-
-```text
-請先讀 AGENTS.md 與 .ai-rules/。
-本次只複查目前 git diff；只列出明確錯誤與回歸風險，不摘要正常程式碼。若必須擴大範圍，先說明原因。
-```
-
-若確認需要修改，切換至 `bug-fix` Preset。
+因為它會重建 `.ai-rules/`，不應被當成 Runtime Orchestrator。
 
 ## Rule Precedence
-
-若規則衝突，建議優先順序：
 
 ```text
 1. 使用者本次明確指示
 2. Project AGENTS.md
-3. 本次 .ai-rules/ 任務規則
-4. Playbook 通用預設
+3. 本次 Stage / Skill 規則
+4. Playbook 通用規則
 ```
-
-Project 的實際限制應優先於通用 Playbook，但不得覆蓋使用者本次明確要求。
 
 ## Token 原則
 
-- 不把整個 Playbook 複製到 Project。
-- 不把所有 `agents/` 都載入 `.ai-rules/`。
-- 只 materialize 本次 Preset 所列模組。
-- 若需求已清楚，可刪除不必要的 `explore.md`。
-- 不要求 Agent 每次重新掃描中央 Playbook。
-- 任務完成後可清除 `.ai-rules/` 或切換成下一個 Preset。
-
-核心原則：
-
 ```text
 Load only required rules.
+Reuse current task context.
+Do not reinstall rules just to change stages.
 ```
 
-## 未來自動化
+避免：
 
-可再增加安裝/同步機制：
+- Stage 切換時重新掃描 Repository。
+- 每次換工作階段都清空 `.ai-rules/`。
+- 重複分析已確認的 Findings。
+- 為單一 Stage 載入完整 Playbook。
 
-```text
-選擇 Preset
-↓
-讀取 preset 所列 agents
-↓
-同步到 Project/.ai-rules/
-↓
-保留 Project/AGENTS.md 不變
-↓
-用固定啟動指令載入 AGENTS.md + .ai-rules/
-```
-
-未自動化前，也可手動複製所需規則檔案。
+詳細執行方式：`docs/Stage_Execution.md`。
