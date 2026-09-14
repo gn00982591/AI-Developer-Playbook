@@ -2,6 +2,31 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.11 - 2026-09-14
+
+### Added
+
+- 新增 `docs/Stage_Execution.md`，定義可直接呼叫的 Stage / Skill Runtime 模型。
+- 定義 `Stage: explore`、`Stage: apply`、`Stage: verify`、`Stage: review`、`Stage: diagram` 等平台中立呼叫語意。
+- 定義 Flow Continuity：切換 Stage 時沿用 Findings、Spec、Diff、Test Result 與目前任務 Context。
+
+### Changed
+
+- Preset 改為「主任務與預設 Workflow」，不再視為 Runtime 規則切換開關。
+- `docs/Architecture_Definitions.md` 新增 Stage / Skill 直接執行與 Runtime / PowerShell 邊界。
+- `docs/Preset_Application.md` 改為 Stage-based Runtime；日常切換階段不再要求執行 PowerShell。
+- README 改為 Preset 編排、Stage / Skill 執行、Rule Module 提供規則的模型。
+- `tools/apply-preset.ps1` 保留為 Snapshot 相容、安裝、同步與測試工具，不作為 Runtime Orchestrator。
+
+### Compatibility
+
+- 既有 `agents/*.md` 先繼續作為 Rule Module，不複製另一套 Skill 規則。
+- 既有 Preset 與 `apply-preset.ps1` 保留，可供舊 `.ai-rules/` Snapshot 專案使用。
+
+### Reason
+
+避免同一任務中切換 Explore、Apply、System Design、Diagram、Review 時反覆清除與重建 `.ai-rules/`，造成 Flow 中斷、規則互相覆蓋與重複分析。主任務啟動後應直接呼叫所需 Stage / Skill，保持同一工作上下文。
+
 ## v0.10 - 2026-09-14
 
 ### Added
