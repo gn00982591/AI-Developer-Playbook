@@ -14,8 +14,6 @@
 
 ## 整體模型
 
-實際使用時採三層組合：
-
 ```text
 通用規則
 +
@@ -52,6 +50,71 @@ Project/.ai-rules/
 ```
 
 切換 Bug Fix、New Feature、SQL Change、System Design 時，只替換 `.ai-rules/`，不改寫 `AGENTS.md`。
+
+## 引入使用方式
+
+### 1. Project 第一次導入
+
+1. 從 `templates/AGENTS.md` 建立 Project 根目錄的 `AGENTS.md`。
+2. 建立 `Project/.ai-rules/`。
+3. 依任務選擇一個 `presets/*.md`。
+4. 將該 Preset 所列的 `agents/*.md` 同步或複製到 `.ai-rules/`。
+5. 不要把整個 Playbook 複製進 Project。
+
+例如 Bug Fix：
+
+```text
+Project/
+├─ AGENTS.md
+└─ .ai-rules/
+   ├─ core.md
+   ├─ explore.md
+   ├─ apply.md
+   ├─ testing.md
+   └─ token-saving.md
+```
+
+### 2. 每次啟動 Agent / Codex
+
+建議在任務開頭使用：
+
+```text
+請先讀取專案根目錄 AGENTS.md，再讀取 .ai-rules/ 內的規則檔。
+本次只使用這些規則處理任務，不要重新掃描中央 Playbook。
+```
+
+Bug Fix 完整範例：
+
+```text
+請先讀取專案根目錄 AGENTS.md，再讀取 .ai-rules/ 內的規則檔。
+本次只使用這些規則處理任務，不要重新掃描中央 Playbook。
+
+本次任務為 Bug Fix：
+[描述問題]
+
+先確認根因與影響範圍，再採最小修改完成修正與必要驗證。
+```
+
+### 3. 切換任務
+
+只替換 `.ai-rules/`：
+
+```text
+Bug Fix
+↓
+替換 .ai-rules/
+↓
+System Design
+```
+
+`AGENTS.md` 保持不變。
+
+### 4. 規則載入原則
+
+- `AGENTS.md`：固定 Project 規則。
+- `.ai-rules/`：本次任務規則。
+- 不要求 Agent 每次重新讀整個 Playbook。
+- 只有 `.ai-rules/` 缺少必要規則時，才回中央 Playbook 補充。
 
 詳細操作：`docs/Preset_Application.md`
 
@@ -133,19 +196,6 @@ core
 + token-saving
 ```
 
-Project `.ai-rules/`：
-
-```text
-.ai-rules/
-├─ core.md
-├─ explore.md
-├─ apply.md
-├─ testing.md
-└─ token-saving.md
-```
-
-若問題與修改位置已完全清楚，可省略 Explore。
-
 ### New Feature
 
 ```text
@@ -203,27 +253,7 @@ AI-Developer-Playbook
                  └─ 本次 Preset 實際載入的規則
 ```
 
-例如：
-
-```text
-TMS 修 Bug
-= TMS/AGENTS.md + bug-fix 對應 .ai-rules/
-
-CMS 做 System Design
-= CMS/AGENTS.md + system-design 對應 .ai-rules/
-```
-
 不要把特定公司或 Project 的特殊規則寫入中央 Playbook。
-
-## 新 Project 怎麼開始
-
-1. 從 `templates/AGENTS.md` 建立 Project 自己的 `AGENTS.md`。
-2. 只填該 Project 的 Tech Stack、Build/Test、DB、架構與業務限制。
-3. 建立 `.ai-rules/` 作為任務規則載入區。
-4. 執行任務時選一個 Preset。
-5. 將 Preset 所需 `agents/` 規則同步或複製到 `.ai-rules/`。
-6. 使用 `AGENTS.md + .ai-rules/` 作為本次有效規則。
-7. 切換任務時替換 `.ai-rules/`，避免舊規則殘留。
 
 ## Rule Precedence
 
@@ -254,13 +284,6 @@ Diff / Test
 Archive
 ```
 
-核心原則：
-
-- 每個階段只完成自己的工作。
-- 下一階段不得無條件重新做上一階段的分析。
-- 不一定每次都執行完整流程。
-- 依需求清楚程度縮短流程。
-
 | 狀況 | 建議流程 |
 | --- | --- |
 | 不知道問題在哪 | Explore → Propose → Apply → Archive |
@@ -286,8 +309,8 @@ Load only required rules.
 - 重複讀取相同檔案。
 - 無關 Dependency 分析。
 - 無關 Refactor。
-- 下一階段重新做上一階段已完成的工作。
 - 為簡單任務載入全部規則。
+- 每次任務重新掃描中央 Playbook。
 
 優先：
 
