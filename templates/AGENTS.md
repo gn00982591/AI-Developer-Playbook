@@ -2,6 +2,31 @@
 
 本模板用於每個實際專案的專屬規則。中央通用規則由 `AI-Developer-Playbook` 管理；此檔只保存該 Project 的差異。
 
+## Rule Loading Model
+
+本 Project 使用以下規則模型：
+
+```text
+AGENTS.md
++
+.ai-rules/
+=
+本次有效規則
+```
+
+- `AGENTS.md`：Project 固定規則。
+- `.ai-rules/`：依本次 Preset 載入的任務規則。
+- 切換任務時只替換 `.ai-rules/`，不需要改寫 `AGENTS.md`。
+
+若規則衝突，建議優先順序：
+
+```text
+1. 使用者本次明確指示
+2. Project AGENTS.md
+3. Project .ai-rules/
+4. Playbook 通用預設
+```
+
 ## Project Overview
 
 - Project Name:
@@ -55,3 +80,5 @@
 - New Feature：`presets/new-feature.md`
 - SQL Change：`presets/sql-change.md`
 - System Design：`presets/system-design.md`
+
+Preset 實際套用方式請見 `docs/Preset_Application.md`。
