@@ -2,6 +2,34 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.6 - 2026-09-14
+
+### Added
+
+- 新增 `tools/apply-preset.ps1`，可依 Preset 自動同步本次任務需要的規則到目標 Project 的 `.ai-rules/`。
+- 新增 `docs/Preset_Sync.md`，說明同步流程、使用方式、Git 建議與注意事項。
+- 新增 `tools/README.md`，集中說明 Playbook 輔助工具。
+
+### Behavior
+
+`apply-preset.ps1` 會：
+
+1. 讀取 `presets/<preset>.md`。
+2. 解析其中引用的 `agents/*.md`。
+3. 清除目標 Project 既有 `.ai-rules/`。
+4. 只複製本次 Preset 所需規則。
+5. 保留 Project `AGENTS.md` 不變。
+
+### Recommendation
+
+- `.ai-rules/` 視為 Runtime Snapshot，建議加入實際 Project 的 `.gitignore`。
+- 中央 `AI-Developer-Playbook` 是規則 Source of Truth。
+- Project 長期保存 `AGENTS.md`，任務切換時只重新 materialize `.ai-rules/`。
+
+### Reason
+
+將 Preset 從手動複製流程進一步自動化，降低每次任務切換的操作成本，並避免舊規則殘留或載入不必要規則。
+
 ## v0.5 - 2026-09-14
 
 ### Added
