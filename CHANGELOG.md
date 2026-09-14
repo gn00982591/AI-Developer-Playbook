@@ -2,6 +2,40 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.3 - 2026-09-14
+
+### Added
+
+- 正式建立 `agents/` 模組化規則庫：
+  - `core.md`
+  - `explore.md`
+  - `propose.md`
+  - `apply.md`
+  - `archive.md`
+  - `sql.md`
+  - `git.md`
+  - `testing.md`
+  - `system-design.md`
+  - `code-review.md`
+  - `token-saving.md`
+- 建立 `presets/` 任務組合：
+  - `bug-fix.md`
+  - `new-feature.md`
+  - `sql-change.md`
+  - `system-design.md`
+- 建立 `templates/AGENTS.md`，供新 Project 建立專案專屬規則。
+
+### Changed
+
+- `README.md` 從概念說明改為正式使用手冊。
+- 明確定義：Playbook 管共用方法與流程、Preset 管本次載入組合、Project `AGENTS.md` 管專案差異。
+- 加入新 Project 啟用步驟與各 Preset 的實際組合方式。
+- Token 原則新增 `Load only required rules`，避免簡單任務載入整套規則。
+
+### Reason
+
+將 Playbook 從文件集合正式轉成可抽換的 Agent Rule Library。未來可依 Bug Fix、New Feature、SQL Change、System Design 等任務，只載入必要規則，再搭配各 Project 自己的 `AGENTS.md`，降低規則污染與不必要的 Token 使用。
+
 ## v0.2 - 2026-09-14
 
 ### Changed
