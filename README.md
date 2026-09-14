@@ -49,7 +49,7 @@ Project/.ai-rules/
 本次有效規則
 ```
 
-切換 Bug Fix、New Feature、SQL Change、System Design 時，只替換 `.ai-rules/`，不改寫 `AGENTS.md`。
+切換 Bug Fix、New Feature、SQL Change、System Design、Review Lite 時，只替換 `.ai-rules/`，不改寫 `AGENTS.md`。
 
 ## 引入使用方式
 
@@ -139,7 +139,8 @@ AI-Developer-Playbook/
 │  ├─ bug-fix.md
 │  ├─ new-feature.md
 │  ├─ sql-change.md
-│  └─ system-design.md
+│  ├─ system-design.md
+│  └─ review-lite.md
 │
 ├─ templates/
 │  └─ AGENTS.md
@@ -186,6 +187,51 @@ AI-Developer-Playbook/
 
 ## Preset 使用方式
 
+### Preset 檔案語法
+
+Preset 是 Markdown 規則清單。每個要載入的規則都必須使用反引號包住完整路徑，格式如下：
+
+```markdown
+# Preset: Preset 顯示名稱
+
+適用情境說明。
+
+## 載入規則
+
+- \`agents/core.md\`
+- \`agents/code-review.md\`
+- \`agents/token-saving.md\`
+
+## 建議流程
+
+\`\`\`text
+Diff → Findings
+\`\`\`
+```
+
+`tools/apply-preset.ps1` 會解析 `agents/*.md` 路徑。規則檔必須存在於 Playbook 的 `agents/`，檔名建議使用小寫 kebab-case。
+
+### Preset 套用語法
+
+Preset 不會自動成為 `/Bug-Fix` Slash Command。正式套用方式是執行：
+
+```powershell
+# 套用 Bug Fix Preset。
+.\tools\apply-preset.ps1 -Preset "bug-fix" -ProjectPath "D:\Projects\OrderSystem"
+
+# 套用低 Token 複查 Preset。
+.\tools\apply-preset.ps1 -Preset "review-lite" -ProjectPath "D:\Projects\OrderSystem"
+```
+
+套用後，在 Codex / ChatGPT 輸入：
+
+```text
+請讀取 AGENTS.md 與 .ai-rules/。
+本次是 Bug Fix：[問題描述]
+```
+
+舊式 Codex Custom Prompt 的呼叫格式是 `/prompts:bug-fix`，不是 `/Bug-Fix`；但 Custom Prompts 已棄用，不作為本 Playbook 的主要方案。
+
 ### Bug Fix
 
 ```text
@@ -230,6 +276,16 @@ core
 ```
 
 純分析任務不載入 Apply / Testing。
+
+### Review Lite
+
+```text
+core
++ code-review
++ token-saving
+```
+
+用於「幫我再看一下」這類複查。預設只檢查 `git diff`、指定 Commit 或指定檔案；確認需要修改時，再切換至 Bug Fix。
 
 ## 與實際 Project 的關係
 

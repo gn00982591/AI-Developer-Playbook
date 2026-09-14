@@ -1,5 +1,5 @@
 param (
-    # 要套用的 Preset 名稱，例如 bug-fix、new-feature、sql-change、system-design。
+    # 要套用的 Preset 名稱，例如 bug-fix、new-feature、sql-change、system-design、review-lite。
     [Parameter(Mandatory = $true)]
     [string]$Preset,
 

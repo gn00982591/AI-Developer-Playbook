@@ -2,6 +2,24 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.7 - 2026-09-14
+
+### Added
+
+- 新增 `presets/review-lite.md`，提供 Diff 優先的低 Token 複查流程。
+- 補上 Preset Markdown 檔案語法與 `apply-preset.ps1` 實際套用指令。
+- 提供 Bug Fix 與 Review Lite 的完整命令範例。
+
+### Clarified
+
+- Preset 不會自動成為 `/Bug-Fix` Slash Command。
+- 正式用法為 `apply-preset.ps1 -Preset "<preset>" -ProjectPath "<project>"`。
+- 舊式 Codex Custom Prompt 格式為 `/prompts:<name>`，但已棄用，不作為 Playbook 主要方案。
+
+### Reason
+
+讓「幫我再看一下」可只審查 Diff、指定 Commit 或指定檔案，並明確區分 Playbook Preset、PowerShell 套用指令與 Slash Command，避免誤用及不必要的 Token 消耗。
+
 ## v0.6 - 2026-09-14
 
 ### Added

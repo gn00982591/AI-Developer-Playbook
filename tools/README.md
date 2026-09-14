@@ -20,7 +20,16 @@
 
 # System Design。
 .\tools\apply-preset.ps1 -Preset "system-design" -ProjectPath "D:\Projects\OrderSystem"
+
+# 低 Token 複查。
+.\tools\apply-preset.ps1 -Preset "review-lite" -ProjectPath "D:\Projects\OrderSystem"
 ```
+
+### 語法說明
+
+`-Preset` 傳入 `presets/` 中不含副檔名的檔名，例如 `bug-fix` 或 `review-lite`。
+
+這套工具不會建立 `/Bug-Fix` Slash Command；套用語法是 PowerShell 指令。
 
 ### 行為
 

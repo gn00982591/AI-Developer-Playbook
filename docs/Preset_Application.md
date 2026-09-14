@@ -128,6 +128,41 @@ Project/
 
 `.ai-rules/` 是執行層，只放本次任務需要的規則。
 
+## Preset 語法
+
+Preset 使用 Markdown 編寫。同步工具會從反引號內解析 `agents/*.md` 路徑，因此每個規則必須使用以下格式：
+
+```markdown
+# Preset: Review Lite
+
+適用情境說明。
+
+## 載入規則
+
+- \`agents/core.md\`
+- \`agents/code-review.md\`
+- \`agents/token-saving.md\`
+```
+
+規則：
+
+- Preset 檔名使用小寫 kebab-case，例如 `bug-fix.md`、`review-lite.md`。
+- 引用路徑必須是 `agents/<name>.md`。
+- 被引用的檔案必須存在。
+- Preset 只列出需要載入的模組，不重複撰寫 Agent 規則內容。
+
+## Preset 套用指令
+
+```powershell
+# 套用 Bug Fix Preset。
+.\tools\apply-preset.ps1 -Preset "bug-fix" -ProjectPath "D:\Projects\OrderSystem"
+
+# 套用 Review Lite Preset。
+.\tools\apply-preset.ps1 -Preset "review-lite" -ProjectPath "D:\Projects\OrderSystem"
+```
+
+這不是 `/Bug-Fix` Slash Command。Preset 名稱由 PowerShell 的 `-Preset` 參數傳入；套用完成後，再用一般文字告訴 Agent 本次任務內容。
+
 ## 套用 Bug Fix Preset
 
 來源：`presets/bug-fix.md`
@@ -227,6 +262,24 @@ AGENTS.md
 請先讀 AGENTS.md 與 .ai-rules/。
 本次是 System Design，只分析與文件化，不修改 Source Code；先搜尋定位，再讀必要檔案。
 ```
+
+## 套用 Review Lite Preset
+
+```text
+.ai-rules/
+├─ core.md
+├─ code-review.md
+└─ token-saving.md
+```
+
+建議啟動：
+
+```text
+請先讀 AGENTS.md 與 .ai-rules/。
+本次只複查目前 git diff；只列出明確錯誤與回歸風險，不摘要正常程式碼。若必須擴大範圍，先說明原因。
+```
+
+若確認需要修改，切換至 `bug-fix` Preset。
 
 ## Rule Precedence
 
