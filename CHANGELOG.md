@@ -2,6 +2,23 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.12 - 2026-09-14
+
+### Added
+
+- 新增 `docs/Installation.md`，集中保存第一次安裝、Project 導入、`AGENTS.md`、`.ai-rules/` Snapshot 與 PowerShell 定位。
+- 新增 `docs/Usage.md`，集中保存 Preset、Stage / Skill、Diagram Profile、SQL、Review Lite 與多 Stage 串接的日常使用方式。
+
+### Changed
+
+- README 改為整體導覽與核心模型，避免後續架構重整時再次把安裝或使用步驟一起刪除。
+- README 新增固定閱讀順序：`Installation → Usage → 詳細架構文件`。
+- README 的 Repository 結構與文件導覽加入 `docs/Installation.md`、`docs/Usage.md`。
+
+### Reason
+
+將「如何安裝」與「如何使用」從 README 拆成獨立、穩定的文件責任。之後 README 可以調整架構說明，但安裝流程與日常操作不再依賴 README 內文，降低重整文件時遺失重要步驟的風險。
+
 ## v0.11 - 2026-09-14
 
 ### Added
