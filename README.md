@@ -4,6 +4,32 @@
 
 本 Repository 用來保存可跨公司、跨專案重複使用的 AI 開發流程、Prompt、Token 節省原則、Preset、Stage / Skill 與工作 SOP；不保存公司專有程式碼、帳號、連線資訊、正式資料或其他機密內容。
 
+## Start Here
+
+為避免 README 後續重整時把安裝步驟與實際使用方式一起改掉，兩者改為獨立文件維護。
+
+建議固定閱讀順序：
+
+```text
+1. Installation
+2. Usage
+3. 需要時再查詳細架構文件
+```
+
+### 1. 安裝
+
+第一次導入 Playbook、建立 Project `AGENTS.md`、確認 `.ai-rules/` / PowerShell 定位：
+
+**[`docs/Installation.md`](docs/Installation.md)**
+
+### 2. 使用
+
+日常如何啟動 Preset、直接呼叫 Stage / Skill、串接多個階段、使用 Diagram Profile：
+
+**[`docs/Usage.md`](docs/Usage.md)**
+
+> README 只保存整體導覽與核心模型；安裝與使用細節以以上兩份文件為準。
+
 ## 目的
 
 - 保存可長期沿用的 AI 開發方法。
@@ -30,15 +56,26 @@ Preset
                      └─ Modifier
 ```
 
-另外由 Registry / Data References 提供可重用知識，由 Output Management 統一管理產物位置。
-
 核心原則：
 
 > Preset 負責編排；Stage / Skill 負責執行；Rule Module 負責規則；PowerShell 不負責 Runtime Flow。
 
+## 核心責任
+
+| 類型 | 責任 | 範例 |
+| --- | --- | --- |
+| Preset | 定義主任務與預設流程 | `bug-fix`、`system-design` |
+| Workflow | 定義多個 Stage 的建議順序 | Explore → Apply → Verify |
+| Stage / Skill | 可直接呼叫的執行能力 | `explore`、`apply`、`review` |
+| Rule Module | 定義怎麼做 | `agents/explore.md` |
+| Profile | 特定輸出策略 | `call-chain` |
+| Modifier | 本次附加需求 | `compact`、`risk` |
+
+完整定義：[`docs/Architecture_Definitions.md`](docs/Architecture_Definitions.md)。
+
 ## Runtime 執行模型
 
-日常操作不再要求每次切換 Preset 都執行 `apply-preset.ps1`。
+日常操作不要求每次切換 Preset 都執行 `apply-preset.ps1`。
 
 主任務開始後，直接在同一 Context 中呼叫需要的 Stage：
 
@@ -69,52 +106,7 @@ Stage: review
 - 不重新掃描整個 Repository。
 - 不重新執行 PowerShell。
 
-詳細規則：`docs/Stage_Execution.md`。
-
-## Preset、Stage、Rule 的責任
-
-| 類型 | 責任 | 範例 |
-| --- | --- | --- |
-| Preset | 定義主任務與預設流程 | `bug-fix`、`system-design` |
-| Workflow | 定義多個 Stage 的建議順序 | Explore → Apply → Verify |
-| Stage / Skill | 可直接呼叫的執行能力 | `explore`、`apply`、`review` |
-| Rule Module | 定義怎麼做 | `agents/explore.md` |
-| Profile | 特定輸出策略 | `call-chain` |
-| Modifier | 本次附加需求 | `compact`、`risk` |
-
-完整定義：`docs/Architecture_Definitions.md`。
-
-## Stage / Skill 直接呼叫
-
-第一版先沿用既有 `agents/` 作為 Rule Module，不複製另一套規則。
-
-| Stage / Skill | 主要規則 |
-| --- | --- |
-| `explore` | `agents/explore.md` |
-| `propose` | `agents/propose.md` |
-| `apply` | `agents/apply.md` |
-| `verify` | `agents/testing.md` |
-| `review` | `agents/code-review.md` |
-| `diagram` | `agents/diagramming.md` |
-| `archive` | `agents/archive.md` |
-| `sql` | `agents/sql.md` |
-| `system-design` | `agents/system-design.md` |
-
-標準語意格式：
-
-```text
-Stage: explore
-```
-
-或：
-
-```text
-Stage: diagram
-Profile: call-chain
-選項: compact
-```
-
-這是 Playbook 的平台中立語意。未來可由 ChatGPT、Codex、Cursor、Claude 等 Adapter 映射成各平台原生 Skill / Command。
+詳細 Runtime 規則：[`docs/Stage_Execution.md`](docs/Stage_Execution.md)。
 
 ## Preset
 
@@ -141,9 +133,39 @@ risk-analysis
 
 這些應使用 Profile 或 Modifier。
 
-## System Design 與 Diagram Profile
+## Stage / Skill
 
-System Design 可使用 `agents/diagramming.md` 的 Diagram Profile：
+第一版沿用既有 `agents/` 作為 Rule Module，不複製另一套規則。
+
+| Stage / Skill | 主要規則 |
+| --- | --- |
+| `explore` | `agents/explore.md` |
+| `propose` | `agents/propose.md` |
+| `apply` | `agents/apply.md` |
+| `verify` | `agents/testing.md` |
+| `review` | `agents/code-review.md` |
+| `diagram` | `agents/diagramming.md` |
+| `archive` | `agents/archive.md` |
+| `sql` | `agents/sql.md` |
+| `system-design` | `agents/system-design.md` |
+
+標準平台中立語意：
+
+```text
+Stage: explore
+```
+
+或：
+
+```text
+Stage: diagram
+Profile: call-chain
+選項: compact
+```
+
+實際操作範例統一放在 [`docs/Usage.md`](docs/Usage.md)。
+
+## System Design 與 Diagram Profile
 
 | Diagram Profile | 用途 |
 | --- | --- |
@@ -153,35 +175,27 @@ System Design 可使用 `agents/diagramming.md` 的 Diagram Profile：
 | `state-transition` | 狀態、事件、條件與轉移 |
 | `data-flow` | 資料來源、轉換、儲存與消費端 |
 
-使用方式：
+Diagram Profile 是圖的種類，不是頂層 Preset。
 
-```text
-Stage: diagram
-Profile: data-flow
-```
-
-不需要先退出 System Design，也不需要重新套用 Preset。
+詳細 Mermaid 規則：`agents/diagramming.md`。
 
 ## PowerShell 的定位
 
-`tools/apply-preset.ps1` 保留，但定位改為：
+`tools/apply-preset.ps1` 保留，但定位為：
 
+- 第一次導入或特殊同步。
 - 舊 `.ai-rules/` Snapshot 模式相容工具。
-- 測試某個 Preset 的規則組合。
-- 第一次導入或特殊同步用途。
+- 固定某一組規則快照。
+- 測試某個 Preset 的 Rule Module 組合。
 
-不再建議用於：
-
-- 同一任務中 Explore → Apply 的切換。
-- System Design → Diagram → Review 的流程切換。
-- 多個 Skill 串接時重新安裝規則。
-
-換句話說：
+不再用於同一任務內的 Stage 切換。
 
 ```text
 PowerShell = 安裝 / 同步 / 相容性
 Stage / Skill = 日常 Runtime 執行
 ```
+
+安裝與 Snapshot 指令統一放在 [`docs/Installation.md`](docs/Installation.md)。
 
 ## 與實際 Project 的關係
 
@@ -189,7 +203,7 @@ Stage / Skill = 日常 Runtime 執行
 AI-Developer-Playbook
 ├─ agents/      共用 Rule Module
 ├─ presets/     主任務與預設流程
-├─ docs/        架構與使用說明
+├─ docs/        安裝、使用、架構文件
 └─ tools/       安裝 / 同步 / 相容工具
         │
         ▼
@@ -198,34 +212,6 @@ AI-Developer-Playbook
 ├─ .ai-rules/   可選的本地規則 / Registry / Snapshot
 ├─ .ai-output/  一次性 AI 產物
 └─ docs/        正式文件
-```
-
-`AGENTS.md` 保存長期 Project-specific 規則，例如 Tech Stack、Build/Test、DB 規範、架構與業務限制。
-
-## Reusable Registry
-
-高度重複、但可能隔很久才再次遇到的功能，不依賴 AI 記憶。
-
-建議 Project 維護：
-
-```text
-.ai-rules/reusable-patterns.md
-```
-
-狀態：
-
-```text
-local
-candidate
-shared
-```
-
-新需求先：
-
-```text
-搜尋既有實作
-→ 查 Registry
-→ 判斷沿用 / 擴充 / 新增
 ```
 
 ## Output Management
@@ -243,36 +229,6 @@ shared
 
 正式文件確認後才移入 `docs/`。
 
-不同 AI 不應各自建立 `chatgpt-output/`、`codex-output/`、`results/` 等頂層目錄。
-
-## OPSX 標準流程
-
-```text
-Explore
-↓
-Findings
-↓
-Propose
-↓
-Spec / Tasks
-↓
-Apply
-↓
-Diff / Test
-↓
-Archive
-```
-
-但這不是強制一次全部執行。
-
-| 狀況 | 建議流程 |
-| --- | --- |
-| 不知道問題在哪 | Explore → Propose → Apply → Verify |
-| 已知道問題與修改位置 | Propose → Apply → Verify |
-| 規格非常清楚 | Apply → Verify |
-| 只想複查 | Review |
-| 只需要畫圖 | Diagram + Profile |
-
 ## Token 節省原則
 
 ```text
@@ -281,13 +237,6 @@ Document once.
 Reuse afterward.
 Load only required rules.
 ```
-
-避免：
-
-- 全 Repository 重複掃描。
-- Stage 切換時重新理解同一需求。
-- 為簡單任務讀取全部 Rule Module。
-- 為了切換流程重新跑 PowerShell。
 
 優先：
 
@@ -324,6 +273,8 @@ AI-Developer-Playbook/
 │  └─ review-lite.md
 │
 ├─ docs/
+│  ├─ Installation.md
+│  ├─ Usage.md
 │  ├─ Architecture_Definitions.md
 │  ├─ Stage_Execution.md
 │  ├─ OPSX_Workflow.md
@@ -343,8 +294,6 @@ AI-Developer-Playbook/
 
 ## Rule Precedence
 
-若規則衝突，建議順序：
-
 ```text
 1. 使用者本次明確指示
 2. Project AGENTS.md
@@ -363,6 +312,17 @@ AI-Developer-Playbook/
 - 保留修改目的與原因。
 - 優先最小修改與規則重用。
 
+## 文件導覽
+
+| 文件 | 用途 |
+| --- | --- |
+| [`docs/Installation.md`](docs/Installation.md) | 第一次安裝、導入、Snapshot / PowerShell 定位 |
+| [`docs/Usage.md`](docs/Usage.md) | 日常 Preset、Stage / Skill、Profile 操作 |
+| [`docs/Architecture_Definitions.md`](docs/Architecture_Definitions.md) | 架構名詞與責任邊界 |
+| [`docs/Stage_Execution.md`](docs/Stage_Execution.md) | Runtime Flow Continuity |
+| [`docs/Preset_Application.md`](docs/Preset_Application.md) | Preset 與 Runtime / Snapshot 關係 |
+| [`docs/Preset_Sync.md`](docs/Preset_Sync.md) | `.ai-rules/` Snapshot 同步細節 |
+
 ## 設計原則摘要
 
 ```text
@@ -375,4 +335,4 @@ PowerShell = 安裝 / 同步 / 相容性工具
 AGENTS.md = Project 固定規則
 ```
 
-目標不是建立越來越大的 Prompt，也不是每切一個流程就重裝規則，而是建立一套可以在同一任務 Context 中直接組合、切換與重複使用的能力。
+README 負責導覽，Installation 與 Usage 分開維護，避免後續架構調整時再次遺失安裝或使用步驟。
