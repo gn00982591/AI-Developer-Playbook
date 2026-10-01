@@ -2,6 +2,21 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.14 - 2026-10-01
+
+### Added
+
+- 新增 docs/Workflow.md，以 Mermaid Markdown 流程圖呈現需求分流、Spec Engine 選擇、Stage 執行、資料存取檢查、驗證與交付。
+- 新增 docs/Repository_Structure.md，以 Mermaid 關係圖呈現 Playbook 目錄責任、規則引用、導入與實際 Project 的關係。
+
+### Changed
+
+- README 的「Repository 結構」下方新增兩張圖的連結，結構清單加入對應 Markdown 文件。
+
+### Reason
+
+讓讀者從 Repository 結構直接查看目錄關係與現行工作流程；沿用既有規則與文件，不改變 Stage 執行方式。
+
 ## v0.13 - 2026-10-01
 
 ### Added

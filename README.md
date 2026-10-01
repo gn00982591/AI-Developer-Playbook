@@ -255,6 +255,11 @@ Load only required rules.
 
 ## Repository 結構
 
+圖表導覽：
+
+- **[Repository 結構關係圖](docs/Repository_Structure.md)**：資料夾責任、規則引用與實際 Project 的關係。
+- **[Playbook 工作流程](docs/Workflow.md)**：需求分流、Stage 執行、資料存取檢查與交付流程。
+
 ```text
 AI-Developer-Playbook/
 ├─ agents/
@@ -282,6 +287,8 @@ AI-Developer-Playbook/
 ├─ docs/
 │  ├─ Installation.md
 │  ├─ Usage.md
+│  ├─ Workflow.md
+│  ├─ Repository_Structure.md
 │  ├─ Data_Access.md
 │  ├─ Architecture_Definitions.md
 │  ├─ Stage_Execution.md
