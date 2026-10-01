@@ -88,7 +88,7 @@ Stage: review
 
 ## 控版規則
 
-待處理與未完成事項集中索引於 **[待辦與續作紀錄](docs/Backlog.md)**；每筆 Playbook 待辦由 `docs/backlog/active/<ID>-<slug>/` 獨立保存處理內容，不由 OpenSpec 或 Spec Kit 管理。中斷前更新進度、剩餘工作與下一步，續作時從索引讀取對應資料夾；完成並驗證通過後整個資料夾移至 `docs/backlog/archive/`，同步更新索引狀態與連結。
+待處理與未完成事項集中索引於 **[待辦與續作紀錄](docs/Backlog.md)**；每筆 Playbook 待辦由 `docs/backlog/active/<ID>-<slug>/` 獨立保存處理內容，不由 OpenSpec 或 Spec Kit 管理。中斷前更新進度、剩餘工作與下一步，續作時從索引讀取對應資料夾；完成並驗證通過且記入 `CHANGELOG.md` 後，移除 Backlog 總表項目與對應處理資料夾；完成紀錄由 CHANGELOG 與 Git commit 保存。
 
 只有明確確認「更新 Playbook」或「這版確認，可以更新」後才修改 Repository。
 

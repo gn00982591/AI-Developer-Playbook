@@ -42,8 +42,6 @@
                     - [findings.md](backlog/active/PB-001-gap-analysis-phase-2/findings.md)
                     - [verification.md](backlog/active/PB-001-gap-analysis-phase-2/verification.md)
 
-            - **archive/** — 完成並驗證通過的待辦
-
         - [Installation.md](../docs/Installation.md)
         - [Usage.md](../docs/Usage.md)
         - [Workflow.md](../docs/Workflow.md)

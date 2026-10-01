@@ -9,7 +9,7 @@
 | 內容 | 保存位置 |
 | --- | --- |
 | Playbook 待辦索引 | 本文件總表 |
-| Playbook 待辦處理內容與續作資訊 | `docs/backlog/active/<ID>-<slug>/`；完成後移至 `docs/backlog/archive/<ID>-<slug>/` |
+| Playbook 待辦處理內容與續作資訊 | `docs/backlog/active/<ID>-<slug>/`；完成並驗證通過且記入 CHANGELOG 後移除 |
 | 實際專案待辦與續作索引 | 該專案的 `docs/Backlog.md`（需要時建立） |
 | 未確認需求與待釐清問題 | 該專案的 `requirements/analysis/open-questions.md` |
 | 已完成的正式 Playbook 變更 | [CHANGELOG.md](../CHANGELOG.md) 與 Git commit |
@@ -22,10 +22,10 @@ Playbook 待辦由本 Repository 的 Backlog 資料夾自行管理，不由 Open
 2. 工作暫停或未完成時，同步總表與專屬資料夾的紀錄，保存已完成內容、剩餘工作、阻礙、相關文件及下一步。
 3. 下次接續時先從總表連結讀取專屬資料夾的 `README.md`，再按需讀取 `findings.md`、`verification.md` 與相關附件，確認分支、commit 與相關來源是否有變動，只補查必要內容。
 4. 不以對話記憶取代文件，也不因接續任務重新掃描整個 Repository。
-5. 完成並驗證通過後，保留驗證結果與 commit，將整個資料夾從 `active/` 移至 `archive/`，保留 ID 並更新總表狀態、日期與連結；未驗證或驗證失敗不得標記完成或歸檔。
+5. 完成並驗證通過後，先將完成內容、修改原因與必要驗證結果記入 `CHANGELOG.md`，再移除總表項目及對應的 `active/` 處理資料夾，同步清理引用；完成紀錄與歷史細節由 CHANGELOG 與 Git commit 保存，不另存 Backlog 歸檔。未驗證、驗證失敗或尚未記入 CHANGELOG 時，仍保留於 Backlog。
 6. 待辦記錄不代表修改授權；正式更新沿用 [README 控版規則](../README.md#控版規則)。
 
-狀態：待確認、待處理、進行中、受阻、已完成、取消。
+追蹤中的狀態：待確認、待處理、進行中、受阻、取消。已完成且驗證通過的項目記入 CHANGELOG 後移出總表，不保留「已完成」列；已移除的 ID 不重複使用。
 
 ## 待辦總表
 
@@ -41,12 +41,11 @@ Playbook 待辦由本 Repository 的 Backlog 資料夾自行管理，不由 Open
 docs/
 ├─ Backlog.md
 └─ backlog/
-   ├─ active/
-   │  └─ PB-001-gap-analysis-phase-2/
-   │     ├─ README.md
-   │     ├─ findings.md
-   │     └─ verification.md
-   └─ archive/
+   └─ active/
+      └─ PB-001-gap-analysis-phase-2/
+         ├─ README.md
+         ├─ findings.md
+         └─ verification.md
 ```
 
 | 文件 | 保存內容 |
@@ -55,4 +54,4 @@ docs/
 | `findings.md` | 分析依據、逐項 Findings、分類、決策理由、相依與預計修改範圍；未分析或未確認內容明確標記 |
 | `verification.md` | 已執行檢查、結果、尚未執行項目及相關 commit / diff；未驗證不得標記完成 |
 
-其他附件按需存入同一資料夾，從上述文件連結。Backlog 總表只保存索引、狀態與下一步，不重複詳細處理內容；歸檔時同步修正受影響的連結。
+其他附件按需存入同一資料夾，從上述文件連結。Backlog 總表只保存索引、狀態與下一步，不重複詳細處理內容；完成移除時同步清理受影響的連結。

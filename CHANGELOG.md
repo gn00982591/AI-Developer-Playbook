@@ -2,6 +2,17 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.21 - 2026-10-01
+
+### Changed
+
+- Backlog 完成並驗證通過且記入 CHANGELOG 後，移除總表項目與對應處理資料夾，不另存完成歸檔；未完成、未驗證或尚未記入 CHANGELOG 的項目繼續保留。
+- 同步 README、Backlog、Repository 結構與 PB-001 完成條件，移除空的 `docs/backlog/archive/`；PB-001 第二階段 Gap Analysis 仍為待處理。
+
+### Reason
+
+完成紀錄集中於 CHANGELOG 與 Git commit，避免在 Backlog 重複保存；Backlog 專注未完成工作的追蹤與續作。
+
 ## v0.20 - 2026-10-01
 
 ### Changed
