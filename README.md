@@ -257,7 +257,7 @@ Load only required rules.
 
 圖表導覽：
 
-- **[Repository 結構關係圖](docs/Repository_Structure.md)**：資料夾責任、規則引用與實際 Project 的關係。
+- **[Repository 結構關係圖](docs/Repository_Structure.md)**：依資料夾與檔案層級查看實際目錄，點選檔名開啟內容。
 - **[Playbook 工作流程](docs/Workflow.md)**：需求分流、Stage 執行、資料存取檢查與交付流程。
 
 ```text
@@ -278,6 +278,7 @@ AI-Developer-Playbook/
 │  └─ token-saving.md
 │
 ├─ presets/
+│  ├─ requirement-intake.md
 │  ├─ bug-fix.md
 │  ├─ new-feature.md
 │  ├─ sql-change.md
@@ -292,6 +293,7 @@ AI-Developer-Playbook/
 │  ├─ Data_Access.md
 │  ├─ Architecture_Definitions.md
 │  ├─ Stage_Execution.md
+│  ├─ Spec_Strategy.md
 │  ├─ OPSX_Workflow.md
 │  ├─ Token_Saving.md
 │  ├─ Preset_Application.md

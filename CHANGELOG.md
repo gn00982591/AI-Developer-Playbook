@@ -2,6 +2,17 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.15 - 2026-10-01
+
+### Changed
+
+- Repository 結構關係圖改為 Markdown 資料夾／檔案階層清單，檔名可直接點選；移除交錯的引用與 Project 關係箭頭。
+- 依實際 Repository 核對完整檔案清單，README 結構補上 requirement-intake.md 與 Spec_Strategy.md，更新連結說明。
+
+### Reason
+
+依使用者提供的目錄樹圖片調整，讓資料夾與所屬檔案的層級更容易閱讀。
+
 ## v0.14 - 2026-10-01
 
 ### Added
