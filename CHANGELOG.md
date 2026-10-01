@@ -2,6 +2,18 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.16 - 2026-10-01
+
+### Changed
+
+- Playbook 預設安裝至目標專案的 .agents/AI-Developer-Playbook/，保持獨立 Repository 與版本管理。
+- Installation 補齊 PowerShell、CMD 的安裝與更新指令，以及 CMD 呼叫 PowerShell Snapshot 腳本方式。
+- 同步 README 專案結構、Project AGENTS.md 規則入口與相關文件路徑；Snapshot 保留為可選模式。
+
+### Reason
+
+讓 AI 可在目標專案內定位規則，提供兩種 Windows Shell 的可執行安裝方式，避免路徑與 Runtime 載入說明不一致。
+
 ## v0.15 - 2026-10-01
 
 ### Changed

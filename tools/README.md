@@ -8,21 +8,23 @@
 
 ### 使用範例
 
+PowerShell 範例請先進入 `D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook`。從 CMD 呼叫的完整指令見 [Installation Snapshot 說明](../docs/Installation.md#snapshot-相容模式)；腳本仍需要 PowerShell。
+
 ```powershell
 # 修 Bug。
-.\tools\apply-preset.ps1 -Preset "bug-fix" -ProjectPath "D:\Projects\OrderSystem"
+.\tools\apply-preset.ps1 -Preset "bug-fix" -ProjectPath "D:\WorkGit\YFYTMSWeb"
 
 # 新功能。
-.\tools\apply-preset.ps1 -Preset "new-feature" -ProjectPath "D:\Projects\OrderSystem"
+.\tools\apply-preset.ps1 -Preset "new-feature" -ProjectPath "D:\WorkGit\YFYTMSWeb"
 
 # SQL 變更。
-.\tools\apply-preset.ps1 -Preset "sql-change" -ProjectPath "D:\Projects\OrderSystem"
+.\tools\apply-preset.ps1 -Preset "sql-change" -ProjectPath "D:\WorkGit\YFYTMSWeb"
 
 # System Design。
-.\tools\apply-preset.ps1 -Preset "system-design" -ProjectPath "D:\Projects\OrderSystem"
+.\tools\apply-preset.ps1 -Preset "system-design" -ProjectPath "D:\WorkGit\YFYTMSWeb"
 
 # 低 Token 複查。
-.\tools\apply-preset.ps1 -Preset "review-lite" -ProjectPath "D:\Projects\OrderSystem"
+.\tools\apply-preset.ps1 -Preset "review-lite" -ProjectPath "D:\WorkGit\YFYTMSWeb"
 ```
 
 ### 語法說明

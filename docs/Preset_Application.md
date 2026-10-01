@@ -19,14 +19,7 @@ PowerShell = 安裝 / 同步 / 相容性工具
 
 ### 步驟 1：準備 Playbook
 
-```powershell
-# 第一次使用時 Clone。
-git clone https://github.com/gn00982591/AI-Developer-Playbook.git
-
-# 已有 Playbook 時更新。
-Set-Location "D:\AI-Developer-Playbook"
-git pull
-```
+安裝到目標 Project 的 `.agents/AI-Developer-Playbook/`。PowerShell 與 CMD 的安裝、更新指令統一見 [Installation 第 2 節](Installation.md#2-安裝-playbook)。
 
 ### 步驟 2：建立 Project AGENTS.md
 

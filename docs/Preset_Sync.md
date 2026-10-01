@@ -24,24 +24,26 @@ Project 的 `AGENTS.md` 不會被修改。
 
 在 `AI-Developer-Playbook` 根目錄執行：
 
+PowerShell 範例請先進入 `D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook`。從 CMD 呼叫的完整指令見 [Installation Snapshot 說明](Installation.md#snapshot-相容模式)；腳本仍需要 PowerShell。
+
 ```powershell
 # 套用 Bug Fix Preset 到指定 Project。
 .\tools\apply-preset.ps1 `
     -Preset "bug-fix" `
-    -ProjectPath "D:\Projects\OrderSystem"
+    -ProjectPath "D:\WorkGit\YFYTMSWeb"
 ```
 
 其他 Preset：
 
 ```powershell
 # 新功能。
-.\tools\apply-preset.ps1 -Preset "new-feature" -ProjectPath "D:\Projects\OrderSystem"
+.\tools\apply-preset.ps1 -Preset "new-feature" -ProjectPath "D:\WorkGit\YFYTMSWeb"
 
 # SQL 變更。
-.\tools\apply-preset.ps1 -Preset "sql-change" -ProjectPath "D:\Projects\OrderSystem"
+.\tools\apply-preset.ps1 -Preset "sql-change" -ProjectPath "D:\WorkGit\YFYTMSWeb"
 
 # System Design。
-.\tools\apply-preset.ps1 -Preset "system-design" -ProjectPath "D:\Projects\OrderSystem"
+.\tools\apply-preset.ps1 -Preset "system-design" -ProjectPath "D:\WorkGit\YFYTMSWeb"
 ```
 
 ## 執行結果

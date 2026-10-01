@@ -328,11 +328,13 @@ agents/token-saving.md
 - 固定一組規則快照。
 - 測試某個 Preset 實際會載入哪些 Rule Module。
 
+PowerShell 範例請先進入 `D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook`。從 CMD 呼叫的完整指令見 [Installation Snapshot 說明](Installation.md#snapshot-相容模式)；腳本仍需要 PowerShell。
+
 例如：
 
 ```powershell
 # Snapshot 相容模式：將 system-design Preset 同步到指定 Project。
-.\tools\apply-preset.ps1 -Preset "system-design" -ProjectPath "D:\Projects\OrderSystem"
+.\tools\apply-preset.ps1 -Preset "system-design" -ProjectPath "D:\WorkGit\YFYTMSWeb"
 ```
 
 以下情況不要重新跑 PowerShell：

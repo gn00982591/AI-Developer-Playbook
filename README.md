@@ -214,7 +214,9 @@ AI-Developer-Playbook
         │
         ▼
 實際 Project
-├─ AGENTS.md    Project 固定規則
+├─ AGENTS.md    Project 固定規則與 Playbook 入口
+├─ .agents/
+│  └─ AI-Developer-Playbook/  獨立控版的規則母庫
 ├─ .ai-rules/   可選的本地規則 / Registry / Snapshot
 ├─ .ai-output/  一次性 AI 產物
 └─ docs/        正式文件

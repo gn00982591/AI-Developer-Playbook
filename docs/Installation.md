@@ -17,45 +17,71 @@
 
 ## 2. 安裝 Playbook
 
-第一次使用時 Clone：
-
-```powershell
-# Clone 中央 Playbook。
-git clone https://github.com/gn00982591/AI-Developer-Playbook.git
-```
-
-例如安裝到：
+將 Playbook 安裝至目標專案的 `.agents/AI-Developer-Playbook/`，例如：
 
 ```text
-D:\AI-Developer-Playbook
+D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook
 ```
 
-已經安裝時，後續只需要更新：
+以下 PowerShell 與 CMD **擇一執行**。第一次安裝使用 Clone；已有安裝則執行更新。
+
+### PowerShell
 
 ```powershell
-# 進入 Playbook。
-Set-Location "D:\AI-Developer-Playbook"
+# 建立專案的 AI 專用資料夾；已存在時保留原有內容。
+New-Item -ItemType Directory -Path "D:\WorkGit\YFYTMSWeb\.agents" -Force | Out-Null
 
-# 取得最新版本。
-git pull
+# 將 Playbook 安裝至獨立子資料夾。
+git clone https://github.com/gn00982591/AI-Developer-Playbook.git "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook"
+```
+
+後續更新：
+
+```powershell
+# 更新此專案使用的 Playbook；有本地修改或分支分歧時停止。
+git -C "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook" pull --ff-only
+```
+
+### CMD
+
+```bat
+REM 建立專案的 AI 專用資料夾；已存在時保留原有內容。
+if not exist "D:\WorkGit\YFYTMSWeb\.agents" mkdir "D:\WorkGit\YFYTMSWeb\.agents"
+
+REM 將 Playbook 安裝至獨立子資料夾。
+git clone https://github.com/gn00982591/AI-Developer-Playbook.git "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook"
+```
+
+後續更新：
+
+```bat
+REM 更新此專案使用的 Playbook；有本地修改或分支分歧時停止。
+git -C "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook" pull --ff-only
+```
+
+Playbook 保持獨立 Git Repository。若不將它納入業務專案控版，在目標專案既有的 `.gitignore` 補上（不要覆蓋既有內容）：
+
+```gitignore
+# Playbook 由自身 Repository 管理。
+.agents/AI-Developer-Playbook/
 ```
 
 ## 3. 實際 Project 的基本結構
 
-Playbook 與實際 Project 分開保存。
+Playbook 放在實際 Project 的 `.agents/` 下，仍獨立管理共用規則與版本。
 
 ```text
-AI-Developer-Playbook/
-├─ agents/
-├─ presets/
-├─ docs/
-├─ templates/
-└─ tools/
-
-實際 Project/
+YFYTMSWeb/
 ├─ AGENTS.md
-├─ .ai-rules/     # 可選：Snapshot / Registry / 本地規則
-├─ .ai-output/    # 建議：AI 暫存產物
+├─ .agents/
+│  └─ AI-Developer-Playbook/  # 獨立的規則母庫 Repository
+│     ├─ agents/
+│     ├─ presets/
+│     ├─ docs/
+│     ├─ templates/
+│     └─ tools/
+├─ .ai-rules/               # 可選：Snapshot / Registry / 本地規則
+├─ .ai-output/              # 建議：AI 暫存產物
 └─ 原有程式碼
 ```
 
@@ -75,7 +101,7 @@ AGENTS.md = Project 固定規則
 若尚未建立，可參考：
 
 ```text
-templates/AGENTS.md
+.agents/AI-Developer-Playbook/templates/AGENTS.md
 ```
 
 Project `AGENTS.md` 建議保存長期有效資訊：
@@ -88,6 +114,20 @@ Project `AGENTS.md` 建議保存長期有效資訊：
 - Project-specific Rules。
 
 不要把每一次任務的臨時需求一直塞進 `AGENTS.md`。
+
+在根目錄 `AGENTS.md` 記錄 Playbook 入口，例如：
+
+```markdown
+## Playbook 規則入口
+
+- Playbook 位於 `.agents/AI-Developer-Playbook/`。
+- 先讀本專案根目錄 `AGENTS.md`，再依本次 Preset / Stage 讀取 Playbook 的對應規則。
+- `presets/` 與 `agents/` 均相對於 Playbook 根目錄。
+- 使用 Snapshot 模式時，優先讀取 `.ai-rules/` 中本次所需規則。
+- 按需讀取，不掃描或載入整份 Playbook。
+```
+
+放進 `.agents/` 不代表 AI 會自動載入全部內容；由 Project `AGENTS.md` 指向規則入口。
 
 ## 5. 建立 `.ai-output/`（建議）
 
@@ -133,10 +173,21 @@ Stage: review
 
 可執行：
 
+#### PowerShell 執行
+
 ```powershell
-# 將指定 Preset 規則同步到目標 Project 的 .ai-rules/。
-.\tools\apply-preset.ps1 -Preset "bug-fix" -ProjectPath "D:\Projects\OrderSystem"
+# 將指定 Preset 規則同步到專案根目錄的 .ai-rules/。
+& "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook\tools\apply-preset.ps1" -Preset "bug-fix" -ProjectPath "D:\WorkGit\YFYTMSWeb"
 ```
+
+#### CMD 呼叫 PowerShell
+
+```bat
+REM 從 CMD 呼叫 PowerShell 腳本，將規則同步到專案根目錄。
+powershell.exe -NoProfile -File "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook\tools\apply-preset.ps1" -Preset "bug-fix" -ProjectPath "D:\WorkGit\YFYTMSWeb"
+```
+
+CMD 的 Clone 與更新只需 Git；Snapshot 腳本仍需要 PowerShell，並遵循電腦既有的執行原則。`ProjectPath` 必須指向業務專案根目錄，不能指向 `.agents` 或 Playbook。
 
 注意：`apply-preset.ps1` 會重建目標 Project 的 `.ai-rules/`，所以它是 **安裝 / 同步 / 相容性工具**，不是日常 Runtime Stage 切換工具。
 
@@ -145,8 +196,8 @@ Stage: review
 完成後至少確認：
 
 ```text
-[ ] Playbook Repository 可以正常讀取
-[ ] 實際 Project 有 AGENTS.md
+[ ] .agents/AI-Developer-Playbook/ 可以正常讀取
+[ ] 實際 Project 有 AGENTS.md，且已記錄 Playbook 入口
 [ ] AI 可以讀取 Project 程式碼
 [ ] 已理解 .ai-rules/ 為可選 Snapshot
 [ ] 不會用 PowerShell 來切換每一個 Stage

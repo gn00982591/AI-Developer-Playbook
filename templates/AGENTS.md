@@ -2,15 +2,21 @@
 
 本模板用於每個實際專案的專屬規則。中央通用規則由 `AI-Developer-Playbook` 管理；此檔只保存該 Project 的差異。
 
+## Playbook Location
+
+- Playbook 根目錄：`.agents/AI-Developer-Playbook/`。
+- 本文件的 `presets/`、`agents/` 路徑相對於上述 Playbook 根目錄。
+- Playbook 保持獨立控版；只按任務讀取所需規則。
+
 ## Runtime Rule Loading
 
 開始任何任務前：
 
 1. 先讀取本 Project 根目錄的 `AGENTS.md`。
 2. 若存在 `.ai-rules/`，再讀取其中所有本次任務需要的 Markdown 規則檔。
-3. 將 `AGENTS.md + .ai-rules/` 視為本次有效規則。
+3. 未使用 Snapshot 時，依本次 Preset / Stage 從 `.agents/AI-Developer-Playbook/` 讀取對應規則；使用 Snapshot 時，優先沿用其中所需規則。
 4. 不要因為引用 Playbook，就重新讀取整個 `AI-Developer-Playbook` Repository。
-5. 只有 `.ai-rules/` 缺少必要規則時，才回到 Playbook 補充對應模組。
+5. 只有本次需要的規則尚未載入時，才從 Playbook 補讀對應模組。
 
 規則優先順序：
 
@@ -24,8 +30,8 @@
 建議啟動指令：
 
 ```text
-請先讀取專案根目錄 AGENTS.md，再讀取 .ai-rules/ 內的規則檔。
-本次只使用這些規則處理任務，不要重新掃描中央 Playbook。
+請先讀取專案根目錄 AGENTS.md，再依本次 Preset / Stage 讀取 .agents/AI-Developer-Playbook/ 的對應規則。
+若使用 Snapshot，優先讀取 .ai-rules/ 中本次所需規則，不要重新掃描整份 Playbook。
 ```
 
 ## Project Overview
@@ -84,7 +90,7 @@
 
 ## Preset Materialization
 
-Preset 不直接遠端引用。請將 Preset 所列的 `agents/*.md` 同步或複製到本 Project 的 `.ai-rules/`。
+日常 Runtime 直接從專案內的 Playbook 按需讀取 Preset / Stage 規則。只有使用 Snapshot 相容模式時，才將 Preset 所列的 `agents/*.md` 同步或複製到本 Project 的 `.ai-rules/`。
 
 例如 Bug Fix：
 
@@ -97,7 +103,7 @@ Preset 不直接遠端引用。請將 Preset 所列的 `agents/*.md` 同步或�
 └─ token-saving.md
 ```
 
-切換任務時，替換 `.ai-rules/` 內容；`AGENTS.md` 保持不變。
+Snapshot 需要更新時才同步 `.ai-rules/`；同一任務切換 Stage 不重建規則，`AGENTS.md` 保持不變。
 
 ## Data Access References
 
