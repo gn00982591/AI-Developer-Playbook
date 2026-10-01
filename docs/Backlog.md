@@ -29,10 +29,29 @@
 
 ## 待辦總表
 
-目前尚未匯入其他待辦；本表空白不代表所有歷史討論都已完成。
-
 | ID | 事項 | 狀態 | 更新日期 | 下一步 | 相關文件／續作紀錄 |
 | --- | --- | --- | --- | --- | --- |
+| PB-001 | AI-Developer-Playbook 第二階段 Gap Analysis | 待處理 | 2026-10-01 | 逐項檢查現有 Agent / Preset，記錄 Gap 與 Adopt / Extend / Keep / Remove 分類 | [續作紀錄](#pb-001ai-developer-playbook-第二階段-gap-analysis)、[Spec Engine Strategy](Spec_Strategy.md) |
+
+## PB-001：AI-Developer-Playbook 第二階段 Gap Analysis
+
+- 目標與已確認範圍：依既定 Spec Engine Strategy，逐項檢查現有 Agent / Preset 的能力與責任邊界，完成 Gap 分類並依結果調整 Repository。
+- 目前 Stage、分支與基準 commit：第二階段 Gap Analysis 待處理；尚未建立第二階段工作分支，基準 commit 尚未記錄，續作時先確認。
+- 已完成內容與已確認決策：
+  - 已定義 Spec Kit / OpenSpec / Lightweight 分流方向。
+  - 已定義 Requirement Workspace 的定位與文件責任。
+  - 已定義 Gap 標準 Adopt / Extend / Keep / Remove。
+- 剩餘工作：
+  - 逐項檢查 `new-feature`、`propose`、`explore`、`system-design`、`diagram`、`sql`、`bug-fix`、`review` 等現有 Agent / Preset。
+  - 完成各項 Gap 與 Adopt / Extend / Keep / Remove 分類，記錄理由、相依及調整範圍。
+  - 依分類結果實際調整 Repository，沿用成熟能力並保留最小必要補強。
+  - 同步 README、Usage、Architecture、CHANGELOG。
+  - 檢查規則、流程、文件責任、產物與引用的一致性。
+- 卡住原因／待確認事項：目前無已知阻礙；本次已明確授權新增 Backlog 紀錄，後續實際調整仍依 README 控版規則確認。
+- 相關檔案、Findings、Spec／Tasks 或 Diff：以 [Spec Engine Strategy](Spec_Strategy.md) 為已確認方向；檢查 `agents/`、`presets/`，並同步 [README](../README.md)、[Usage](Usage.md)、[Architecture](Architecture_Definitions.md)、[CHANGELOG](../CHANGELOG.md)。尚未建立第二階段逐項 Findings 或正式 Tasks。
+- 已執行驗證、結果及尚未執行的檢查：已確認 Spec Engine Strategy 記載上述分流、Requirement Workspace 與 Gap 標準；尚未完成現有 Agent / Preset 逐項分類、實際調整及整體一致性檢查，不標記完成。
+- 下一個可執行步驟與完成條件：續作先讀本紀錄與 Spec Engine Strategy，確認分支、基準 commit 及相關來源變動，再從 `new-feature` 開始逐項記錄 Gap 與分類；全部項目完成分類、依確認結果調整 Repository、同步相關文件且一致性檢查通過後，才能標記已完成。
+- 最後更新日期：2026-10-01。
 
 ## 續作紀錄格式
 
