@@ -376,7 +376,20 @@ Preset: system-design
 先分析現有結構，再用 Stage: diagram / Profile: module-map；需要時補 call-chain 與 data-flow，不要重掃已確認內容。
 ```
 
-## 13. 延伸文件
+## 13. 資料存取與多資料庫
+
+涉及資料庫時，無論使用哪個 Preset 或直接 Stage，都先套用 [Data Access Rules](../agents/data-access.md)。
+
+1. 從 Project AGENTS.md 找到資料庫總索引；預設為 docs/data-access/README.md。
+2. 確認相關資料庫與 Context，再查各資料庫索引。
+3. 讀 ContextProcedures、Result 定義與 SP／Function 本體，核對既有能力後決定實作方式。
+4. 檢查逐筆補查、取完整候選後篩選及可合併查詢的 C# 拼接。
+5. 產生或修改程式時，同步所屬資料庫 MD；涉及跨資料庫時同步流程文件。
+6. 驗證結果與查詢成本，記錄無法執行的項目。
+
+既有索引沿用，不建立重複文件。完整欄位、生成步驟與驗收案例見 [Data Access](Data_Access.md)。此版本定義同步規範，未提供自動生成器。
+
+## 14. 延伸文件
 
 需要更深入規則時再查：
 

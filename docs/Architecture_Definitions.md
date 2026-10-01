@@ -42,7 +42,7 @@ PowerShell 只屬於安裝、同步、相容性工具，不主導 Runtime Flow�
 | Modifier | 本次附加需求 | 可與 Preset / Stage 同時指定 |
 | Output Management | 統一 AI 產物位置 | 全域規則 |
 | Reusable Registry | 記錄共用元件與 Pattern | 執行前按需查詢 |
-| Data References | 提供可信專案資料參照 | 待後續細化 |
+| Data References | 提供可信專案資料參照 | 資料存取索引見 docs/Data_Access.md；其他領域按需擴充 |
 
 ## 1. Preset
 
@@ -311,7 +311,9 @@ shared
 
 ## 10. Data References
 
-Data References 已列入架構，但尚未完成定義。
+Data References 的資料存取部分已定義於 [docs/Data_Access.md](Data_Access.md)，共用規則由 [agents/data-access.md](../agents/data-access.md) 管理。
+
+專案資料庫索引分為總入口、各資料庫索引與跨資料庫流程，實際資訊保存於 Project docs/ 或既有正式位置。MD 負責定位，實際程式與 SQL 負責判定；不放入會被重建的 .ai-rules/。其他 Data References 領域尚待細化。
 
 暫定責任：提供 Stage / Skill 執行時可查詢的可靠專案資料來源，避免重掃與重新猜測。
 
@@ -325,7 +327,7 @@ status-codes
 integrations
 ```
 
-後續再決定與 Registry、AGENTS.md、`.ai-rules/` 的邊界。
+Project AGENTS.md 保存資料庫索引入口；Registry 保存可重用 Pattern；.ai-rules/ 保存共用規則快照，不保存專案資料庫索引。
 
 ## 最終責任模型
 

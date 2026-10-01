@@ -11,3 +11,5 @@
 - 不自行推測資料欄位或 Schema；資訊不足時列出缺漏。
 - 涉及資料更新時，先區分查詢驗證與正式修改語句。
 - 回報受影響的 Stored Procedure、Table、Column 與可能的相依項目。
+
+涉及資料存取時，另套用 [Data Access Rules](data-access.md)，沿用同版本已核對的索引與來源，只補讀本次直接相依內容。

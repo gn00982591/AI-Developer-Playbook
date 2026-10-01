@@ -98,3 +98,12 @@ Preset 不直接遠端引用。請將 Preset 所列的 `agents/*.md` 同步或�
 ```
 
 切換任務時，替換 `.ai-rules/` 內容；`AGENTS.md` 保持不變。
+
+## Data Access References
+
+- 資料庫總索引：docs/data-access/README.md（已有正式入口時填入實際位置）。
+- 各資料庫索引：由總入口連結；資料庫與 Context 分別記錄，不假設一對一。
+- 跨資料庫流程：有涉及才記錄來源、目標、關聯鍵與交易／一致性策略。
+- 資料存取任務套用 Playbook agents/data-access.md；Snapshot 使用 .ai-rules/data-access.md。
+- 產生／重新產生／修改資料存取程式時，同步相關 MD；來源未確認的內容標記待確認。
+- 專案物件與來源位置留在本 Project，不回填中央 Playbook，不保存帳密或完整 Connection String。

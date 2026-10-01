@@ -19,6 +19,7 @@ Collect
 ## 載入規則
 
 - `agents/core.md`
+- `agents/data-access.md`（涉及資料存取時套用；Snapshot 一併複製）
 - `agents/explore.md`
 - `agents/diagramming.md`（需要圖表時）
 - `agents/token-saving.md`

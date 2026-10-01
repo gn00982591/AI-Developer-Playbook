@@ -188,3 +188,11 @@ AI 應：
 ```
 
 未來若新增平台 Adapter，可將 `Stage: explore`、`Stage: apply` 等語意直接映射為 ChatGPT / Codex / Cursor / Claude 各自的 Skill 或 Command，而不改變 Playbook 的流程定義。
+
+## 資料存取的共用前置檢查
+
+直接執行 explore、propose、apply、verify、review、sql 或 system-design 時，若涉及資料庫／ContextProcedures／EF Core／SP，另載入 [agents/data-access.md](../agents/data-access.md)。不新增 Stage，不要求重裝規則。
+
+依 Project 總索引 → 各資料庫索引 → ContextProcedures／Result → SQL 本體的順序確認，再決定查詢方式。切換 Stage 可沿用同版本已核對的結果；索引或來源有異動時，只重核相關部分。Review 仍以 Diff 為主，只補讀必要的直接相依來源。
+
+文件格式與同步完成條件見 [Data Access](Data_Access.md)。

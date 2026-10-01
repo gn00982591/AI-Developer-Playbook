@@ -5,6 +5,7 @@
 ## 載入規則
 
 - `agents/core.md`
+- `agents/data-access.md`（涉及資料存取時套用；Snapshot 一併複製）
 - `agents/code-review.md`
 - `agents/token-saving.md`
 

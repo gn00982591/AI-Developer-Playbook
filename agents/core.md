@@ -18,3 +18,7 @@
 
 - 不保存或複製公司機密、帳密、Connection String、正式資料或專有程式碼到個人 Playbook。
 - 專案特殊規則應保留在該 Project 的 `AGENTS.md` 或 `project-rules.md`。
+
+## 資料存取任務
+
+涉及資料庫、ContextProcedures、EF Core、SP／Function 或跨資料庫整合時，必須載入 data-access.md 共用規則（Snapshot 中的同名檔或 Playbook 的 agents/data-access.md）。先查 Project 索引與實際來源，再決定查詢方式；詳見 [Data Access Rules](data-access.md)。非資料存取任務不套用。

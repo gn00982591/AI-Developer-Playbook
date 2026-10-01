@@ -2,6 +2,29 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.13 - 2026-10-01
+
+### Added
+
+- 新增 agents/data-access.md，統一 ContextProcedures／Result／SQL 前置檢查、資料存取方式決策與效能阻擋條件。
+- 新增 docs/Data_Access.md，定義專案總入口、各資料庫索引、跨資料庫流程、生成／重新生成時的 MD 同步步驟與八項驗收案例。
+
+### Changed
+
+- Core、六個既有 Preset 與直接 Stage 流程接入共用資料存取規則；Snapshot 一併複製，非資料存取任務不套用。
+- README、Usage、架構定義、Preset 同步說明與 Project AGENTS.md 模板補入導覽及索引責任。
+- 設計與 Review 阻擋可合併查詢的 C# 拼接、迴圈逐筆補查與完整候選取回後篩選；必要跨資料庫 Service 整合須記錄理由、批次範圍及交易／一致性。
+- 程式與相關資料庫 MD 必須在同一變更同步，索引與來源不一致不得視為完成。
+
+### Compatibility
+
+- 沿用既有 Preset／Stage 與 PowerShell 同步工具，不新增頂層 Preset、不修改工具。
+- 只建立共用規範；未提供自動索引生成器或 EF Core Power Tools 掛鉤，實際專案索引不保存於 Playbook。
+
+### Reason
+
+先核對既有資料存取能力，避免另造重複 SP 或以多次查詢補組結果。依資料庫分層的索引讓 AI 定位相關來源，同時保留原始程式及 SQL 的判定權威，支援多資料庫且降低重複搜尋。
+
 ## v0.12 - 2026-09-14
 
 ### Added

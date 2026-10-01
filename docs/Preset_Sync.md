@@ -53,6 +53,7 @@ Project/
 ├─ AGENTS.md
 └─ .ai-rules/
    ├─ core.md
+   ├─ data-access.md
    ├─ explore.md
    ├─ apply.md
    ├─ testing.md
@@ -64,6 +65,7 @@ Project/
 ```text
 .ai-rules/
 ├─ core.md
+├─ data-access.md
 ├─ explore.md
 ├─ system-design.md
 ├─ diagramming.md
@@ -121,3 +123,7 @@ Preset = Rule Selection
 .ai-rules/ = Runtime Snapshot
 AGENTS.md = Project-specific Rules
 ```
+
+## 資料存取規則與專案索引
+
+各 Preset 的 Snapshot 一併複製 data-access.md；只有涉及資料存取時套用。實際資料庫索引保存在 Project 的 docs/data-access/ 或既有正式位置，不放入會被清除的 .ai-rules/。同步工具只複製規則，不生成專案索引；格式與維護流程見 [Data Access](Data_Access.md)。

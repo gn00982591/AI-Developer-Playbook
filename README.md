@@ -179,6 +179,12 @@ Diagram Profile 是圖的種類，不是頂層 Preset。
 
 詳細 Mermaid 規則：`agents/diagramming.md`。
 
+## 資料存取與多資料庫
+
+涉及資料庫時套用 [agents/data-access.md](agents/data-access.md)：先查專案資料庫索引、ContextProcedures、Result 與 SQL 本體，再決定沿用或修改。阻擋逐筆補查、取完整候選後篩選及可在資料庫完成卻由 C# 拼接的查詢。
+
+產生或修改資料存取程式時，同步所屬資料庫 MD；跨資料庫整合另記錄批次範圍、交易與一致性。規則與文件格式見 [docs/Data_Access.md](docs/Data_Access.md)，實際公司資訊保留在 Project。
+
 ## PowerShell 的定位
 
 `tools/apply-preset.ps1` 保留，但定位為：
@@ -253,6 +259,7 @@ Load only required rules.
 AI-Developer-Playbook/
 ├─ agents/
 │  ├─ core.md
+│  ├─ data-access.md
 │  ├─ explore.md
 │  ├─ propose.md
 │  ├─ apply.md
@@ -275,6 +282,7 @@ AI-Developer-Playbook/
 ├─ docs/
 │  ├─ Installation.md
 │  ├─ Usage.md
+│  ├─ Data_Access.md
 │  ├─ Architecture_Definitions.md
 │  ├─ Stage_Execution.md
 │  ├─ OPSX_Workflow.md
@@ -318,6 +326,7 @@ AI-Developer-Playbook/
 | --- | --- |
 | [`docs/Installation.md`](docs/Installation.md) | 第一次安裝、導入、Snapshot / PowerShell 定位 |
 | [`docs/Usage.md`](docs/Usage.md) | 日常 Preset、Stage / Skill、Profile 操作 |
+| [`docs/Data_Access.md`](docs/Data_Access.md) | ContextProcedures 前置檢查、多資料庫索引與同步完成條件 |
 | [`docs/Architecture_Definitions.md`](docs/Architecture_Definitions.md) | 架構名詞與責任邊界 |
 | [`docs/Stage_Execution.md`](docs/Stage_Execution.md) | Runtime Flow Continuity |
 | [`docs/Preset_Application.md`](docs/Preset_Application.md) | Preset 與 Runtime / Snapshot 關係 |

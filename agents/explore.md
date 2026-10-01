@@ -24,3 +24,5 @@
 4. Affected API / SP / Table
 5. Proposed Direction
 6. Unknowns
+
+涉及資料存取時，另套用 [Data Access Rules](data-access.md)，沿用同版本已核對的索引與來源，只補讀本次直接相依內容。
