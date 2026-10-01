@@ -18,3 +18,9 @@
 ```
 
 若問題位置不清楚，先加入 `explore.md`；若變更較大，加入 `propose.md`。
+
+## 分流與完成條件
+
+小型明確 SQL 調整採 Lightweight；正式變更依 [Spec Engine Strategy](../docs/Spec_Strategy.md) 選擇 Engine，不只以加入 propose 取代正式變更管理。
+
+驗證受影響資料與行為，依 data-access 規則同步資料存取 MD；未執行項目與限制明列。

@@ -2,6 +2,42 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.22 - 2026-10-01
+
+### Changed
+
+- 完成 PB-001 第二階段 Gap Analysis，正式變更沿用所選 Spec Engine，Lightweight 不強制建立完整 Spec；Engine 原生實作與 Playbook Stage 共用 Tasks，不重做已完成工作。
+- 補齊需求來源、現況／目標設計、資料庫影響及驗收證據；分開回報程式審查、規格一致性與實測結果。
+- Archive 按所選 Engine、Lightweight 或 Playbook Backlog 的生命週期執行；OPSX 文件改為 OpenSpec 整合說明，命令依已安裝版本及平台核對。
+- 同步 README、Usage、Architecture、Workflow 與 Spec Strategy；完成後移除 PB-001 總表項目、處理資料夾及目錄連結。
+
+### PB-001 Decisions
+
+| 項目 | 分類 | 理由與調整範圍 |
+| --- | --- | --- |
+| new-feature | Adopt + Keep | 正式規格沿用 Engine，小型功能保留 Lightweight；Preset 先分流 |
+| propose | Adopt + Remove | 沿用 Engine 產物，停止要求重複正式規格；保留小型方案 |
+| explore | Keep + Extend | 保留局部探索，補來源、事實／假設及企業影響 |
+| system-design | Extend | 消費既有設計，補企業責任與維運；區分現況與目標 |
+| diagram | Keep + Extend | 保留五種 Profile，補目標設計依據與假設標示 |
+| sql | Keep + Extend | 保留 SQL 規則，補分流、資料影響與驗證 |
+| bug-fix | Keep + Extend | 保留小型流程，擴大範圍時重新分流與核對症狀 |
+| review | Keep + Extend | 保留 Diff 優先，補規格／驗收與實測一致性 |
+| apply / testing / archive | Keep + Extend | 接續同一產物、補驗收及各路徑完成機制 |
+| requirement-intake / core / git / data-access | Keep | 現有分流、最小修改與來源核對能力沿用，無需重寫 |
+| token-saving | Keep + Extend | 沿用 Findings 與 Engine 產物，避免重複 Spec 與 Tasks |
+
+### Reason
+
+讓已確認的 Spec Engine Strategy 落實到現有 Agent / Preset，補齊原先正式 Spec／Tasks 要求、圖表目標設計限制及歸檔責任不一致；Remove 針對重複產物要求，保留既有規則檔及 Snapshot 相容工具。
+
+### Verification
+
+- UTF-8、Markdown 本地檔案連結與規則引用核對通過；目前文件不再引用 PB-001 處理資料夾，歷史 CHANGELOG 保留。
+- 六個 Preset 的 Snapshot 同步實際執行通過，載入規則清單與檔案內容一致。
+- 情境核對通過：大型新需求、既有系統正式變更、小型 Bug／SQL、無 Engine 的系統交接、純 Review，皆有明確路徑與產物責任。
+- 本次為文件規則修改，未執行 Spec Kit／OpenSpec 安裝或實際業務專案 Build / Test；不將文件核對視為外部 Engine 實測。
+
 ## v0.21 - 2026-10-01
 
 ### Changed

@@ -24,3 +24,5 @@ Diff → Findings → 必要時局部驗證
 ```
 
 預設不載入 Explore、Apply 與 Testing。若確認需要修改，切換至 `bug-fix` Preset。
+
+正式變更按需引用 Engine 產物與驗收；Lightweight 核對已確認方案。程式審查、規格一致性與實測結果分開回報；維持 Diff 優先及最多 10 項 Findings，不額外執行完整 Engine 流程。

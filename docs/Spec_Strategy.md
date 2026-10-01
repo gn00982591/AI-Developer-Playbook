@@ -217,9 +217,9 @@ Project/
 
 ## 8. 與既有 Preset / Stage 的關係
 
-現有 Preset / Stage 暫時保留，不立即大規模刪除。
+PB-001 第二階段已完成分類與最小遷移，決策與驗證見 [CHANGELOG v0.22](../CHANGELOG.md#v022---2026-10-01)。保留現有 Preset / Stage，正式產物沿用所選 Engine；propose 不再要求同義規格。
 
-後續依 Gap Analysis 逐項處理：
+逐項遷移採以下原則：
 
 ```text
 Adopt  → 改為呼叫 / 引導成熟工具
@@ -228,7 +228,7 @@ Keep   → 維持 Playbook 能力
 Remove → 確認無相依後再移除
 ```
 
-在完成逐項遷移前，避免新增與 Spec Kit / OpenSpec 同義的大型 Agent、Preset 或文件模板。
+持續避免新增與 Spec Kit / OpenSpec 同義的大型 Agent、Preset 或文件模板。命令、產物位置與完成機制依專案已安裝版本及設定核對，不假定工具已安裝。
 
 ## 9. 設計原則
 

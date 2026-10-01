@@ -1,172 +1,37 @@
-# OPSX 開發流程
+# OpenSpec 整合流程
 
-## 核心原則
+## 定位
 
-每個階段只完成自己的工作，不讓下一階段重新做上一階段的分析。
+本文件說明 Playbook 與 OpenSpec 的配合方式，通用 Stage 仍由 agents/ 管理。分流沿用 [Spec Engine Strategy](Spec_Strategy.md)；Spec Kit 與 Lightweight 不必執行本流程。
 
-流程：
+## 前置確認
 
-```text
-Explore
-↓
-Findings
-↓
-Propose
-↓
-Spec / Tasks
-↓
-Apply
-↓
-Diff / Test
-↓
-Archive
-```
+- 沿用已確認的 OpenSpec 路徑、Findings 與產物。
+- 核對專案已安裝版本、設定、Skill / Command 與產物位置；缺少能力時列出缺漏，不把語意 Stage 當成已安裝命令。
+- 官方 `/opsx:propose` 等入口可依平台映射不同名稱，以專案實際生成入口為準，不固定要求 `/opsx-propose`。
 
-## 1. Explore
+## 階段與責任
 
-### 何時使用
+| 階段 | OpenSpec 責任 | Playbook 最小補強 |
+| --- | --- | --- |
+| Explore（需要時） | 探索方向 | 沿用 Findings，補 UI、業務、資料、狀態影響與來源 |
+| Propose | 依所選 schema 管理 proposal / specs / design / tasks | 核對範圍、驗收及企業分析缺口，不另建正式 Spec |
+| Apply | 實作與更新正式 Tasks | 最小修改、資料存取與 SQL 規則，不重做已完成 Tasks |
+| Verify / Review | 該版本可用的檢查能力 | 核對需求、Diff、驗收與實測，分開回報文件及執行驗證 |
+| Archive | 歸檔與 Current Truth / Delta 同步 | 核對完成條件及結果，不另建歸檔機制 |
 
-當需求、問題原因或修改位置還不清楚時。
+## 執行條件
 
-### 原則
+1. 位置或原因不清楚才 Explore；已有 Findings 只補缺漏。
+2. 正式變更產物由 OpenSpec 管理，企業來源與分析按需引用 requirements/。
+3. 實作前確認規格、Tasks 與驗收；Engine 原生 Apply 與 Playbook Stage 共用同一份 Tasks。
+4. 按風險完成必要驗證；文件檢查不替代 Build / Test，失敗、未執行與限制如實列出。
+5. 完成且必要驗證通過後，依專案版本的原生機制歸檔。
 
-- 先搜尋，再讀檔案。
-- 不全面掃描 Repository。
-- 只讀與需求直接相關的程式。
-- 不修改程式。
-- 不進行無關架構分析。
-- 找到必要呼叫鏈即可。
+同一任務保留 Context，不重掃 Repository，不因切換 Stage 執行 PowerShell。
 
-### Prompt
+## 來源
 
-```text
-/opsx-explore
-
-研究此需求。
-
-限制：
-- 採最小探索範圍
-- 先搜尋，再讀檔案
-- 不全面掃描 Repository
-- 只追蹤與需求直接相關的呼叫鏈
-- 不修改程式
-- 不做無關架構分析
-
-輸出：
-1. Current Flow
-2. Root Cause
-3. Affected Files
-4. Affected API / SP / Table
-5. Proposed Direction
-6. Unknowns
-```
-
-## 2. Propose
-
-### 何時使用
-
-需求已確認，需要建立正式變更規格時。
-
-### 原則
-
-- 使用 Explore Findings。
-- 不重新掃描 Repository。
-- 只有 Findings 不足時才補充搜尋。
-
-### Prompt
-
-```text
-/opsx-propose
-
-根據 Explore Findings 建立正式 Change。
-
-不要重新掃描 Repository。
-僅在資訊不足時補充搜尋。
-
-建立：
-- Scope
-- Out of Scope
-- Current Behavior
-- Expected Behavior
-- Technical Design
-- Affected Files
-- DB Impact
-- Acceptance Criteria
-- Tasks
-
-內容保持精簡。
-```
-
-## 3. Apply
-
-### 何時使用
-
-規格與 Tasks 已確認，可以開始修改程式時。
-
-### 原則
-
-- 採最小修改。
-- 不重新做需求分析。
-- 不重新探索 Repository。
-- 不進行無關 Refactor。
-- 優先只修改 Affected Files。
-- 必要時才擴大搜尋。
-
-### Prompt
-
-```text
-/opsx-apply
-
-依照 Change Spec 與 Tasks 實作。
-
-要求：
-- 採最小修改
-- 不重新探索 Repository
-- 不重新做需求分析
-- 不做無關 Refactor
-- 優先修改 Affected Files
-- 必要時才擴大搜尋
-- 完成後執行必要 Build / Test
-- 回報修改檔案與驗證結果
-```
-
-## 4. Archive
-
-### 原則
-
-只根據以下結果歸檔：
-
-- Spec
-- Tasks
-- Git Diff
-- Build / Test Result
-
-不要重新掃描 Repository。
-
-### Prompt
-
-```text
-/opsx-archive
-
-歸檔目前 Change。
-
-只使用：
-- Spec
-- Tasks
-- Git Diff
-- Build / Test Result
-
-不要重新分析 Repository。
-不要重新解釋需求。
-```
-
-## 流程選擇
-
-不一定每個需求都要完整執行四個階段。
-
-| 狀況 | 建議流程 |
-| --- | --- |
-| 不知道問題在哪 | Explore → Propose → Apply → Archive |
-| 已知道問題與修改位置 | Propose → Apply → Archive |
-| 規格非常清楚 | Apply → Archive |
-| 極小且明確的修改 | 直接 Apply |
+- [OpenSpec 官方文件](https://github.com/Fission-AI/OpenSpec)：產物、流程與平台命令差異。
+- [Stage Execution](Stage_Execution.md)：Context 延續與規則對應。
+- [Archive Rules](../agents/archive.md)：完成及歸檔責任。

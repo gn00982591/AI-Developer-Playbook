@@ -23,6 +23,8 @@ Reuse afterward.
 ```text
 Explore  → Findings
 Propose  → Findings
-Apply    → Spec / Tasks / Affected Files
+Apply    → Engine Spec / Tasks 或 Lightweight 方案 / Affected Files
 Archive  → Diff / Test Result
 ```
+
+正式規格與 Tasks 引用 Engine 既有產物，不複製到 requirements/ 或 .ai-output/；同一任務沿用路徑、產物位置與驗證結果，只核對來源異動部分。

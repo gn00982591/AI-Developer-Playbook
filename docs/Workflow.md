@@ -40,7 +40,7 @@ flowchart TD
 - **效能與多資料庫：**阻擋逐筆補查、完整候選取回後篩選，以及可由資料庫完成卻拆成多次查詢的 C# 拼接。必要的跨資料庫 Service 整合須限定範圍、批次取得，記錄理由、交易與一致性。
 - **程式與文件一起同步：**產生、重新產生或修改資料存取程式時，同一變更更新所屬資料庫 MD；跨資料庫流程有異動才同步相關流程文件。此規範尚未提供自動索引生成器。
 - **Verify / Review：**驗證與本次變更相關的結果、權限及查詢成本；Review 以 Diff 或指定產物為主。已證實的禁止模式列為必修，未修正不得判定通過；無環境或來源不足時明列限制。純 Review 不自行修改。
-- **歸檔與輸出：**archive 只沿用 Spec、Tasks、Diff 與 Build / Test Result。一次性產物集中於 `.ai-output/`；正式文件確認後放入 `docs/`。
+- **歸檔與輸出：**archive 沿用所選 Engine 的產物生命週期；Lightweight 按需整理方案、Diff 與驗證，Playbook 自身待辦依 Backlog 完成規則。一次性產物集中於 `.ai-output/`；正式文件確認後放入 `docs/`。
 
 同一任務切換 Stage 保留 Context，不重掃 Repository，也不重新執行 PowerShell。第一次導入、特殊同步或舊 Snapshot 相容模式請參閱 [Installation](Installation.md)。
 

@@ -31,7 +31,8 @@ Playbook 待辦由本 Repository 的 Backlog 資料夾自行管理，不由 Open
 
 | ID | 事項 | 狀態 | 更新日期 | 下一步 | 相關文件／續作紀錄 |
 | --- | --- | --- | --- | --- | --- |
-| PB-001 | AI-Developer-Playbook 第二階段 Gap Analysis | 待處理 | 2026-10-01 | 逐項檢查現有 Agent / Preset，記錄 Gap 與 Adopt / Extend / Keep / Remove 分類 | [處理紀錄](backlog/active/PB-001-gap-analysis-phase-2/README.md)、[Spec Engine Strategy](Spec_Strategy.md) |
+
+目前無追蹤中的待辦。
 
 ## 處理資料夾與紀錄格式
 

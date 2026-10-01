@@ -32,15 +32,7 @@
     - **docs/** — 安裝、使用與架構文件
 
         - [Backlog.md](../docs/Backlog.md)
-        - **backlog/** — Playbook 待辦處理內容
-
-            - **active/** — 未完成待辦
-
-                - **PB-001-gap-analysis-phase-2/**
-
-                    - [README.md](backlog/active/PB-001-gap-analysis-phase-2/README.md)
-                    - [findings.md](backlog/active/PB-001-gap-analysis-phase-2/findings.md)
-                    - [verification.md](backlog/active/PB-001-gap-analysis-phase-2/verification.md)
+        - `backlog/active/<ID>-<slug>/` — 有未完成待辦時建立；目前無待辦處理資料夾
 
         - [Installation.md](../docs/Installation.md)
         - [Usage.md](../docs/Usage.md)

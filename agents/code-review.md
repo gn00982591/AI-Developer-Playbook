@@ -13,3 +13,9 @@
 - Review 結論應區分：必修、建議、待確認。
 
 涉及資料存取時，另套用 [Data Access Rules](data-access.md)，沿用同版本已核對的索引與來源，只補讀本次直接相依內容。
+
+## 規格與驗證一致性
+
+- 正式變更按需核對 Engine 的相關規格、Tasks 與驗收；Lightweight 核對已確認方案，不強制建立 Spec。
+- 比對需求、實作與驗證證據，只補讀 Diff 直接相關產物。
+- 分開回報程式審查、規格一致性與實測結果；Engine 文件檢查不替代 Build / Test。

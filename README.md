@@ -29,7 +29,7 @@ Preset 定義主任務與預設 Workflow；Workflow 描述 Stage / Skill 的建�
 | Profile | 指定輸出的具體策略 | `module-map`、`call-chain` |
 | Modifier | 補充本次需求或輸出條件 | `compact`、`risk` |
 
-完整定義見 [Architecture Definitions](docs/Architecture_Definitions.md)。
+完整定義見 [Architecture Definitions](docs/Architecture_Definitions.md)。需求分流依 [Spec Engine Strategy](docs/Spec_Strategy.md)：正式變更沿用 Spec Kit 或 OpenSpec 產物，小型明確變更保留 Lightweight；既有路徑與成果直接接續。
 
 ### 日常執行方式
 

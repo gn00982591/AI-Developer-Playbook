@@ -356,3 +356,16 @@ Output Management
 核心原則：
 
 > Preset 負責編排；Stage / Skill 負責執行；Rule Module 負責規則；PowerShell 不負責 Runtime Flow。
+
+## Spec Engine 與產物責任
+
+| 產物 | 保存與管理責任 |
+| --- | --- |
+| Spec Kit 正式規格、計畫與 Tasks | 由 Spec Kit 依專案已安裝版本及設定管理 |
+| OpenSpec Current Truth 與變更產物 | 由 OpenSpec 管理，不另建同義文件 |
+| requirements/ | 可選來源與前置分析，未確認事項明確標示 |
+| .ai-output/ | 一次性 AI 產物，不作正式 Spec Source of Truth |
+| docs/ | 已確認正式文件與引用，不取代 Engine 設計 |
+| Playbook Backlog | 依 [Backlog](Backlog.md) 管理；完成紀錄保存於 CHANGELOG 與 Git commit |
+
+Engine 及 Requirement Workspace 位置依 [Spec Engine Strategy](Spec_Strategy.md) 的專屬責任，不受一次性輸出資料夾限制。

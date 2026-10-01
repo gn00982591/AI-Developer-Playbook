@@ -41,6 +41,7 @@ PowerShell = 安裝 / 同步 / Snapshot 相容工具
 目前主要 Preset：
 
 ```text
+requirement-intake
 bug-fix
 new-feature
 sql-change
@@ -254,14 +255,17 @@ Preset: new-feature
 建議依需求清楚程度選擇：
 
 ```text
-需求尚不清楚
-→ explore → propose → apply → verify
+尚未分流
+→ requirement-intake（需要時）→ Route
 
-需求已確認
-→ propose → apply → verify
+大型、新系統或不確定需求
+→ Spec Kit 規格／規劃／Tasks → 實作 → Verify / Review
 
-規格與位置都明確
-→ apply → verify
+既有系統正式變更
+→ OpenSpec 變更產物 → 實作 → Verify / Review → 原生歸檔
+
+小型明確功能
+→ Lightweight：按需 explore / propose → apply → verify → review（依風險）
 ```
 
 不要為了符合形式而強制執行不必要的 Stage。
@@ -400,3 +404,7 @@ Preset: system-design
 - `docs/Architecture_Definitions.md`：Preset、Stage、Rule Module、Profile 等正式定義。
 - `docs/Preset_Sync.md`：Snapshot 同步機制。
 - `agents/diagramming.md`：Mermaid 與 Diagram Profile 規則。
+
+## Spec Engine 接續
+
+分流沿用 [Spec Engine Strategy](Spec_Strategy.md)。正式產物由所選 Engine 管理，Engine 原生實作與 Playbook Stage 共用同一份 Tasks，不重複實作；Lightweight 不強制建立正式 Spec。命令與產物位置依專案已安裝版本及設定確認。
