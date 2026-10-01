@@ -273,6 +273,8 @@ Load only required rules.
 
 ## 控版規則
 
+待處理與未完成事項集中記錄於 **[待辦與續作紀錄](docs/Backlog.md)**；中斷前更新進度、剩餘工作與下一步，續作時先讀取對應紀錄。
+
 只有明確確認「更新 Playbook」或「這版確認，可以更新」後才修改 Repository。
 
 每次正式修改應：
