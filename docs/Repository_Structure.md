@@ -31,6 +31,19 @@
 
     - **docs/** — 安裝、使用與架構文件
 
+        - [Backlog.md](../docs/Backlog.md)
+        - **backlog/** — Playbook 待辦處理內容
+
+            - **active/** — 未完成待辦
+
+                - **PB-001-gap-analysis-phase-2/**
+
+                    - [README.md](backlog/active/PB-001-gap-analysis-phase-2/README.md)
+                    - [findings.md](backlog/active/PB-001-gap-analysis-phase-2/findings.md)
+                    - [verification.md](backlog/active/PB-001-gap-analysis-phase-2/verification.md)
+
+            - **archive/** — 完成並驗證通過的待辦
+
         - [Installation.md](../docs/Installation.md)
         - [Usage.md](../docs/Usage.md)
         - [Workflow.md](../docs/Workflow.md)

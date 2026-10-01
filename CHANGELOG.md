@@ -2,6 +2,22 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.18 - 2026-10-01
+
+### Added
+
+- 建立 `docs/backlog/active/` 與 `docs/backlog/archive/`，每筆 Playbook 待辦以固定 ID 的專屬資料夾保存 README、Findings 與 Verification。
+
+### Changed
+
+- Backlog 改為待辦索引，明定獨立管理、精準續作與完成驗證後整個資料夾歸檔的規則。
+- PB-001 第二階段 Gap Analysis 紀錄移入 `docs/backlog/active/PB-001-gap-analysis-phase-2/`，保留已確認方向、剩餘工作與待處理狀態。
+- 同步 README 控版提示與 Repository 結構導覽。
+
+### Reason
+
+讓每筆待辦可直接定位處理內容與驗證歷史；Playbook 待辦不由 OpenSpec 或 Spec Kit 管理。
+
 ## v0.17 - 2026-10-01
 
 ### Added
