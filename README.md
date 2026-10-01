@@ -16,53 +16,59 @@
 
 ## 執行模型
 
-Preset 定義主任務與預設 Workflow；Workflow 編排 Stage / Skill；各階段依需要載入 Rule Module、Profile 與 Modifier。
+Preset 定義主任務與預設 Workflow；Workflow 描述 Stage / Skill 的建議順序。執行各階段時，按需載入 Rule Module、Profile 與 Modifier。
+
+### 各類型的責任
 
 | 類型 | 責任 | 範例 |
 | --- | --- | --- |
-| Preset | 定義主任務與預設流程 | `bug-fix`、`system-design` |
-| Workflow | 定義多個 Stage 的建議順序 | Explore → Apply → Verify |
-| Stage / Skill | 可直接呼叫的執行能力 | `explore`、`apply`、`review` |
-| Rule Module | 定義怎麼做 | `agents/explore.md` |
-| Profile | 特定輸出策略 | `call-chain` |
-| Modifier | 本次附加需求 | `compact`、`risk` |
+| Preset | 定義任務目標與預設流程 | `bug-fix`、`system-design` |
+| Workflow | 描述多個階段的建議順序 | `explore` → `apply` → `verify` |
+| Stage / Skill | 執行可獨立呼叫的階段能力 | `explore`、`apply`、`review` |
+| Rule Module | 提供階段執行規則 | `agents/explore.md` |
+| Profile | 指定輸出的具體策略 | `module-map`、`call-chain` |
+| Modifier | 補充本次需求或輸出條件 | `compact`、`risk` |
 
-完整定義：[`docs/Architecture_Definitions.md`](docs/Architecture_Definitions.md)。
+完整定義見 [Architecture Definitions](docs/Architecture_Definitions.md)。
 
-日常操作不要求每次切換 Preset 都執行 `apply-preset.ps1`。
+### 日常執行方式
 
-主任務開始後，直接在同一 Context 中呼叫需要的 Stage：
+可使用 Preset 啟動主任務，也可以直接呼叫 Stage / Skill。Workflow 是建議順序，可依需求從中間開始、略過不需要的階段，或重複執行某個階段。
 
-```text
-Stage: explore
-→ Stage: propose
-→ Stage: apply
-→ Stage: verify
-→ Stage: review
-```
+一般修改流程：
 
-例如 System Design：
+`explore` → `propose` → `apply` → `verify` → `review`
+
+System Design 範例：
 
 ```text
+# 啟動系統設計任務。
 Preset: system-design
 
+# 分析現有結構。
 Stage: explore
+
+# 依模組關係繪圖。
 Stage: diagram
 Profile: module-map
+
+# 複查分析與圖表。
 Stage: review
 ```
 
-切換 Stage 時：
+以上是 Playbook 的語意格式，平台可映射成原生 Skill 或 Command。
 
-- 保留目前任務 Context。
-- 沿用 Findings、Spec、Diff、Test Result。
-- 不清空 `.ai-rules/`。
-- 不重新掃描整個 Repository。
-- 不重新執行 PowerShell。
+### 階段間的上下文延續
 
-詳細 Runtime 規則：[`docs/Stage_Execution.md`](docs/Stage_Execution.md)。
+同一任務切換 Stage 時，保留需求、Findings、Decisions、Spec / Tasks、相關檔案、Diff、Test Result 與輸出條件。只有缺少必要資訊或來源異動時，才補讀相關資料。
 
-PowerShell 負責第一次安裝、同步與 Snapshot 相容，不負責 Runtime Flow。
+切換 Stage 不清空 `.ai-rules/`、不重新掃描整個 Repository，也不重新執行 `apply-preset.ps1`。
+
+詳細規則見 [Stage Execution](docs/Stage_Execution.md)。
+
+### PowerShell 的定位
+
+`apply-preset.ps1` 用於第一次導入、規則同步、規則組合測試，以及舊 Snapshot 模式相容。日常任務直接在同一 Context 中呼叫 Stage / Skill，無須透過 PowerShell 切換。
 
 ## 文件導覽
 
