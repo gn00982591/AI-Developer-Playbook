@@ -14,7 +14,7 @@
 
 **[`docs/Usage.md`](docs/Usage.md)**
 
-## Runtime 執行模型＋核心責任
+## 執行模型
 
 Preset 定義主任務與預設 Workflow；Workflow 編排 Stage / Skill；各階段依需要載入 Rule Module、Profile 與 Modifier。
 
