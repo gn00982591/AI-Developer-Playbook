@@ -43,7 +43,7 @@ docs/
 ├─ Backlog.md
 └─ backlog/
    └─ active/
-      └─ PB-001-gap-analysis-phase-2/
+      └─ <ID>-<slug>/
          ├─ README.md
          ├─ findings.md
          └─ verification.md
