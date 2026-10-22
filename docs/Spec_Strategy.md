@@ -230,6 +230,8 @@ Remove → 確認無相依後再移除
 
 持續避免新增與 Spec Kit / OpenSpec 同義的大型 Agent、Preset 或文件模板。命令、產物位置與完成機制依專案已安裝版本及設定核對，不假定工具已安裝。
 
+OpenSpec 採 **Adopt first**：原生提供的規格、差異、狀態、驗證及歸檔能力直接引用，不建立 Playbook 同義機制；只有確認企業缺口才 Extend。升級時先核對已安裝版本與 Release Notes，僅調整受影響規則；OpenSpec 更新不會自動同步 Playbook。詳細執行邊界見 [OPSX Workflow](OPSX_Workflow.md)。
+
 ## 9. 設計原則
 
 ```text
