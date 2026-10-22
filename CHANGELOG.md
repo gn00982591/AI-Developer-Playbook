@@ -2,6 +2,23 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.24 - 2026-10-22
+
+### Changed
+
+- 明確確認 OpenSpec 採 Adopt first：原生的正式規格、狀態、差異、檢查、驗證與歸檔直接引用，不在 Playbook 建立第二套同義流程或產物。
+- 補充執行前確認已安裝版本、Schema、Skill / Command 與產物位置，以及升級時的 Release Notes 相容性差異檢查；只針對確認的企業缺口 Extend。
+- 維持 Playbook 的 Requirement Intake、資料存取、企業 System Design、Build / Test / Review 責任與修改授權門檻。
+
+### Reason
+
+落實已確認的「OpenSpec 成熟能力直接引用」設計決策，減少重複維護；OpenSpec 發版不應直接改寫 Playbook 或其他專案。
+
+### Verification
+
+- 逐段比對 OPSX Workflow 與 Spec Strategy，未改動需求分流、原有 Stage 責任或 Engine 產物所有權。
+- 僅更新文件規則，未安裝／升級 OpenSpec，未執行實際 Project Build / Test；專案可用命令仍須依安裝版本核對。
+
 ## v0.23 - 2026-10-13
 
 ### Fixed
