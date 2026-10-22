@@ -66,7 +66,41 @@ Playbook 保持獨立 Git Repository。若不將它納入業務專案控版，�
 .agents/AI-Developer-Playbook/
 ```
 
-## 3. 實際 Project 的基本結構
+## 3. 按需引導安裝 OpenSpec（正式變更才需要）
+
+Playbook 採規則引用（Adopt），**不附帶 OpenSpec CLI，也不因 Clone 或載入 Playbook 而自動安裝**。只有 Requirement Router 選到 OpenSpec 的正式變更任務，才啟動以下引導；Spec Kit、Lightweight 或純分析任務不強制安裝。
+
+1. **確認環境：**在目標 Project 確認 `openspec --version` 可執行，並檢查專案是否已完成 OpenSpec 初始化、所需的 Agent Skills / Commands 是否存在；CLI 已安裝不代表該 Project 已初始化。
+2. **已可用：**直接引用 OpenSpec 原生工作流程，沿用既有 `openspec/` 產物；不要重裝、重跑初始化或覆蓋原有設定。
+3. **CLI 未安裝：**先提供官方文件、環境前置條件及安裝指令；由使用者確認並授權後才執行安裝。若無安裝權限，回報阻礙與待辦，不將 Playbook Stage 假裝成原生指令。
+4. **CLI 已安裝但 Project 未初始化：**先檢查既有檔案與版本／設定，再取得確認，才於目標 Project 執行 `openspec init`。已有正式規格或設定時，避免覆寫。
+5. **完成後驗證：**核對 CLI 版本、Project 內的 `openspec/`、平台實際生成的 Skills / Commands 與必要設定，成功後才進入原生工作流程；失敗明列未完成項目。
+6. **版本升級：**不是初次安裝的一部分；升級及 `openspec update` 須另外評估相容性並獲得確認。
+
+官方 Quick Start（執行時仍應以最新官方文件為準）：
+
+```powershell
+# 需先有 Node.js 20.19.0 或更高版本及 npm。
+node --version
+npm --version
+
+# CLI 尚未安裝且取得授權後執行。
+npm install -g @fission-ai/openspec@latest
+
+# 核對版本。
+openspec --version
+
+# 切換至實際業務專案根目錄後，經確認才初始化。
+cd D:\WorkGit\YFYTMSWeb
+openspec init
+```
+
+- 官方安裝來源：[OpenSpec Installation](https://openspec.dev/docs/installation)、[OpenSpec GitHub](https://github.com/Fission-AI/OpenSpec)。
+- Windows PowerShell / CMD 可按官方 npm 安裝方式操作；macOS / Linux 亦可依官方說明使用 Homebrew。
+- Playbook 與 OpenSpec 分開控版，`git pull` 更新 Playbook **不會**安裝或升級 OpenSpec。
+- Runtime 決策細節見 [OPSX Workflow](OPSX_Workflow.md)。
+
+## 4. 實際 Project 的基本結構
 
 Playbook 放在實際 Project 的 `.agents/` 下，仍獨立管理共用規則與版本。
 
@@ -94,7 +128,7 @@ AGENTS.md = Project 固定規則
 .ai-output = 一次性 AI 產物
 ```
 
-## 4. 建立 Project `AGENTS.md`
+## 5. 建立 Project `AGENTS.md`
 
 若 Project 已經有 `AGENTS.md`，不要覆蓋，直接沿用並補充必要規則。
 
@@ -129,7 +163,7 @@ Project `AGENTS.md` 建議保存長期有效資訊：
 
 放進 `.agents/` 不代表 AI 會自動載入全部內容；由 Project `AGENTS.md` 指向規則入口。
 
-## 5. 建立 `.ai-output/`（建議）
+## 6. 建立 `.ai-output/`（建議）
 
 可在實際 Project 建立：
 
@@ -144,7 +178,7 @@ Project `AGENTS.md` 建議保存長期有效資訊：
 
 一次性分析結果先放 `.ai-output/`，確認成為正式文件後再移到 Project 的 `docs/`。
 
-## 6. `.ai-rules/` 是否需要安裝
+## 7. `.ai-rules/` 是否需要安裝
 
 ### 一般日常使用
 
@@ -191,7 +225,7 @@ CMD 的 Clone 與更新只需 Git；Snapshot 腳本仍需要 PowerShell，並遵
 
 注意：`apply-preset.ps1` 會重建目標 Project 的 `.ai-rules/`，所以它是 **安裝 / 同步 / 相容性工具**，不是日常 Runtime Stage 切換工具。
 
-## 7. 驗證安裝
+## 8. 驗證安裝
 
 完成後至少確認：
 
@@ -210,7 +244,7 @@ CMD 的 Clone 與更新只需 Git；Snapshot 腳本仍需要 PowerShell，並遵
 [ ] 指定 Preset 能產生 .ai-rules/
 ```
 
-## 8. 下一步
+## 9. 下一步
 
 安裝完成後，不要繼續在本文件找 Runtime 操作方式。
 
