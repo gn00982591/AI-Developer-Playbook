@@ -10,6 +10,18 @@
 - 核對專案已安裝版本、設定、Skill / Command 與產物位置；缺少能力時列出缺漏，不把語意 Stage 當成已安裝命令。
 - 官方 `/opsx:propose` 等入口可依平台映射不同名稱，以專案實際生成入口為準，不固定要求 `/opsx-propose`。
 
+## OpenSpec 缺少時的安裝引導
+
+當 Requirement Router 選擇 OpenSpec，先依 [Installation 的按需安裝流程](Installation.md#3-按需引導安裝-openspec正式變更才需要) 檢查 CLI、目標 Project 初始化與平台入口：
+
+- **已安裝且已初始化：**直接使用原生產物與操作，不重複安裝／初始化。
+- **CLI 未安裝：**提出官方安裝方式、前置條件及驗證步驟，取得使用者授權後才安裝。
+- **CLI 已安裝、Project 未初始化：**檢查既有目錄與設定，取得授權後才在目標 Project 執行 `openspec init`。
+- **無權限、安裝失敗或設定不完整：**停止原生能力呼叫，回報缺口，不虛構已安裝的 Skill / Command；經使用者決定後才切換替代流程。
+- **其他分流：**Spec Kit、Lightweight 與不需要 OpenSpec 的任務，不啟動這個安裝引導。
+
+引導是 Playbook 的前置檢查規則，不是自動下載腳本；版本升級及 `openspec update` 另需確認。正式產物仍只由 OpenSpec 管理。
+
 ## 原生能力直接引用（Adopt）與版本相容
 
 - **Adopt：** OpenSpec 已提供的 proposal / specs / design / tasks、狀態與進度查詢、差異檢視、規格檢查、驗證及歸檔，優先使用專案已安裝版本的原生能力。Playbook 只引用操作入口和產物，不複製規格或再做另一套流程。
