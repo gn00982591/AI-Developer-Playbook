@@ -10,6 +10,21 @@
 - 核對專案已安裝版本、設定、Skill / Command 與產物位置；缺少能力時列出缺漏，不把語意 Stage 當成已安裝命令。
 - 官方 `/opsx:propose` 等入口可依平台映射不同名稱，以專案實際生成入口為準，不固定要求 `/opsx-propose`。
 
+## 原生能力直接引用（Adopt）與版本相容
+
+- **Adopt：** OpenSpec 已提供的 proposal / specs / design / tasks、狀態與進度查詢、差異檢視、規格檢查、驗證及歸檔，優先使用專案已安裝版本的原生能力。Playbook 只引用操作入口和產物，不複製規格或再做另一套流程。
+- **Extend：** 原生能力未涵蓋的企業需求，才補 UI、Business Rule、Data / Table Impact、System Design、SQL、Build / Test 與 Review；補強需能說明具體缺口。
+- **Keep：** 保留 Playbook 的需求來源分析、規則載入、資料存取與 Token 節省原則。
+- **Remove：** 重疊的同義產物與流程要求，先確認相依及使用情境，再作最小移除，不因改用 OpenSpec 而刪除通用 Stage。
+
+### 執行前與升級時
+
+1. 確認專案是否實際安裝 OpenSpec，核對版本、schema、平台所產生的 Skill / Command、設定及產物位置；未安裝時不假設可執行原生命令。
+2. 優先使用該版本**實際支援**的 Status / Diff / Validate / Verify / Archive 等能力；若功能名稱、參數或入口有差異，以安裝版本的說明及可用命令為準，不硬編固定指令。
+3. OpenSpec 發布新版本不代表 Playbook 或專案會自動更新。升級前比對官方 Release Notes 與現行整合規則，記錄新增功能、破壞性變更及必要的相容調整；未受影響者維持不變。
+4. 沿用原有 Findings 和正式 OpenSpec 產物。OpenSpec 的規格／文件檢查不能替代實際 Build、Test、Diff 及必要的企業驗收。
+5. 任何 Playbook Repository 修改仍需使用者明確確認，且保留 Git commit 與 CHANGELOG；不得以相容性檢查為由自動改寫其他 Project。
+
 ## 階段與責任
 
 | 階段 | OpenSpec 責任 | Playbook 最小補強 |
