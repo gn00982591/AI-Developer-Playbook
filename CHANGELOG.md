@@ -2,6 +2,22 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.25 - 2026-10-22
+
+### Added
+
+- 為 OpenSpec 原生規則引用增加按需安裝引導：只有 Router 選擇 OpenSpec 時才檢查 CLI、Project 初始化及平台命令；未安裝則提供官方指引，經使用者授權才安裝／初始化。
+- 在 Installation、OPSX Workflow 與 Spec Strategy 連結同一決策流程，避免重複安裝、初始化、升級及覆蓋既有 OpenSpec 設定。
+
+### Reason
+
+Playbook 不內建 OpenSpec，單有引用規則不足以確保環境可執行；需要可定位的缺漏檢查與正式安裝引導，同時保留 Opt-in、原生工具管理及 Spec Engine 分流。
+
+### Verification
+
+- 對照 OpenSpec 官方 README Quick Start：Node.js 20.19.0+、npm 全域安裝、專案內 `openspec init`；實際執行前仍須依官方最新版核對。
+- 文件保持按需、需授權、不自動修改 Project 的原則；未在業務專案執行安裝、初始化、Build 或 Test。
+
 ## v0.24 - 2026-10-22
 
 ### Changed
