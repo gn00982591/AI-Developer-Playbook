@@ -26,3 +26,7 @@
 ## 會議紀錄任務
 
 要求產生、整理會議紀錄或將逐字稿轉成會議紀錄時，按需載入 Playbook 的 [Meeting Minutes Rules](meeting-minutes.md)（`agents/meeting-minutes.md`），依六大分類預設交付 PDF。Snapshot 已有同名檔時沿用，否則從 Playbook 補讀。非會議紀錄任務不套用。
+
+## 專案進度管理
+
+所有專案必須建立並維護對應的 Excel 追蹤表；建立、接續專案或更新進度時，載入 [Project Progress Rules](project-progress.md)。進度更新須同時交付更新至當下且內容一致的 MD 與 `.xlsx`；Snapshot 無同名檔時從 Playbook 補讀。
