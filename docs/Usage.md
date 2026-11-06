@@ -408,3 +408,14 @@ Preset: system-design
 ## Spec Engine 接續
 
 分流沿用 [Spec Engine Strategy](Spec_Strategy.md)。正式產物由所選 Engine 管理，Engine 原生實作與 Playbook Stage 共用同一份 Tasks，不重複實作；Lightweight 不強制建立正式 Spec。命令與產物位置依專案已安裝版本及設定確認。
+
+## 會議紀錄
+
+直接以自然語言提出需求，無須新增 Preset 或安裝平台專用範本：
+
+```text
+請將以下逐字稿整理為會議紀錄，依六大分類產生 PDF。
+會議內容：……
+```
+
+按需載入 [Meeting Minutes Rules](../agents/meeting-minutes.md)，整理會議基本資訊、議題、討論、決議、待辦與待確認事項。若已安裝個人「會議紀錄 Meeting Minutes」範本，可沿用其版面；沒有個人範本仍依共用規則完成 PDF。流程入口見 [Workflow](Workflow.md)。

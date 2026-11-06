@@ -17,6 +17,7 @@
 3. 未使用 Snapshot 時，依本次 Preset / Stage 從 `.agents/AI-Developer-Playbook/` 讀取對應規則；使用 Snapshot 時，優先沿用其中所需規則。
 4. 不要因為引用 Playbook，就重新讀取整個 `AI-Developer-Playbook` Repository。
 5. 只有本次需要的規則尚未載入時，才從 Playbook 補讀對應模組。
+6. 要求產生、整理會議紀錄或將逐字稿轉成會議紀錄時，按需載入 Playbook 的 `agents/meeting-minutes.md`；Snapshot 沒有同名檔時從 Playbook 補讀，依六大分類預設交付 PDF。
 
 規則優先順序：
 

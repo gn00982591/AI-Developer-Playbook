@@ -82,7 +82,8 @@ Stage: review
 | [`docs/Preset_Application.md`](docs/Preset_Application.md) | Preset 與 Runtime / Snapshot 關係 |
 | [`docs/Preset_Sync.md`](docs/Preset_Sync.md) | `.ai-rules/` Snapshot 同步細節 |
 | [`docs/Repository_Structure.md`](docs/Repository_Structure.md) | Repository 目錄與檔案導覽 |
-| [`docs/Workflow.md`](docs/Workflow.md) | 需求分流、Stage 執行與交付流程 |
+| [`docs/Workflow.md`](docs/Workflow.md) | 需求分流、Stage 執行、會議紀錄與交付流程 |
+| [`agents/meeting-minutes.md`](agents/meeting-minutes.md) | 會議紀錄六大分類、流程定義與 PDF 交付規範 |
 | [`docs/Backlog.md`](docs/Backlog.md) | 待辦索引與中斷續作紀錄 |
 | [`CHANGELOG.md`](CHANGELOG.md) | 正式版本更新紀錄 |
 

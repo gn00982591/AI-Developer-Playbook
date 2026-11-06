@@ -22,3 +22,7 @@
 ## 資料存取任務
 
 涉及資料庫、ContextProcedures、EF Core、SP／Function 或跨資料庫整合時，必須載入 data-access.md 共用規則（Snapshot 中的同名檔或 Playbook 的 agents/data-access.md）。先查 Project 索引與實際來源，再決定查詢方式；詳見 [Data Access Rules](data-access.md)。非資料存取任務不套用。
+
+## 會議紀錄任務
+
+要求產生、整理會議紀錄或將逐字稿轉成會議紀錄時，按需載入 Playbook 的 [Meeting Minutes Rules](meeting-minutes.md)（`agents/meeting-minutes.md`），依六大分類預設交付 PDF。Snapshot 已有同名檔時沿用，否則從 Playbook 補讀。非會議紀錄任務不套用。

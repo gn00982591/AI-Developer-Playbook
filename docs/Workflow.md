@@ -16,6 +16,9 @@ flowchart TD
     E -->|小型且明確| H["Lightweight：按需 explore / propose"]
     C -->|已確認的直接 Stage| H
     C -->|分析、交接或畫圖| I["system-design / diagram：文件與圖"]
+    C -->|會議紀錄| P["meeting-minutes：來源整理與六大分類"]
+    P --> Q["核對決議與待辦；匯出並檢查 PDF"]
+    Q --> M
     C -->|只需複查| L["review：Findings"]
     F --> J["apply / sql：實作與 MD 同步"]
     G --> J
@@ -55,3 +58,7 @@ flowchart TD
 - [Data Access](Data_Access.md) 與 [Data Access Rules](../agents/data-access.md)：資料存取前置檢查、效能阻擋、多資料庫及 MD 同步。
 - [OPSX Workflow](OPSX_Workflow.md) 與 [Archive Rules](../agents/archive.md)：變更規格、實作與歸檔。
 - [System Design Preset](../presets/system-design.md) 與 [Diagramming Rules](../agents/diagramming.md)：分析文件範圍與 Mermaid 圖表規則。
+
+## 會議紀錄流程
+
+會議紀錄需求 → 讀取逐字稿或筆記 → 依六大分類整理 → 核對決議、待辦與待確認事項 → 匯出並逐頁檢查 PDF → 交付。分類、缺漏標示、檔名與完成條件統一由 [Meeting Minutes Rules](../agents/meeting-minutes.md) 定義。可獨立執行，不要求進入 Spec Engine 或程式實作流程。

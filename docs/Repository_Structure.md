@@ -7,6 +7,7 @@
     - **agents/** — 共用規則
 
         - [core.md](../agents/core.md)
+        - [meeting-minutes.md](../agents/meeting-minutes.md)
         - [data-access.md](../agents/data-access.md)
         - [explore.md](../agents/explore.md)
         - [propose.md](../agents/propose.md)
