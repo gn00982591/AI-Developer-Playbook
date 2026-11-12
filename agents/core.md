@@ -30,3 +30,7 @@
 ## 專案進度管理
 
 所有專案必須建立並維護對應的 Excel 追蹤表；建立、接續專案或更新進度時，載入 [Project Progress Rules](project-progress.md)。進度更新須同時交付更新至當下且內容一致的 MD 與 `.xlsx`；Snapshot 無同名檔時從 Playbook 補讀。
+
+## 週報任務
+
+產出、整理或更新週報時，按需載入 [Weekly Report Rules](weekly-report.md)。Snapshot 無同名檔時從 Playbook 補讀。
