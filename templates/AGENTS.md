@@ -19,7 +19,7 @@
 5. 只有本次需要的規則尚未載入時，才從 Playbook 補讀對應模組。
 6. 要求產生、整理會議紀錄或將逐字稿轉成會議紀錄時，按需載入 Playbook 的 `agents/meeting-minutes.md`；Snapshot 沒有同名檔時從 Playbook 補讀，依六大分類預設交付 PDF。
 
-7. 建立、接續專案或更新進度時，載入 Playbook 的 `agents/project-progress.md`；Snapshot 無同名檔時從 Playbook 補讀。每個專案須維護 Excel 追蹤表，更新進度時同步更新 MD 與 `.xlsx`。
+7. 建立、接續專案、專案控版、整理專案資料夾或更新進度時，載入 Playbook 的 `agents/project-progress.md`；Snapshot 無同名檔時從 Playbook 補讀。建立或整理專案時，先依該規則判定專案類型、工作線與目前階段，再執行交辦事項。每個專案須維護 Excel 追蹤表，更新進度時同步更新 MD 與 `.xlsx`。
 8. 產出、整理或更新週報時，按需載入 Playbook 的 `agents/weekly-report.md`；Snapshot 無同名檔時從 Playbook 補讀。
 
 規則優先順序：

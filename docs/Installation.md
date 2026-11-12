@@ -159,9 +159,12 @@ Project `AGENTS.md` 建議保存長期有效資訊：
 - `presets/` 與 `agents/` 均相對於 Playbook 根目錄。
 - 使用 Snapshot 模式時，優先讀取 `.ai-rules/` 中本次所需規則。
 - 按需讀取，不掃描或載入整份 Playbook。
+- 建立、接續專案、專案控版、整理專案資料夾或更新進度時，載入 `agents/project-progress.md`；Snapshot 無同名檔時從 Playbook 補讀。
 ```
 
 放進 `.agents/` 不代表 AI 會自動載入全部內容；由 Project `AGENTS.md` 指向規則入口。
+
+建立或整理專案時，AI 先依[專案進度與追蹤表規則](../agents/project-progress.md#專案建立與資料歸類)判定專案類型、工作線與目前階段，再依交辦內容建立目錄、歸類既有資料及更新索引。現有專案沿用已指定的追蹤位置。
 
 ## 6. 建立 `.ai-output/`（建議）
 
@@ -232,6 +235,7 @@ CMD 的 Clone 與更新只需 Git；Snapshot 腳本仍需要 PowerShell，並遵
 ```text
 [ ] .agents/AI-Developer-Playbook/ 可以正常讀取
 [ ] 實際 Project 有 AGENTS.md，且已記錄 Playbook 入口
+[ ] Project AGENTS.md 已記錄何時載入 agents/project-progress.md
 [ ] AI 可以讀取 Project 程式碼
 [ ] 已理解 .ai-rules/ 為可選 Snapshot
 [ ] 不會用 PowerShell 來切換每一個 Stage
