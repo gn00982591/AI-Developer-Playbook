@@ -68,3 +68,7 @@ flowchart TD
 建立／接續專案 → 讀取既有 MD、Excel 與進度來源 → 缺少 Excel 時補建 → 整理截至當下的已完成、進行中、待處理、待解問題與下一步 → 同步更新 MD 與 `.xlsx` → 核對一致性與工作簿 → 配對交付。
 
 每個專案均須建立並維護對應 Excel；進度更新保留已完成紀錄，涵蓋目前全部狀態，不只更新本次完成事項。詳細欄位、未知資訊與完成條件統一由 [Project Progress Rules](../agents/project-progress.md) 定義。此流程可獨立執行；專案進度更新須在交付前完成文件同步。
+
+## 週報流程
+
+確認報告期間與指定範本、整理本期資料，再依 [Weekly Report Rules](../agents/weekly-report.md) 核對後交付。若同時更新專案進度，接續專案進度更新流程。
