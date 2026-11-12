@@ -419,3 +419,7 @@ Preset: system-design
 ```
 
 按需載入 [Meeting Minutes Rules](../agents/meeting-minutes.md)，整理會議基本資訊、議題、討論、決議、待辦與待確認事項。若已安裝個人「會議紀錄 Meeting Minutes」範本，可沿用其版面；沒有個人範本仍依共用規則完成 PDF。流程入口見 [Workflow](Workflow.md)。
+
+## 週報
+
+產出、整理或更新週報時，依 [Weekly Report Rules](../agents/weekly-report.md) 確認期間與專案指定範本，再核對本期內容及交付格式。
