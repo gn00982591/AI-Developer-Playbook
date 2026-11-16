@@ -47,6 +47,18 @@ flowchart TD
 
 同一任務切換 Stage 保留 Context，不重掃 Repository，也不重新執行 PowerShell。第一次導入、特殊同步或舊 Snapshot 相容模式請參閱 [Installation](Installation.md)。
 
+## 開發資安檢查
+
+| 階段 | 執行與記錄 |
+| --- | --- |
+| 需求／Explore | 辨識變更入口、資料、操作者與外部依賴，按需載入[開發資安索引](security/README.md)的對應主題。 |
+| Propose | 在既有 Spec Engine 產物或 Lightweight 方案記錄適用控制、驗收條件與待確認事項。 |
+| Apply／SQL | 沿用專案控制，實作已確認的措施。影響範圍變動時補查相關條件。 |
+| Verify／Review | 依適用主題核對 Diff、執行驗收，記錄實際環境、結果與缺口。 |
+| 交付／部署 | 涉及發布時核對產物和正式設定。涉及重要寫入、雲端或 AI 時，依方案核對適用的復原、責任及監測安排。 |
+
+三條需求分流共用此檢查。直接呼叫 Stage 時，沿用已有的判斷與證據，缺漏時按當前任務範圍補查。
+
 ## 來源
 
 本圖依以下現行文件整理；詳細規則與完成條件以來源文件為準。
