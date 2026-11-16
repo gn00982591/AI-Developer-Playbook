@@ -21,6 +21,8 @@
 - Acceptance Criteria
 - Tasks
 
+依適用的[開發資安主題](../docs/security/README.md)，把控制措施、驗收情境及待確認事項寫入既有 Spec Engine 產物或 Lightweight 方案。
+
 涉及資料存取時，另套用 [Data Access Rules](data-access.md)，沿用同版本已核對的索引與來源，只補讀本次直接相依內容。
 
 ## 產物責任

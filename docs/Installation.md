@@ -13,7 +13,7 @@
 - Git。
 - 可讀取目標 Project 程式碼的 AI 工具，例如 ChatGPT / Codex / Cursor / Claude。
 - 一個實際開發 Project。
-- 若要使用 Snapshot 相容模式，需可執行 PowerShell。
+- 需可執行 PowerShell，以登記專案資安流程及選用 Snapshot。
 
 ## 2. 安裝 Playbook
 
@@ -33,6 +33,7 @@ New-Item -ItemType Directory -Path "D:\WorkGit\YFYTMSWeb\.agents" -Force | Out-N
 
 # 將 Playbook 安裝至獨立子資料夾。
 git clone https://github.com/gn00982591/AI-Developer-Playbook.git "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook"
+if ($LASTEXITCODE -eq 0) { & "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook\tools\install-project.ps1" -ProjectPath "D:\WorkGit\YFYTMSWeb" }
 ```
 
 後續更新：
@@ -40,6 +41,7 @@ git clone https://github.com/gn00982591/AI-Developer-Playbook.git "D:\WorkGit\YF
 ```powershell
 # 更新此專案使用的 Playbook；有本地修改或分支分歧時停止。
 git -C "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook" pull --ff-only
+if ($LASTEXITCODE -eq 0) { & "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook\tools\install-project.ps1" -ProjectPath "D:\WorkGit\YFYTMSWeb" }
 ```
 
 ### CMD
@@ -49,14 +51,14 @@ REM 建立專案的 AI 專用資料夾；已存在時保留原有內容。
 if not exist "D:\WorkGit\YFYTMSWeb\.agents" mkdir "D:\WorkGit\YFYTMSWeb\.agents"
 
 REM 將 Playbook 安裝至獨立子資料夾。
-git clone https://github.com/gn00982591/AI-Developer-Playbook.git "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook"
+git clone https://github.com/gn00982591/AI-Developer-Playbook.git "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook" && powershell.exe -NoProfile -File "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook\tools\install-project.ps1" -ProjectPath "D:\WorkGit\YFYTMSWeb"
 ```
 
 後續更新：
 
 ```bat
 REM 更新此專案使用的 Playbook；有本地修改或分支分歧時停止。
-git -C "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook" pull --ff-only
+git -C "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook" pull --ff-only && powershell.exe -NoProfile -File "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook\tools\install-project.ps1" -ProjectPath "D:\WorkGit\YFYTMSWeb"
 ```
 
 Playbook 保持獨立 Git Repository。若不將它納入業務專案控版，在目標專案既有的 `.gitignore` 補上（不要覆蓋既有內容）：
@@ -65,6 +67,8 @@ Playbook 保持獨立 Git Repository。若不將它納入業務專案控版，�
 # Playbook 由自身 Repository 管理。
 .agents/AI-Developer-Playbook/
 ```
+
+Clone 或更新成功後，`install-project.ps1` 會登記開發資安入口。若專案尚無 `AGENTS.md`，以 Playbook 範本建立；已有檔案時只補入資安段落，重跑時保留已登記內容。之後程式開發任務依[資安索引](security/README.md)載入適用主題。
 
 ## 3. 按需引導安裝 OpenSpec（正式變更才需要）
 
@@ -224,7 +228,7 @@ REM 從 CMD 呼叫 PowerShell 腳本，將規則同步到專案根目錄。
 powershell.exe -NoProfile -File "D:\WorkGit\YFYTMSWeb\.agents\AI-Developer-Playbook\tools\apply-preset.ps1" -Preset "bug-fix" -ProjectPath "D:\WorkGit\YFYTMSWeb"
 ```
 
-CMD 的 Clone 與更新只需 Git；Snapshot 腳本仍需要 PowerShell，並遵循電腦既有的執行原則。`ProjectPath` 必須指向業務專案根目錄，不能指向 `.agents` 或 Playbook。
+CMD 範例在 Git 成功後呼叫 PowerShell 登記資安入口。Snapshot 腳本會一併同步 `.ai-rules/security/`，並遵循電腦既有的執行原則。`ProjectPath` 必須指向業務專案根目錄，不能指向 `.agents` 或 Playbook。
 
 注意：`apply-preset.ps1` 會重建目標 Project 的 `.ai-rules/`，所以它是 **安裝 / 同步 / 相容性工具**，不是日常 Runtime Stage 切換工具。
 
@@ -234,7 +238,7 @@ CMD 的 Clone 與更新只需 Git；Snapshot 腳本仍需要 PowerShell，並遵
 
 ```text
 [ ] .agents/AI-Developer-Playbook/ 可以正常讀取
-[ ] 實際 Project 有 AGENTS.md，且已記錄 Playbook 入口
+[ ] 實際 Project 有 AGENTS.md，且已記錄 Playbook 與開發資安入口
 [ ] Project AGENTS.md 已記錄何時載入 agents/project-progress.md
 [ ] AI 可以讀取 Project 程式碼
 [ ] 已理解 .ai-rules/ 為可選 Snapshot
@@ -245,7 +249,7 @@ CMD 的 Clone 與更新只需 Git；Snapshot 腳本仍需要 PowerShell，並遵
 
 ```text
 [ ] tools/apply-preset.ps1 可執行
-[ ] 指定 Preset 能產生 .ai-rules/
+[ ] 指定 Preset 能產生 .ai-rules/ 與 .ai-rules/security/README.md
 ```
 
 ## 9. 下一步

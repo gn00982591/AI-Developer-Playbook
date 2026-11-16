@@ -38,6 +38,12 @@
 若使用 Snapshot，優先讀取 .ai-rules/ 中本次所需規則，不要重新掃描整份 Playbook。
 ```
 
+<!-- ai-developer-playbook:security-workflow -->
+## 開發資安流程
+
+新增、修改或審查程式時，先讀開發資安索引，再依變更入口、資料、操作者及外部依賴載入適用主題。使用 Snapshot 時優先讀 `.ai-rules/security/README.md`；其他情況讀 `.agents/AI-Developer-Playbook/docs/security/README.md`。在既有方案、實作、驗證與交付紀錄中記錄適用控制、結果與缺口。直接從任一 Stage 開始時，沿用本次任務已有的判斷與證據。
+<!-- /ai-developer-playbook:security-workflow -->
+
 ## Project Overview
 
 - Project Name:
@@ -94,7 +100,7 @@
 
 ## Preset Materialization
 
-日常 Runtime 直接從專案內的 Playbook 按需讀取 Preset / Stage 規則。只有使用 Snapshot 相容模式時，才將 Preset 所列的 `agents/*.md` 同步或複製到本 Project 的 `.ai-rules/`。
+日常 Runtime 直接從專案內的 Playbook 按需讀取 Preset / Stage 規則。只有使用 Snapshot 相容模式時，才將 Preset 所列的 `agents/*.md` 與共用資安目錄同步到本 Project 的 `.ai-rules/`。
 
 例如 Bug Fix：
 
