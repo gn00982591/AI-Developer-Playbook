@@ -15,7 +15,7 @@
 ↓
 清除目標 Project/.ai-rules/
 ↓
-只複製本次需要的規則
+複製 Preset 規則與共用 security/ 目錄
 ```
 
 Project 的 `AGENTS.md` 不會被修改。
@@ -73,6 +73,8 @@ Project/
 ├─ diagramming.md
 └─ token-saving.md
 ```
+
+每次同步也會產生 `.ai-rules/security/README.md` 及對應主題。程式開發任務依索引按需讀取。首次導入或更新時，由 [Installation](Installation.md#2-安裝-playbook) 登記專案入口。
 
 ## 建議 Git 設定
 
