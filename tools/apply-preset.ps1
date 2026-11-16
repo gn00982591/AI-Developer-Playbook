@@ -49,6 +49,13 @@ if (-not $AgentFiles) {
     throw "Preset 中沒有找到任何 agents/*.md 規則：$PresetPath"
 }
 
+# 確認資安規則來源存在，再重建 Snapshot。
+$SecuritySource = Join-Path $PlaybookPath 'docs/security'
+$SecurityIndex = Join-Path $SecuritySource 'README.md'
+if (-not (Test-Path -LiteralPath $SecurityIndex -PathType Leaf)) {
+    throw "Security workflow index missing: $SecurityIndex"
+}
+
 # 如果舊的 .ai-rules 已存在，先整個清除，避免上一個 Preset 的規則殘留。
 if (Test-Path $TargetRulesPath) {
     Remove-Item -Path $TargetRulesPath -Recurse -Force
@@ -77,6 +84,9 @@ foreach ($AgentFile in $AgentFiles) {
 
     Write-Host "載入規則：$FileName"
 }
+
+$SecurityDestination = Join-Path $TargetRulesPath 'security'
+Copy-Item -LiteralPath $SecuritySource -Destination $SecurityDestination -Recurse -Force -ErrorAction Stop
 
 Write-Host ""
 Write-Host "Preset 套用完成：$Preset"
