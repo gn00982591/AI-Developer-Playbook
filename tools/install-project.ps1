@@ -16,9 +16,13 @@ if (-not (Test-Path -LiteralPath $SecurityIndex -PathType Leaf)) {
     throw "Security workflow index missing: $SecurityIndex"
 }
 
+$CommentsGuide = Join-Path $PlaybookPath 'agents/code-comments.md'
+if (-not (Test-Path -LiteralPath $CommentsGuide -PathType Leaf)) {
+    throw "Code comments guide missing: $CommentsGuide"
+}
+
 $ProjectAgents = Join-Path $ProjectRoot 'AGENTS.md'
 $Template = Join-Path $PlaybookPath 'templates/AGENTS.md'
-$Marker = '<!-- ai-developer-playbook:security-workflow -->'
 if (-not (Test-Path -LiteralPath $ProjectAgents)) {
     Copy-Item -LiteralPath $Template -Destination $ProjectAgents
 } else {
@@ -29,22 +33,31 @@ if (-not (Test-Path -LiteralPath $ProjectAgents)) {
     } finally {
         $Reader.Dispose()
     }
-    if (-not $ExistingRules.Contains($Marker)) {
-        $TemplateRules = Get-Content -LiteralPath $Template -Raw -Encoding UTF8
-        $BlockPattern = '(?s)<!-- ai-developer-playbook:security-workflow -->.*?<!-- /ai-developer-playbook:security-workflow -->'
-        $Block = [regex]::Match($TemplateRules, $BlockPattern)
-        if (-not $Block.Success) {
-            throw 'Security workflow entry missing from AGENTS.md template.'
+    $TemplateRules = Get-Content -LiteralPath $Template -Raw -Encoding UTF8
+    $Newline = [Environment]::NewLine
+    if ($ExistingRules.Contains("`r`n")) {
+        $Newline = "`r`n"
+    } elseif ($ExistingRules.Contains("`n")) {
+        $Newline = "`n"
+    }
+
+    $Entries = foreach ($Workflow in @('security-workflow', 'code-comments')) {
+        $Marker = "<!-- ai-developer-playbook:$Workflow -->"
+        if (-not $ExistingRules.Contains($Marker)) {
+            $EndMarker = "<!-- /ai-developer-playbook:$Workflow -->"
+            $BlockPattern = '(?s)' + [regex]::Escape($Marker) + '.*?' + [regex]::Escape($EndMarker)
+            $Block = [regex]::Match($TemplateRules, $BlockPattern)
+            if (-not $Block.Success) {
+                throw "Workflow entry missing from AGENTS.md template: $Workflow"
+            }
+            $Block.Value -replace '\r?\n', $Newline
         }
-        $Newline = [Environment]::NewLine
-        if ($ExistingRules.Contains("`r`n")) {
-            $Newline = "`r`n"
-        } elseif ($ExistingRules.Contains("`n")) {
-            $Newline = "`n"
-        }
-        $Entry = $Block.Value -replace '\r?\n', $Newline
-        [System.IO.File]::AppendAllText($ProjectAgents, "$Newline$Newline$Entry$Newline", $Encoding)
+    }
+    if ($Entries) {
+        $Separator = $Newline + $Newline
+        $Entry = $Entries -join $Separator
+        [System.IO.File]::AppendAllText($ProjectAgents, "$Separator$Entry$Newline", $Encoding)
     }
 }
 
-Write-Host "Security workflow registered in $ProjectAgents"
+Write-Host "Security and code comments workflows registered in $ProjectAgents"

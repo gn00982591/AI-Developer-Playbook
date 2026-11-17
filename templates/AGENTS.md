@@ -44,6 +44,12 @@
 新增、修改或審查程式時，先讀開發資安索引，再依變更入口、資料、操作者及外部依賴載入適用主題。使用 Snapshot 時優先讀 `.ai-rules/security/README.md`；其他情況讀 `.agents/AI-Developer-Playbook/docs/security/README.md`。在既有方案、實作、驗證與交付紀錄中記錄適用控制、結果與缺口。直接從任一 Stage 開始時，沿用本次任務已有的判斷與證據。
 <!-- /ai-developer-playbook:security-workflow -->
 
+<!-- ai-developer-playbook:code-comments -->
+## 程式註解與技術說明
+
+新增、修改或審查程式時，先讀取專案既有的註解規範，並檢查受影響的註解、資料契約與 README。若專案未指定規範，使用 `.agents/AI-Developer-Playbook/agents/code-comments.md`。集中補寫時依該流程盤點並記錄驗證結果。
+<!-- /ai-developer-playbook:code-comments -->
+
 ## Project Overview
 
 - Project Name:

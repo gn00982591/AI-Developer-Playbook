@@ -423,3 +423,7 @@ Preset: system-design
 ## 週報
 
 產出、整理或更新週報時，依 [Weekly Report Rules](../agents/weekly-report.md) 確認期間與專案指定範本，再核對本期內容及交付格式。
+
+## 程式註解與技術說明
+
+新增、修改或審查程式時，依專案 `AGENTS.md` 的入口查閱註解規範。未指定時使用 [程式註解與技術說明](../agents/code-comments.md)，涵蓋日常開發、集中補寫及完成檢查。
