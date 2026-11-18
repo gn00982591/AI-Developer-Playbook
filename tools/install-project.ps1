@@ -21,6 +21,11 @@ if (-not (Test-Path -LiteralPath $CommentsGuide -PathType Leaf)) {
     throw "Code comments guide missing: $CommentsGuide"
 }
 
+$ProgressGuide = Join-Path $PlaybookPath 'agents/project-progress.md'
+if (-not (Test-Path -LiteralPath $ProgressGuide -PathType Leaf)) {
+    throw "Project progress guide missing: $ProgressGuide"
+}
+
 $ProjectAgents = Join-Path $ProjectRoot 'AGENTS.md'
 $Template = Join-Path $PlaybookPath 'templates/AGENTS.md'
 if (-not (Test-Path -LiteralPath $ProjectAgents)) {
@@ -41,7 +46,12 @@ if (-not (Test-Path -LiteralPath $ProjectAgents)) {
         $Newline = "`n"
     }
 
-    $Entries = foreach ($Workflow in @('security-workflow', 'code-comments')) {
+    $Entries = foreach ($Workflow in @('security-workflow', 'code-comments', 'project-progress')) {
+        # Older templates and documented manual entries already load this rule.
+        if ($Workflow -eq 'project-progress' -and
+            $ExistingRules -cmatch '(?m)^[^\r\n]*更新進度時，載入[^\r\n]*agents/project-progress\.md') {
+            continue
+        }
         $Marker = "<!-- ai-developer-playbook:$Workflow -->"
         if (-not $ExistingRules.Contains($Marker)) {
             $EndMarker = "<!-- /ai-developer-playbook:$Workflow -->"
@@ -60,4 +70,4 @@ if (-not (Test-Path -LiteralPath $ProjectAgents)) {
     }
 }
 
-Write-Host "Security and code comments workflows registered in $ProjectAgents"
+Write-Host "Security, code comments, and project progress workflows registered in $ProjectAgents"
