@@ -52,7 +52,7 @@
 <!-- ai-developer-playbook:project-progress -->
 ## 專案進度與追蹤表
 
-建立、接續專案、專案控版、整理專案資料夾或更新進度時，載入 `.agents/AI-Developer-Playbook/agents/project-progress.md`；Snapshot 無同名檔時從 Playbook 補讀。建立或整理專案時，先依該規則判定專案類型、工作線與目前階段，再執行交辦事項。每個專案須維護 Excel 追蹤表，更新進度時同步更新 MD 與 `.xlsx`。
+建立、接續專案、專案控版、整理專案資料夾或更新進度時，載入專案進度規則。使用 Snapshot 時優先讀 `.ai-rules/project-progress.md`；未使用 Snapshot 或 Snapshot 無同名檔時，讀 `.agents/AI-Developer-Playbook/agents/project-progress.md`。建立或整理專案時，先依該規則判定專案類型、工作線與目前階段，再執行交辦事項。每個專案須維護 Excel 追蹤表，更新進度時同步更新 MD 與 `.xlsx`。
 <!-- /ai-developer-playbook:project-progress -->
 
 ## Project Overview
