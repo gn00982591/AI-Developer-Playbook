@@ -106,7 +106,7 @@ openspec init
 
 ## 4. 實際 Project 的基本結構
 
-Playbook 放在實際 Project 的 `.agents/` 下，仍獨立管理共用規則與版本。
+下列範例使用位於 Project 根目錄的 `.agents/` 安裝 Playbook，並由 Playbook 自身的 Git repository 管理共用規則與版本。若依專案階段移動安裝位置，依專案進度規則同步更新引用與忽略設定。
 
 ```text
 YFYTMSWeb/
@@ -168,7 +168,7 @@ Project `AGENTS.md` 建議保存長期有效資訊：
 
 放進 `.agents/` 不代表 AI 會自動載入全部內容；由 Project `AGENTS.md` 指向規則入口。
 
-建立或整理專案時，AI 先依[專案進度與追蹤表規則](../agents/project-progress.md#專案建立與資料歸類)判定專案類型、工作線與目前階段，再依交辦內容建立目錄、歸類既有資料及更新索引。現有專案沿用已指定的追蹤位置。
+建立或整理專案時，AI 先依[專案進度與追蹤表規則](../agents/project-progress.md#專案建立與資料歸類)判定專案類型、工作線與目前階段，再依交辦內容建立目錄、歸類既有資料及更新索引。階段資料夾與全案追蹤表放在專案根目錄，各階段內依實際用途新增子資料夾。
 
 ### 程式註解規範
 
@@ -187,7 +187,7 @@ Project `AGENTS.md` 建議保存長期有效資訊：
 └─ temp/
 ```
 
-一次性分析結果先放 `.ai-output/`，確認成為正式文件後再移到 Project 的 `docs/`。
+一次性分析結果先放 `.ai-output/`，確認成為正式文件後再歸入對應的專案階段。
 
 ## 7. `.ai-rules/` 是否需要安裝
 
