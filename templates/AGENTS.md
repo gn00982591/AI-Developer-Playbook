@@ -19,8 +19,7 @@
 5. 只有本次需要的規則尚未載入時，才從 Playbook 補讀對應模組。
 6. 要求產生、整理會議紀錄或將逐字稿轉成會議紀錄時，按需載入 Playbook 的 `agents/meeting-minutes.md`；Snapshot 沒有同名檔時從 Playbook 補讀，依六大分類預設交付 PDF。
 
-7. 建立、接續專案、專案控版、整理專案資料夾或更新進度時，載入 Playbook 的 `agents/project-progress.md`；Snapshot 無同名檔時從 Playbook 補讀。建立或整理專案時，先依該規則判定專案類型、工作線與目前階段，再執行交辦事項。每個專案須維護 Excel 追蹤表，更新進度時同步更新 MD 與 `.xlsx`。
-8. 產出、整理或更新週報時，按需載入 Playbook 的 `agents/weekly-report.md`；Snapshot 無同名檔時從 Playbook 補讀。
+7. 產出、整理或更新週報時，按需載入 Playbook 的 `agents/weekly-report.md`；Snapshot 無同名檔時從 Playbook 補讀。
 
 規則優先順序：
 
@@ -49,6 +48,12 @@
 
 新增、修改或審查程式時，先讀取專案既有的註解規範，並檢查受影響的註解、資料契約與 README。若專案未指定規範，使用 `.agents/AI-Developer-Playbook/agents/code-comments.md`。集中補寫時依該流程盤點並記錄驗證結果。
 <!-- /ai-developer-playbook:code-comments -->
+
+<!-- ai-developer-playbook:project-progress -->
+## 專案進度與追蹤表
+
+建立、接續專案、專案控版、整理專案資料夾或更新進度時，載入專案進度規則。使用 Snapshot 時優先讀 `.ai-rules/project-progress.md`；未使用 Snapshot 或 Snapshot 無同名檔時，讀 `.agents/AI-Developer-Playbook/agents/project-progress.md`。建立或整理專案時，先依該規則判定專案類型、工作線與目前階段，再執行交辦事項。每個專案須維護 Excel 追蹤表，更新進度時同步更新 MD 與 `.xlsx`。
+<!-- /ai-developer-playbook:project-progress -->
 
 ## Project Overview
 

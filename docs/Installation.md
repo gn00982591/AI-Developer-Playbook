@@ -68,7 +68,7 @@ Playbook 保持獨立 Git Repository。若不將它納入業務專案控版，�
 .agents/AI-Developer-Playbook/
 ```
 
-Clone 或更新成功後，`install-project.ps1` 會登記開發資安入口。若專案尚無 `AGENTS.md`，以 Playbook 範本建立；已有檔案時只補入資安段落，重跑時保留已登記內容。之後程式開發任務依[資安索引](security/README.md)載入適用主題。
+Clone 或更新成功後，`install-project.ps1` 會登記開發資安、程式註解與專案進度規則入口。若專案尚無 `AGENTS.md`，以 Playbook 範本建立；已有檔案時補登缺少的入口，保留原有內容。已按舊版範本或本文件範例登記的進度入口可繼續沿用。之後程式開發任務依[資安索引](security/README.md)載入適用主題。
 
 ## 3. 按需引導安裝 OpenSpec（正式變更才需要）
 
