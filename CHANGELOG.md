@@ -2,6 +2,12 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.33 - 2026-11-24
+
+### Changed
+
+- 取消 Playbook 例行版次更新的 Git Tag 與 GitHub Release 發佈流程。正式版次以 `main` 上的 Git commit 和 `CHANGELOG.md` 為準，版次與變更一同提交。
+
 ## v0.32 - 2026-11-24
 
 ### Changed
