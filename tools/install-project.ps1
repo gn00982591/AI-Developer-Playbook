@@ -46,7 +46,7 @@ if (-not (Test-Path -LiteralPath $ProjectAgents)) {
         $Newline = "`n"
     }
 
-    $Entries = foreach ($Workflow in @('security-workflow', 'code-comments', 'project-progress')) {
+    $Entries = foreach ($Workflow in @('security-workflow', 'code-comments', 'project-progress', 'project-setup')) {
         # Older templates and documented manual entries already load this rule.
         if ($Workflow -eq 'project-progress' -and
             $ExistingRules -cmatch '(?m)^[^\r\n]*更新進度時，載入[^\r\n]*agents/project-progress\.md') {
@@ -70,4 +70,7 @@ if (-not (Test-Path -LiteralPath $ProjectAgents)) {
     }
 }
 
-Write-Host "Security, code comments, and project progress workflows registered in $ProjectAgents"
+Write-Host "Playbook workflows and project setup guidance registered in $ProjectAgents"
+Write-Host 'Project setup: record approved template paths, folder layout, and content scope in the project AGENTS.md.'
+Write-Host "Project setup rules: $ProgressGuide"
+Write-Host 'Support-only work: Include only support-related content.'

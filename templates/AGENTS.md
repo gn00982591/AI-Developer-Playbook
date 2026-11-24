@@ -55,6 +55,18 @@
 建立、接續專案、專案控版、整理專案資料夾或更新進度時，載入專案進度規則。使用 Snapshot 時優先讀 `.ai-rules/project-progress.md`；未使用 Snapshot 或 Snapshot 無同名檔時，讀 `.agents/AI-Developer-Playbook/agents/project-progress.md`。建立或整理專案時，先依該規則判定專案類型、工作線與目前階段，再執行交辦事項。每個專案須維護 Excel 追蹤表，更新進度時同步更新 MD 與 `.xlsx`。
 <!-- /ai-developer-playbook:project-progress -->
 
+<!-- ai-developer-playbook:project-setup -->
+## 專案範本與資料夾
+
+建立、接續或整理專案前，從已安裝 Playbook 的 `agents/project-progress.md` 讀取「專案建立與資料歸類」。這一步直接使用已安裝版本，包含舊版 `.ai-rules/` Snapshot 的專案。從本專案或子專案入口確認正式範本、資料夾結構與內容範圍，再開始產檔。
+<!-- /ai-developer-playbook:project-setup -->
+
+## 專案指定來源（有指定時填寫）
+
+- 正式範本（含用途與可開啟路徑）：
+- 已確認的資料夾結構或流程入口：
+- 內容範圍（例如支援案的 `Include only support-related content.`）：
+
 ## Project Overview
 
 - Project Name:
