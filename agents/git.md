@@ -12,13 +12,8 @@
 - 需要建立 Branch 時，名稱應能反映需求或變更主題。
 - 不執行 force push、history rewrite 或破壞性操作，除非使用者明確要求。
 
-## AI Developer Playbook 發版
+## AI Developer Playbook 版次管理
 
-每次同步 Playbook 變更到 GitHub 時，確認本次是否發新版本。正式版本以 `CHANGELOG.md`、Git Tag 與已發佈的 GitHub Release 一起交付。
+正式更新時，將版本號、日期與更新摘要寫入 `CHANGELOG.md`，與本次變更一同提交。同步至 GitHub 後，核對 `main` 上的提交與版次紀錄。
 
-1. 合併前將版本號、日期與本版更新摘要寫入 `CHANGELOG.md`，納入同一批變更。
-2. 合併後確認 `main` 的版本提交已包含本版變更與更新紀錄，將同名 Tag（例如 `v0.30`）指向該提交。若已有同名 Tag，先核對指向；指向不同時記錄差異。
-3. 在 GitHub Releases 使用同名 Tag 發佈 Release，摘要沿用該版更新紀錄。若已有該版草稿，接續處理；若已發佈，核對內容與指向。
-4. 回查 GitHub Releases 頁面與 Tag 指向，交付版本號、提交及 Release 連結。遇到權限或工具限制時，列出實際已完成的項目與待發佈的版本。
-
-只同步工作分支或尚未發版的變更時，保留於 `CHANGELOG.md` 的「下一版」，正式發版時再依上述步驟處理。
+Playbook 的例行版次更新在 GitHub `main` 核對完成後結束，取消建立 Git Tag 和發佈 GitHub Release 的步驟。
