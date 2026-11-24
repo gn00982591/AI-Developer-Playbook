@@ -4,6 +4,7 @@
 
 ## 下一版
 
+- 安裝與更新時在 `AGENTS.md` 登記專案設定入口，明確定義正式範本的選用順序、多專案與個別專案的資料夾切分，以及 `Include only support-related content.` 的適用範圍。首次安裝與後續更新均跳過 `.ai-output/`；一次性預覽與建置依賴使用系統暫存目錄。見 [PR #5](https://github.com/gn00982591/AI-Developer-Playbook/pull/5)。
 - 補齊專案根目錄、階段子資料夾、全案追蹤與搬移驗證規則，讓不同版本和工作線可沿用同一專案架構，並同步安裝文件的正式產物歸檔指引。
 - GitHub 正式發版流程納入同版 Tag、Release 發佈與結果核對。
 
