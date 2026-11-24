@@ -70,6 +70,8 @@ Playbook 保持獨立 Git Repository。若不將它納入業務專案控版，�
 
 Clone 或更新成功後，`install-project.ps1` 會登記開發資安、程式註解與專案進度規則入口。若專案尚無 `AGENTS.md`，以 Playbook 範本建立；已有檔案時補登缺少的入口，保留原有內容。已按舊版範本或本文件範例登記的進度入口可繼續沿用。之後程式開發任務依[資安索引](security/README.md)載入適用主題。
 
+首次安裝與更新只處理 Playbook 及其規則入口。`.ai-output/` 屬於執行任務時的產物目錄，安裝及更新都跳過：不建立、不掃描、不搬移、不清理。需要保存一次性成果時，依[專案進度規則](../agents/project-progress.md#專案建立與資料歸類)處理。
+
 ## 3. 按需引導安裝 OpenSpec（正式變更才需要）
 
 Playbook 採規則引用（Adopt），**不附帶 OpenSpec CLI，也不因 Clone 或載入 Playbook 而自動安裝**。只有 Requirement Router 選到 OpenSpec 的正式變更任務，才啟動以下引導；Spec Kit、Lightweight 或純分析任務不強制安裝。
@@ -119,7 +121,6 @@ YFYTMSWeb/
 │     ├─ templates/
 │     └─ tools/
 ├─ .ai-rules/               # 可選：Snapshot / Registry / 本地規則
-├─ .ai-output/              # 建議：AI 暫存產物
 └─ 原有程式碼
 ```
 
@@ -129,7 +130,6 @@ YFYTMSWeb/
 Playbook = 共用規則母庫
 AGENTS.md = Project 固定規則
 .ai-rules = 可選的本地規則 / Snapshot
-.ai-output = 一次性 AI 產物
 ```
 
 ## 5. 建立 Project `AGENTS.md`
@@ -180,22 +180,7 @@ Project `AGENTS.md` 建議保存長期有效資訊：
 
 安裝或更新時，`install-project.ps1` 會在專案根目錄的 `AGENTS.md` 登記程式註解入口。沿用專案既有規範，未指定時使用 [Playbook 通用流程](../agents/code-comments.md)。從目標專案確認採用的規範可讀。既有專案重跑安裝時保留原有規則。
 
-## 6. 按需建立 `.ai-output/`
-
-有一次性產物需要保留時，才在實際 Project 建立對應的子目錄：
-
-```text
-.ai-output/
-├─ reports/
-├─ diagrams/
-├─ images/
-├─ data/
-└─ temp/
-```
-
-正式文件歸入對應的專案階段。一次性預覽或建置的 `node_modules`、快取及工作目錄放在系統暫存位置，例如 Windows 的 `%TEMP%`，並只將需要保留的成果放回專案。
-
-## 7. `.ai-rules/` 是否需要安裝
+## 6. `.ai-rules/` 是否需要安裝
 
 ### 一般日常使用
 
@@ -242,7 +227,7 @@ CMD 範例在 Git 成功後呼叫 PowerShell 登記資安入口。Snapshot 腳�
 
 注意：`apply-preset.ps1` 會重建目標 Project 的 `.ai-rules/`，所以它是 **安裝 / 同步 / 相容性工具**，不是日常 Runtime Stage 切換工具。
 
-## 8. 驗證安裝
+## 7. 驗證安裝
 
 完成後至少確認：
 
@@ -262,7 +247,7 @@ CMD 範例在 Git 成功後呼叫 PowerShell 登記資安入口。Snapshot 腳�
 [ ] 指定 Preset 能產生 .ai-rules/ 與 .ai-rules/security/README.md
 ```
 
-## 9. 下一步
+## 8. 下一步
 
 安裝完成後，不要繼續在本文件找 Runtime 操作方式。
 
