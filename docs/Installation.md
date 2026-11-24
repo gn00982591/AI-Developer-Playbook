@@ -134,6 +134,12 @@ AGENTS.md = Project 固定規則
 
 ## 5. 建立 Project `AGENTS.md`
 
+安裝或更新後，在目標 Project 的 `AGENTS.md` 登記正式範本的用途和可開啟路徑、已確認的資料夾結構或流程入口，以及內容範圍。既有專案重新執行安裝會補登專案設定入口。只有中央 Playbook 更新時，請在目標專案依第 2 節執行更新與安裝腳本，讓舊版專案也取得入口。
+
+- 多專案控管根目錄按個別專案分目錄。專案內按已確認的流程及用途分階段，並從各自的專案入口選用範本。
+- 選用範本時先查本次指定，再查子專案與適用的共用設定。從已安裝的 [專案進度規則](../agents/project-progress.md#專案建立與資料歸類)確認細節，舊版 Snapshot 也使用此入口。已指定的範本無法讀取時，記錄缺口。
+- `Include only support-related content.` 表示當次交付限於該支援案的內容。依支援流程及現有資料建立需要的子目錄。
+
 若 Project 已經有 `AGENTS.md`，不要覆蓋，直接沿用並補充必要規則。
 
 若尚未建立，可參考：
@@ -174,9 +180,9 @@ Project `AGENTS.md` 建議保存長期有效資訊：
 
 安裝或更新時，`install-project.ps1` 會在專案根目錄的 `AGENTS.md` 登記程式註解入口。沿用專案既有規範，未指定時使用 [Playbook 通用流程](../agents/code-comments.md)。從目標專案確認採用的規範可讀。既有專案重跑安裝時保留原有規則。
 
-## 6. 建立 `.ai-output/`（建議）
+## 6. 按需建立 `.ai-output/`
 
-可在實際 Project 建立：
+有一次性產物需要保留時，才在實際 Project 建立對應的子目錄：
 
 ```text
 .ai-output/
@@ -187,7 +193,7 @@ Project `AGENTS.md` 建議保存長期有效資訊：
 └─ temp/
 ```
 
-一次性分析結果先放 `.ai-output/`，確認成為正式文件後再歸入對應的專案階段。
+正式文件歸入對應的專案階段。一次性預覽或建置的 `node_modules`、快取及工作目錄放在系統暫存位置，例如 Windows 的 `%TEMP%`，並只將需要保留的成果放回專案。
 
 ## 7. `.ai-rules/` 是否需要安裝
 
@@ -243,7 +249,7 @@ CMD 範例在 Git 成功後呼叫 PowerShell 登記資安入口。Snapshot 腳�
 ```text
 [ ] .agents/AI-Developer-Playbook/ 可以正常讀取
 [ ] 實際 Project 有 AGENTS.md，且已記錄 Playbook 與開發資安入口
-[ ] Project AGENTS.md 已記錄何時載入 agents/project-progress.md
+[ ] Project AGENTS.md 已登記專案設定入口，並可開啟已指定的正式範本及資料夾結構
 [ ] AI 可以讀取 Project 程式碼
 [ ] 已理解 .ai-rules/ 為可選 Snapshot
 [ ] 不會用 PowerShell 來切換每一個 Stage
