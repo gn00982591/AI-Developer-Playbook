@@ -48,9 +48,10 @@
         - [Preset_Application.md](../docs/Preset_Application.md)
         - [Preset_Sync.md](../docs/Preset_Sync.md)
 
-    - **templates/** — 專案規則模板
+    - **templates/** — 專案規則與交付範本
 
         - [AGENTS.md](../templates/AGENTS.md)
+        - [project-progress.xlsx](../templates/project-progress.xlsx) — 紅色抬頭專案進度追蹤表
 
     - **tools/** — 安裝、同步與相容工具
 
