@@ -58,7 +58,7 @@
 <!-- ai-developer-playbook:project-setup -->
 ## 專案範本與資料夾
 
-建立、接續或整理專案前，從已安裝 Playbook 的 `agents/project-progress.md` 讀取「專案建立與資料歸類」。這一步直接使用已安裝版本，包含舊版 `.ai-rules/` Snapshot 的專案。從本專案或子專案入口確認正式範本、資料夾結構與內容範圍，再開始產檔。
+建立、接續或整理專案前，從已安裝 Playbook 的 `agents/project-progress.md` 讀取「專案建立與資料歸類」。這一步直接使用已安裝版本，包含舊版 `.ai-rules/` Snapshot 的專案。從本專案或子專案入口確認正式範本、資料夾結構與內容範圍，再開始產檔。專案進度 Excel 未另有適用的指定範本時，採用已安裝 Playbook 的紅色抬頭範本 `.agents/AI-Developer-Playbook/templates/project-progress.xlsx`。
 <!-- /ai-developer-playbook:project-setup -->
 
 ## 專案指定來源（有指定時填寫）
