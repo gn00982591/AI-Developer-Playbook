@@ -2,6 +2,12 @@
 
 所有正式確認後的 Playbook 更新記錄於此。
 
+## v0.38 - 2026-11-27
+
+### Changed
+
+- Ticket 的 Support content 首行放工單編號與原始標題，接續逐行列日期及英文處理紀錄。非 Ticket 只列日期及處理內容。
+
 ## v0.37 - 2026-11-27
 
 ### Changed
