@@ -6,3 +6,21 @@
 2. 無指定範本且無既有週報時，依本期完成事項、進行中事項、待解問題與下一步整理。依來源呈現本期變化及仍待追蹤的事項，保留已確認的狀態、負責人與日期，未知資訊標記待確認。
 3. 若本次也更新專案進度，依 [Project Progress Rules](project-progress.md) 同步 MD 與 Excel，並核對週報所述狀態及日期。單獨產出週報時，依已確認來源彙整。
 4. 交付前核對報告期間、事實、格式及必要欄位。指定範本或必要來源無法讀取時，列出未核對項目，可先交付已確認內容的草稿，待驗證後再標記正式週報完成。
+
+## 英文支援週報標準
+
+使用者要求簡短英文支援週報時，沿用上述範本優先順序。未指定適用範本且無既有格式時，使用本節表格。
+
+- 報告期間依使用者指定。若指定「last Friday through today」，依使用者時區取上週五至今天，含首尾兩日。
+- 僅列本期有支援處理或追蹤更新的案件。每案一列，合併同一工單的更新。專案開發與例行行政事項僅在屬於該案支援處理時納入。
+- `Support content` 以英文寫一至兩句，包含處理日期、工單編號（如有）、處理結果，以及仍待解決的問題（如有）。
+- 分類、系統、業務負責人及支援類型依來源填寫。狀態沿用已確認值，例如 `Done` 或 `In-processing`。狀態若只對應本次處理，仍在內容保留案件的待追蹤事項。
+- 週次欄沿用工作表的週次和日期，數值依已確認紀錄填寫。缺少確認資料的欄位留白。
+
+### 輸出範例
+
+**Weekly Support Report | Nov 20–27, 2026**
+
+| Support category | Support System | Business Owner | Support type | Support content | Status | Week 48 (11/22) |
+|---|---|---|---|---|---|---:|
+| Enhancement | Account Management | | Ticket | 11/24 · INC-EXAMPLE — Imported account and role updates. Three login issues remain open. | Done | |
