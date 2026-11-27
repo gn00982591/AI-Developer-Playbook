@@ -13,9 +13,22 @@
 
 - 預設報告期間為上週五至今天，依台灣時間（`Asia/Taipei`）計算，含首尾兩日。使用者明確指定其他期間時，依其要求。
 - 專案週報只採用可由目前專案的對話或檔案確認的資料。案件須屬於該專案，且本期有支援處理或追蹤更新。不得以其他專案、一般對話或跨專案記憶補列案件。
-- 每案一段，合併同一工單的更新。每段以處理日期 `M/D:` 開頭，例如 `11/25:`。用一至兩句簡短英文記錄工單編號（如有）、處理結果和待解問題（如有）。
-- 只輸出 `Support content` 的純文字。省略標題、表格、項目符號及狀態等其他欄位。交付前核對案件歸屬、報告期間及日期格式。
+- 每案一組，合併同一工單的更新。Ticket 的第一行放已確認的工單編號與原始標題，下一行開始列處理紀錄。內文無需重複工單編號。
+- 每筆處理紀錄各占一行，以處理日期 `M/D:` 開頭，接一至兩句簡短英文，說明處理結果及待解事項。非 Ticket 從日期直接開始，只列日期與內容。
+- 只輸出 `Support content` 的純文字。省略週報標題、表格、項目符號及狀態等其他欄位。交付前核對案件歸屬、報告期間及日期格式。
 
 ### 輸出範例
 
-11/25: INC-EXAMPLE — Imported account and role updates. Three login issues remain open.
+Ticket：
+
+```text
+<工單編號> — <原始工單標題>
+11/25: Imported account and role updates. Three login issues remain open.
+```
+
+非 Ticket：
+
+```text
+11/25: Verified order exports in the test environment.
+11/26: Confirmed the export results with the support team.
+```
