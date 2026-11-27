@@ -12,6 +12,7 @@
         - [explore.md](../agents/explore.md)
         - [propose.md](../agents/propose.md)
         - [apply.md](../agents/apply.md)
+        - [frontend.md](../agents/frontend.md)
         - [archive.md](../agents/archive.md)
         - [sql.md](../agents/sql.md)
         - [git.md](../agents/git.md)

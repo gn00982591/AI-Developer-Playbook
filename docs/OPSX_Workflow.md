@@ -6,7 +6,7 @@
 
 ## 前置確認
 
-- 沿用已確認的 OpenSpec 路徑、Findings 與產物。
+- 沿用已確認的 OpenSpec 路徑、Findings 與產物。依 [現行規格、來源與決策核實](../agents/core.md#現行規格來源與決策核實) 核對專案已生效的主規格與情境，再比對作用中變更的 Delta、已歸檔決策及歷史驗證。實作任務沿用該變更的 Tasks。
 - 核對專案已安裝版本、設定、Skill / Command 與產物位置；缺少能力時列出缺漏，不把語意 Stage 當成已安裝命令。
 - 官方 `/opsx:propose` 等入口可依平台映射不同名稱，以專案實際生成入口為準，不固定要求 `/opsx-propose`。
 

@@ -82,6 +82,8 @@
 
 ## Build / Test
 
+依實際工具填寫版本、用途、指令與更新界線。
+
 ```text
 # 填入本專案實際可執行的 Build / Test 指令
 ```
@@ -110,7 +112,10 @@
 
 ## Validation Notes
 
-- 待填。
+- 權威業務來源、有效規格及決策追蹤入口（適用時）：
+- 受控快照位置與版本紀錄（適用時）：
+- 驗證證據位置與執行身分（依專案環境）：
+- 驗證及交接格式依已安裝 Playbook 的 `agents/testing.md`「驗證紀錄與接續」。
 
 ## Recommended Playbook Preset
 
@@ -130,8 +135,10 @@
 ```text
 .ai-rules/
 ├─ core.md
+├─ data-access.md
 ├─ explore.md
 ├─ apply.md
+├─ frontend.md
 ├─ testing.md
 └─ token-saving.md
 ```

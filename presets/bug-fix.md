@@ -9,6 +9,7 @@
 - `agents/explore.md`
 - `agents/apply.md`
 - `agents/testing.md`
+- `agents/frontend.md`（涉及前端或集中語系資料來源時套用；Snapshot 一併複製）
 - `agents/token-saving.md`
 
 ## 建議流程
@@ -22,3 +23,5 @@ Explore → Apply → Test
 ## 完成條件
 
 核對原始症狀、預期行為與受影響路徑，執行必要回歸驗證；分別列出已通過、失敗與未執行項目，未驗證不得宣告修正完成。
+
+交付依 [驗證紀錄與接續](../agents/testing.md#驗證紀錄與接續) 記錄。

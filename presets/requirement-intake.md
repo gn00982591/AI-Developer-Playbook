@@ -50,7 +50,7 @@ Collect
 
 - 問題或需求目標。
 - 已知範圍。
-- 主要來源。
+- 主要來源、有效規格與未裁決差異，依 [來源核實](../agents/core.md#現行規格來源與決策核實) 核對。
 - 重要未確認事項。
 - UI / Business / Data / State 影響（有涉及才整理）。
 - 建議後續路徑：Spec Kit / OpenSpec / Lightweight。

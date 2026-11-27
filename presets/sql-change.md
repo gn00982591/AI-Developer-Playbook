@@ -24,3 +24,7 @@
 小型明確 SQL 調整採 Lightweight；正式變更依 [Spec Engine Strategy](../docs/Spec_Strategy.md) 選擇 Engine，不只以加入 propose 取代正式變更管理。
 
 驗證受影響資料與行為，依 data-access 規則同步資料存取 MD；未執行項目與限制明列。
+
+交付依 [驗證紀錄與接續](../agents/testing.md#驗證紀錄與接續) 記錄。
+
+涉及初始化、升級或退役時，依 [遷移與退役](../docs/security/套件建置與部署.md#遷移與退役) 核對驗收。

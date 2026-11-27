@@ -7,6 +7,7 @@
 - `agents/core.md`
 - `agents/data-access.md`（涉及資料存取時套用；Snapshot 一併複製）
 - `agents/code-review.md`
+- `agents/frontend.md`（涉及前端或集中語系資料來源時套用；Snapshot 一併複製）
 - `agents/token-saving.md`
 
 ## 檢查範圍
@@ -26,3 +27,5 @@ Diff → Findings → 必要時局部驗證
 預設不載入 Explore、Apply 與 Testing。若確認需要修改，切換至 `bug-fix` Preset。
 
 正式變更按需引用 Engine 產物與驗收；Lightweight 核對已確認方案。程式審查、規格一致性與實測結果分開回報；維持 Diff 優先及最多 10 項 Findings，不額外執行完整 Engine 流程。
+
+涉及受保護 API、升級或退役時，從 [開發資安索引](../docs/security/README.md) 核對相關驗收。若有實測或交接，沿用 [驗證紀錄與接續](../agents/testing.md#驗證紀錄與接續) 格式。

@@ -13,6 +13,8 @@
 
 涉及資料存取時，另套用 [Data Access Rules](data-access.md)，沿用同版本已核對的索引與來源，只補讀本次直接相依內容。
 
+涉及前端設計時，依 [前端共用元件與語系](frontend.md) 盤點既有元件。 Snapshot 優先載入同名規則，缺少時從已安裝的 Playbook 補讀。
+
 ## 輸入與設計責任
 
 - 優先消費既有 Findings 與 Engine 的設計、資料模型和契約，沿用來源引用，只補缺口。

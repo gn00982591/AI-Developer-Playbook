@@ -58,6 +58,7 @@ Project/
    ├─ data-access.md
    ├─ explore.md
    ├─ apply.md
+   ├─ frontend.md
    ├─ testing.md
    └─ token-saving.md
 ```
@@ -70,6 +71,7 @@ Project/
 ├─ data-access.md
 ├─ explore.md
 ├─ system-design.md
+├─ frontend.md
 ├─ diagramming.md
 └─ token-saving.md
 ```
@@ -131,3 +133,5 @@ AGENTS.md = Project-specific Rules
 ## 資料存取規則與專案索引
 
 各 Preset 的 Snapshot 一併複製 data-access.md；只有涉及資料存取時套用。實際資料庫索引保存在 Project 的 docs/data-access/ 或既有正式位置，不放入會被清除的 .ai-rules/。同步工具只複製規則，不生成專案索引；格式與維護流程見 [Data Access](Data_Access.md)。
+
+同步或核對參照時，以 Preset 的 `agents/*.md` 清單與共用資安目錄為準；保留來源版本與同步日期。Snapshot 步驟使用 `.ai-rules/` 下的同名規則和 `security/` 索引。規則中的母庫文件連結可從已安裝的 Playbook 開啟。

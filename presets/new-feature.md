@@ -11,6 +11,7 @@
 - `agents/apply.md`
 - `agents/testing.md`
 - `agents/archive.md`
+- `agents/frontend.md`（涉及前端或集中語系資料來源時套用；Snapshot 一併複製）
 - `agents/token-saving.md`
 
 ## 建議流程
@@ -26,3 +27,7 @@ Route → 所選路徑的規格／方案 → Apply → Verify → Review（依�
 - 正式產物由所選 Engine 管理，不另外建立同義 Playbook 文件；Engine 原生實作與 Playbook Stage 共用同一份 Tasks，不重複實作。
 - 規則按當前階段載入，Archive 需要才執行；不要求兩套 Engine 同時運作。
 - 核對驗收、完成必要驗證並列明限制；未執行或失敗不得宣告通過。
+
+交付依 [驗證紀錄與接續](../agents/testing.md#驗證紀錄與接續) 記錄。
+
+沿用 [來源核實](../agents/core.md#現行規格來源與決策核實) 的決策紀錄。涉及受保護端點或遷移時，從 [開發資安索引](../docs/security/README.md) 找到適用驗收。

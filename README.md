@@ -82,6 +82,8 @@ Stage: review
 | [`docs/Preset_Application.md`](docs/Preset_Application.md) | Preset 與 Runtime / Snapshot 關係 |
 | [`docs/Preset_Sync.md`](docs/Preset_Sync.md) | `.ai-rules/` Snapshot 同步細節 |
 | [`docs/Repository_Structure.md`](docs/Repository_Structure.md) | Repository 目錄與檔案導覽 |
+| [`docs/OPSX_Workflow.md`](docs/OPSX_Workflow.md) | OpenSpec 現行規格、Delta 與驗證流程 |
+| [`docs/security/README.md`](docs/security/README.md) | 受保護 API、資料安全與部署驗收索引 |
 | [`docs/Workflow.md`](docs/Workflow.md) | 需求分流、Stage 執行、會議紀錄與交付流程 |
 | [`agents/meeting-minutes.md`](agents/meeting-minutes.md) | 會議紀錄六大分類、流程定義與 PDF 交付規範 |
 | [`docs/Backlog.md`](docs/Backlog.md) | 待辦索引與中斷續作紀錄 |

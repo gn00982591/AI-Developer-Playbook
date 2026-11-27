@@ -16,6 +16,8 @@
 
 涉及資料存取時，另套用 [Data Access Rules](data-access.md)，沿用同版本已核對的索引與來源，只補讀本次直接相依內容。
 
+涉及前端或集中語系資料來源變更時，依 [前端共用元件與語系](frontend.md) 核對實際入口與驗收證據。 Snapshot 優先載入同名規則，缺少時從已安裝的 Playbook 補讀。
+
 ## 規格與驗證一致性
 
 - 正式變更按需核對 Engine 的相關規格、Tasks 與驗收；Lightweight 核對已確認方案，不強制建立 Spec。
